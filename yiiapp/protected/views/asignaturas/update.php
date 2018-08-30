@@ -3,7 +3,7 @@
 /* @var $model Asignaturas */
 
 $this->breadcrumbs=array(
-	'Asignaturases'=>array('index'),
+	'Asignaturas'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',
 );
