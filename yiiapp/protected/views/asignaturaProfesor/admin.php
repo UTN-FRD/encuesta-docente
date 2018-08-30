@@ -3,7 +3,7 @@
 /* @var $model AsignaturaProfesor */
 
 $this->breadcrumbs=array(
-	'Asignatura Profesors'=>array('index'),
+	'Profesores por Asignatura'=>array('index'),
 	'Manage',
 );
 
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Asignatura Profesors</h1>
+<h1>Manage Profesores por Asignatura</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

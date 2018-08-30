@@ -3,13 +3,13 @@
 /* @var $model Participants */
 
 $this->breadcrumbs=array(
-	'Participants'=>array('index'),
+	'Alumnos'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List Participants', 'url'=>array('index')),
-	array('label'=>'Create Participants', 'url'=>array('create')),
+	array('label'=>'List Alumnos', 'url'=>array('index')),
+	array('label'=>'Create Alumnos', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Participants</h1>
+<h1>Manage Alumnos</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

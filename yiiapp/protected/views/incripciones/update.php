@@ -3,7 +3,7 @@
 /* @var $model Incripciones */
 
 $this->breadcrumbs=array(
-	'Incripciones'=>array('index'),
+	'Inscripciones'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',
 );
@@ -16,6 +16,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Incripciones <?php echo $model->id; ?></h1>
+<h1>Update Inscripciones <?php echo $model->id; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -3,7 +3,7 @@
 /* @var $model Incripciones */
 
 $this->breadcrumbs=array(
-	'Incripciones'=>array('index'),
+	'Inscripciones'=>array('index'),
 	$model->id,
 );
 
@@ -16,7 +16,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Incripciones #<?php echo $model->id; ?></h1>
+<h1>View Inscripciones #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

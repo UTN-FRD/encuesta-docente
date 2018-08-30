@@ -3,16 +3,16 @@
 /* @var $model Participants */
 
 $this->breadcrumbs=array(
-	'Participants'=>array('index'),
+	'Alumnos'=>array('index'),
 	$model->participant_id,
 );
 
 $this->menu=array(
-	array('label'=>'List Participants', 'url'=>array('index')),
-	array('label'=>'Create Participants', 'url'=>array('create')),
-	array('label'=>'Update Participants', 'url'=>array('update', 'id'=>$model->participant_id)),
-	array('label'=>'Delete Participants', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->participant_id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Participants', 'url'=>array('admin')),
+	array('label'=>'List Alumnos', 'url'=>array('index')),
+	array('label'=>'Create Alumnos', 'url'=>array('create')),
+	array('label'=>'Update Alumnos', 'url'=>array('update', 'id'=>$model->participant_id)),
+	array('label'=>'Delete Alumnos', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->participant_id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage Alumnos', 'url'=>array('admin')),
 );
 ?>
 
