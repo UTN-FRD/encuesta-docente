@@ -7,12 +7,15 @@ $this->breadcrumbs=array(
 );
 
 ?>
-<h1>Administracion</h1>
+<h1>Administraci&oacute;n</h1>
 
-<a href="http://localhost/yiiapp/index.php/asignaturas">Asignaturas</a> <br>
-<a href="http://localhost/yiiapp/index.php/carreras">Carreras</a> <br>
-<a href="http://localhost/yiiapp/index.php/asignaturaprofesor">Asignaturas-Profesor</a> <br>
-<a href="http://localhost/yiiapp/index.php/incripciones">Inscripciones</a> <br>
-<a href="http://localhost/yiiapp/index.php/participants">Alumnos</a> <br>
-<a href="http://localhost/yiiapp/index.php/profesores">Profesores</a> <br>
+<div class="btn-group" role="group">
+
+	<?php echo CHtml::link('Asignaturas', '../asignaturas', array('class' => 'btn btn-default'));?>
+	<?php echo CHtml::link('Carreras', '../carreras', array('class' => 'btn btn-default'));?>
+	<?php echo CHtml::link('Asignaturas-Profesor', '../asignaturaprofesor', array('class' => 'btn btn-default'));?>
+	<?php echo CHtml::link('Inscripciones', '../incripciones', array('class' => 'btn btn-default'));?>
+	<?php echo CHtml::link('Alumnos', '../participants', array('class' => 'btn btn-default'));?>
+	<?php echo CHtml::link('Profesores', '../profesores', array('class' => 'btn btn-default'));?>
+</div>
 
