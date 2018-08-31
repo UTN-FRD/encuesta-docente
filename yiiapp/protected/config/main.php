@@ -9,8 +9,6 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Encuesta Docente',
 
-	'homeUrl'=>array('/asignaturas/index'),
-
 	// preloading 'log' component
 	'preload'=>array('log'),
 
