@@ -1,5 +1,4 @@
 LimeSurvey/tmp/
 yiiapp/assets/
 yii/application/protected/config/database.php
-yiiapp/protected/runtime/application.log
-yiiapp/protected/runtime/application.log
+yiiapp/protected/config/database.php
