@@ -45,6 +45,7 @@ class Asignaturas extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'perteneceACarrera'=>array(self::BELONGS_TO, 'Carreras', 'carrera_id'),
 		);
 	}
 
@@ -55,7 +56,7 @@ class Asignaturas extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'descripcion' => 'Descripcion',
+			'descripcion' => 'Materia',
 			'electiva' => 'Electiva',
 			'plan' => 'Plan',
 			'carrera_id' => 'Carrera',

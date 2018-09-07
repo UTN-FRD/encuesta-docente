@@ -70,7 +70,7 @@ class Participants extends CActiveRecord
 	{
 		return array(
 			'participant_id' => 'Participant',
-			'firstname' => 'Firstname',
+			'firstname' => 'Apellido y Nombre',
 			'lastname' => 'Lastname',
 			'email' => 'Email',
 			'language' => 'Language',

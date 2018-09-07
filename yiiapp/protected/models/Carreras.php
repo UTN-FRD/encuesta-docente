@@ -52,7 +52,7 @@ class Carreras extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'description' => 'Description',
+			'description' => 'Carrera',
 		);
 	}
 

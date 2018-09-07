@@ -42,6 +42,8 @@ class AsignaturaProfesor extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'asignatura'=>array(self::BELONGS_TO, 'Asignaturas', 'asignatura_id'),
+			'profesor'=>array(self::BELONGS_TO, 'Profesores', 'profesor_id')
 		);
 	}
 

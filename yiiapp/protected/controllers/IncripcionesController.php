@@ -133,13 +133,18 @@ class IncripcionesController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		// $model2=new Participants('search');
+		// $model2->unsetAttributes();
+		// if(isset($_GET['Participants']))
+		// 	$model2->attributes=$_GET['Participants'];
+
 		$model=new Incripciones('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Incripciones']))
 			$model->attributes=$_GET['Incripciones'];
 
 		$this->render('admin',array(
-			'model'=>$model,
+			'model'=>$model
 		));
 	}
 
