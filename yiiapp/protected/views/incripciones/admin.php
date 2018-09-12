@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Inscripciones</h1>
+<h1>Inscripciones</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -53,9 +53,19 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		// 'comentarios',
 
 		'inscripto.firstname',
+		array(
+			'class'=>'CLinkColumn',
+			'label'=>'Ver',
+			'urlExpression'=>'\Yii::app()->createUrl("incripciones/admin", array("Incripciones[participant_id]=" => $data->participant_id))',
+			),
 		'inscripto.legajo',
 		'inscriptoA.descripcion',
 		'inscriptoA.plan',
+		array(
+			'class'=>'CLinkColumn',
+			'label'=>'Ver',
+			'urlExpression'=>'\Yii::app()->createUrl("incripciones/admin", array("Incripciones[asignatura_id]=" => $data->asignatura_id))',
+			),
 		'inscriptoA.perteneceACarrera.description',
 		array(
 			'class'=>'CButtonColumn',

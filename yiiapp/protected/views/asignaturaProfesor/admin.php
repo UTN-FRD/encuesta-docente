@@ -48,15 +48,20 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		// 'asignatura_id',
 		// 'profesor_id',
 		// 'id',
+		'asignatura.descripcion',
 		array(
 			'class'=>'CLinkColumn',
 			'label'=>'Ver',
 			'urlExpression'=>'\Yii::app()->createUrl("asignaturaprofesor/admin", array("AsignaturaProfesor[asignatura_id]" => $data->asignatura_id))',
 			),
-		'asignatura.descripcion',
 		'asignatura.plan',
 		'asignatura.perteneceACarrera.description',
 		'profesor.nombre',
+		array(
+			'class'=>'CLinkColumn',
+			'label'=>'Ver',
+			'urlExpression'=>'\Yii::app()->createUrl("asignaturaprofesor/admin", array("AsignaturaProfesor[profesor_id]" => $data->profesor_id))',
+		),
 		array(
 			'class'=>'CButtonColumn',
 		),
