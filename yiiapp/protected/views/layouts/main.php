@@ -24,6 +24,8 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css">
 
+
+
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
@@ -35,23 +37,25 @@
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 	</div><!-- header -->
 
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
+	<div id="mainMbMenu">
+	<?php $this->widget('application.extensions.mbmenu.MbMenu',array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-
-				array('label'=>'Asignaturas', 'url'=>array('/asignaturas/admin', 'view'=>'about')),
-				array('label'=>'Carreras', 'url'=>array('/carreras/admin', 'view'=>'about')),
+	//			array('label'=>'Home', 'url'=>array('/site/index')),
 				array('label'=>'Asignaturas-Profesor', 'url'=>array('/asignaturaprofesor/admin', 'view'=>'about')),
 				array('label'=>'Inscripciones', 'url'=>array('/incripciones/admin', 'view'=>'about')),
-				array('label'=>'Alumnos', 'url'=>array('/participants/admin', 'view'=>'about')),
-				array('label'=>'Profesores', 'url'=>array('/profesores/admin', 'view'=>'about')),
-
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				array('label'=>'Administrar', 'url'=>array(''),
+				  'items'=>array(
+					array('label'=>'Asignaturas', 'url'=>array('/asignaturas/admin', 'view'=>'about')),
+					array('label'=>'Alumnos', 'url'=>array('/participants/admin', 'view'=>'about')),
+					array('label'=>'Profesores', 'url'=>array('/profesores/admin', 'view'=>'about')),
+					array('label'=>'Carreras', 'url'=>array('/carreras/admin', 'view'=>'about')),
+				  ),
+				),
+				array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
-		)); ?>
+	)); ?>
+		
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
