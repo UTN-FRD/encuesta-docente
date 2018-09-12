@@ -19,32 +19,32 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div>
 		<?php echo $form->labelEx($model,'participant_id'); ?>
 		<?php echo $form->textField($model,'participant_id',array('size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'participant_id'); ?>
 	</div>
 
-	<div class="row">
+	<div>
 		<?php echo $form->labelEx($model,'asignatura_id'); ?>
 		<?php echo $form->textField($model,'asignatura_id'); ?>
 		<?php echo $form->error($model,'asignatura_id'); ?>
 	</div>
 
-	<div class="row">
+	<div>
 		<?php echo $form->labelEx($model,'anio_academico'); ?>
 		<?php echo $form->textField($model,'anio_academico'); ?>
 		<?php echo $form->error($model,'anio_academico'); ?>
 	</div>
 
-	<div class="row">
+	<div>
 		<?php echo $form->labelEx($model,'comentarios'); ?>
 		<?php echo $form->textField($model,'comentarios',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'comentarios'); ?>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array("class"=>"btn btn-primary btn-large")); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Asignaturas</h1>
+<h1>Asignaturas</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -42,6 +42,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'asignaturas-grid',
+	'pager'=>array("htmlOptions"=>array("class"=>"pagination")),
+	'itemsCssClass'=>"table table-striped",
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(

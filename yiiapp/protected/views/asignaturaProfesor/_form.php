@@ -19,22 +19,22 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div>
 		<?php echo $form->labelEx($model,'asignatura_id'); ?>
 		<?php echo $form->dropDownList($model,'asignatura_id',CHtml::listData(Asignaturas::model()->findall(),"id","descripcion")); ?>
 		<!-- <?php echo $form->textField($model,'asignatura_id'); ?> -->
 		<?php echo $form->error($model,'asignatura_id'); ?>
 	</div>
 
-	<div class="row">
+	<div>
 		<?php echo $form->labelEx($model,'profesor_id'); ?>
 		<?php echo $form->dropDownList($model,'profesor_id',CHtml::listData(Profesores::model()->findall(),"id","nombre")); ?>
 		<!-- <?php echo $form->textField($model,'profesor_id'); ?> -->
 		<?php echo $form->error($model,'profesor_id'); ?>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array("class"=>"btn btn-primary btn-large")); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

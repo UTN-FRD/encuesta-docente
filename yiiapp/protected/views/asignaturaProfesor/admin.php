@@ -42,6 +42,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'asignatura-profesor-grid',
+	'itemsCssClass'=>"table table-striped",
+	'pager'=>array("htmlOptions"=>array("class"=>"pagination")),
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
