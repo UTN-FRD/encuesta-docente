@@ -41,7 +41,7 @@
 	<?php $this->widget('application.extensions.mbmenu.MbMenu',array(
 			'items'=>array(
 	//			array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'Asignaturas-Profesor', 'url'=>array('/asignaturaprofesor/admin', 'view'=>'about')),
+				array('label'=>'Asignaturas-Profesor', 'url'=>array('/AsignaturaProfesor/admin', 'view'=>'about')),
 				array('label'=>'Inscripciones', 'url'=>array('/incripciones/admin', 'view'=>'about')),
 				array('label'=>'Administrar', 'url'=>array(''),
 				  'items'=>array(
