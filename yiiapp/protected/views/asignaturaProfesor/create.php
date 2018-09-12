@@ -4,15 +4,15 @@
 
 $this->breadcrumbs=array(
 	'Profesores por Asignatura'=>array('index'),
-	'Create',
+	'Crear',
 );
 
 $this->menu=array(
-	array('label'=>'List AsignaturaProfesor', 'url'=>array('index')),
-	array('label'=>'Manage AsignaturaProfesor', 'url'=>array('admin')),
+//	array('label'=>'List AsignaturaProfesor', 'url'=>array('index')),
+	array('label'=>'Ver Asignatura-Profesor', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create AsignaturaProfesor</h1>
+<h1>Crear Asignatura-Profesor</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

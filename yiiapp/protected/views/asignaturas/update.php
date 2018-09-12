@@ -5,17 +5,17 @@
 $this->breadcrumbs=array(
 	'Asignaturas'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Modificar',
 );
 
 $this->menu=array(
-	array('label'=>'List Asignaturas', 'url'=>array('index')),
-	array('label'=>'Create Asignaturas', 'url'=>array('create')),
-	array('label'=>'View Asignaturas', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Asignaturas', 'url'=>array('admin')),
+//	array('label'=>'List Asignaturas', 'url'=>array('index')),
+	array('label'=>'Nueva Asignatura', 'url'=>array('create')),
+//	array('label'=>'View Asignaturas', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Ver Asignaturas', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Asignaturas <?php echo $model->id; ?></h1>
+<h1>Modificar Asignaturas <?php echo $model->id; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -4,15 +4,15 @@
 
 $this->breadcrumbs=array(
 	'Inscripciones'=>array('index'),
-	'Create',
+	'Crear',
 );
 
 $this->menu=array(
-	array('label'=>'List Incripciones', 'url'=>array('index')),
-	array('label'=>'Manage Incripciones', 'url'=>array('admin')),
+//	array('label'=>'List Incripciones', 'url'=>array('index')),
+	array('label'=>'Ver Incripciones', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Inscripciones</h1>
+<h1>Crear Inscripciones</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

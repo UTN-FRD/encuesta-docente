@@ -4,12 +4,12 @@
 
 $this->breadcrumbs=array(
 	'Asignaturas'=>array('index'),
-	'Manage',
+	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>'List Asignaturas', 'url'=>array('index')),
-	array('label'=>'Create Asignaturas', 'url'=>array('create')),
+//	array('label'=>'List Asignaturas', 'url'=>array('index')),
+	array('label'=>'Crear Asignatura', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

@@ -4,12 +4,12 @@
 
 $this->breadcrumbs=array(
 	'Inscripciones'=>array('index'),
-	'Manage',
+	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>'List Inscripciones', 'url'=>array('index')),
-	array('label'=>'Create Inscripciones', 'url'=>array('create')),
+//	array('label'=>'List Inscripciones', 'url'=>array('index')),
+	array('label'=>'Crear Inscripcion', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

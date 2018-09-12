@@ -5,17 +5,17 @@
 $this->breadcrumbs=array(
 	'Carreras'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Modificar',
 );
 
 $this->menu=array(
-	array('label'=>'List Carreras', 'url'=>array('index')),
-	array('label'=>'Create Carreras', 'url'=>array('create')),
-	array('label'=>'View Carreras', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Carreras', 'url'=>array('admin')),
+//	array('label'=>'List Carreras', 'url'=>array('index')),
+	array('label'=>'Nueva Carrera', 'url'=>array('create')),
+//	array('label'=>'View Carreras', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Ver Carreras', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Carreras <?php echo $model->id; ?></h1>
+<h1>Modificar Carreras <?php echo $model->id; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

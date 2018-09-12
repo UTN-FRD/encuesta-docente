@@ -4,15 +4,15 @@
 
 $this->breadcrumbs=array(
 	'Carreras'=>array('index'),
-	'Create',
+	'Crear',
 );
 
 $this->menu=array(
-	array('label'=>'List Carreras', 'url'=>array('index')),
+//	array('label'=>'List Carreras', 'url'=>array('index')),
 	array('label'=>'Manage Carreras', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Carreras</h1>
+<h1>Crear Carreras</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -4,12 +4,12 @@
 
 $this->breadcrumbs=array(
 	'Profesores'=>array('index'),
-	'Manage',
+	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>'List Profesores', 'url'=>array('index')),
-	array('label'=>'Create Profesores', 'url'=>array('create')),
+//	array('label'=>'List Profesores', 'url'=>array('index')),
+	array('label'=>'Crear Profesor', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

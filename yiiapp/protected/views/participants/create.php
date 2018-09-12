@@ -4,15 +4,15 @@
 
 $this->breadcrumbs=array(
 	'Alumnos'=>array('index'),
-	'Create',
+	'Crear',
 );
 
 $this->menu=array(
-	array('label'=>'List Alumnos', 'url'=>array('index')),
-	array('label'=>'Manage Alumnos', 'url'=>array('admin')),
+//	array('label'=>'List Alumnos', 'url'=>array('index')),
+	array('label'=>'Ver Alumnos', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Alumnos</h1>
+<h1>Crear Alumnos</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

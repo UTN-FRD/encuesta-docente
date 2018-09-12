@@ -4,12 +4,12 @@
 
 $this->breadcrumbs=array(
 	'Carreras'=>array('index'),
-	'Manage',
+	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>'List Carreras', 'url'=>array('index')),
-	array('label'=>'Create Carreras', 'url'=>array('create')),
+//	array('label'=>'List Carreras', 'url'=>array('index')),
+	array('label'=>'Crear Carrera', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
