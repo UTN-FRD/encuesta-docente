@@ -40,12 +40,12 @@
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
 
-				array('label'=>'Asignaturas', 'url'=>array('/asignaturas/index', 'view'=>'about')),
-				array('label'=>'Carreras', 'url'=>array('/carreras/index', 'view'=>'about')),
-				array('label'=>'Asignaturas-Profesor', 'url'=>array('/asignaturaprofesor/index', 'view'=>'about')),
-				array('label'=>'Inscripciones', 'url'=>array('/incripciones/index', 'view'=>'about')),
-				array('label'=>'Alumnos', 'url'=>array('/participants/index', 'view'=>'about')),
-				array('label'=>'Profesores', 'url'=>array('/profesores/index', 'view'=>'about')),
+				array('label'=>'Asignaturas', 'url'=>array('/asignaturas/admin', 'view'=>'about')),
+				array('label'=>'Carreras', 'url'=>array('/carreras/admin', 'view'=>'about')),
+				array('label'=>'Asignaturas-Profesor', 'url'=>array('/asignaturaprofesor/admin', 'view'=>'about')),
+				array('label'=>'Inscripciones', 'url'=>array('/incripciones/admin', 'view'=>'about')),
+				array('label'=>'Alumnos', 'url'=>array('/participants/admin', 'view'=>'about')),
+				array('label'=>'Profesores', 'url'=>array('/profesores/admin', 'view'=>'about')),
 
 				array('label'=>'Contact', 'url'=>array('/site/contact')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
