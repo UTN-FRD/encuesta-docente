@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Profesores por Asignatura</h1>
+<h1>Profesores por Asignatura</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -48,7 +48,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		// 'asignatura_id',
 		// 'profesor_id',
 		// 'id',
-
+		array(
+			'class'=>'CLinkColumn',
+			'label'=>'Ver',
+			'urlExpression'=>'\Yii::app()->createUrl("asignaturaprofesor/admin", array("AsignaturaProfesor[asignatura_id]" => $data->asignatura_id))',
+			),
 		'asignatura.descripcion',
 		'asignatura.plan',
 		'asignatura.perteneceACarrera.description',
