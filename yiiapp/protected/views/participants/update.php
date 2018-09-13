@@ -16,6 +16,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Modificar Alumnos <?php echo $model->participant_id; ?></h1>
+<h1>Modificar Alumno </h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_formUpdate', array('model'=>$model)); ?>
