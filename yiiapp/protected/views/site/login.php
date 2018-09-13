@@ -27,13 +27,13 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 
 	<!-- <p class="note">Fields with <span class="required">*</span> are required.</p> -->
 
-	<div class="row">
+	<div>
 		<?php echo $form->labelEx($model,'Usuario:'); ?>
 		<?php echo $form->textField($model,'username'); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
 
-	<div class="row">
+	<div>
 		<?php echo $form->labelEx($model,'Contrase&ntilde;a:'); ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
@@ -49,7 +49,7 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 	</div> -->
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Entrar'); ?>
+		<?php echo CHtml::submitButton('Entrar',array("class"=>"btn btn-primary btn-large")); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
