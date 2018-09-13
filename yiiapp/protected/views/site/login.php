@@ -34,7 +34,7 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'Contraseña:'); ?>
+		<?php echo $form->labelEx($model,'Contrase&ntilde;a:'); ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
 		<!-- <p class="hint">
