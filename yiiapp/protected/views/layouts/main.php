@@ -12,6 +12,9 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection">
 	<![endif]-->
 
+	<!-- Bootstrap requiere jQuery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -24,8 +27,6 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css">
 
-
-
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
@@ -34,11 +35,18 @@
 <div class="container" id="page">
 
 	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+		<div id="logo">
+			<?php if(!Yii::app()->user->isGuest) {
+				echo CHtml::encode(Yii::app()->name); 
+			}
+			?>
+		</div>
 	</div><!-- header -->
-
+	
 	<div id="mainMbMenu">
-	<?php $this->widget('application.extensions.mbmenu.MbMenu',array(
+	<?php 
+	if(!Yii::app()->user->isGuest) {
+		$this->widget('application.extensions.mbmenu.MbMenu',array(
 			'items'=>array(
 	//			array('label'=>'Home', 'url'=>array('/site/index')),
 				array('label'=>'Asignaturas-Profesor', 'url'=>array('/AsignaturaProfesor/admin', 'view'=>'about')),
@@ -54,7 +62,8 @@
 				array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
-	)); ?>
+		));
+	 } ?>
 		
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>

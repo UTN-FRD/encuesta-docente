@@ -19,12 +19,22 @@ body
 {
 	margin: 0;
 	padding: 0;
-	border-top: 3px solid #C9E0ED;
+	/* border-top: 3px solid #C9E0ED; */
 }
 
 #content
 {
-    padding: 20px;
+	padding: 20px;
+}
+
+#content h1 {
+	text-align: center;
+}
+
+#login-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #sidebar
