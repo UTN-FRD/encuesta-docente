@@ -33,6 +33,12 @@
 	</div>
 
 	<div>
+<!--	<?php echo $form->labelEx($model,'blacklisted'); ?> -->
+		<?php echo $form->hiddenField($model,'blacklisted',array('value'=>'0', 'readonly' => 'true'),array('size'=>1,'maxlength'=>1)); ?>
+<!--		<?php echo $form->error($model,'blacklisted'); ?> -->
+	</div>
+
+	<div>
 		<?php echo $form->labelEx($model,'dni'); ?>
 		<?php echo $form->textField($model,'dni',array('size'=>10,'maxlength'=>10)); ?>
 		<?php echo $form->error($model,'dni'); ?>
@@ -58,7 +64,8 @@
 
 	<div>
 		<?php echo $form->labelEx($model,'carrera_id'); ?>
-		<?php echo $form->textField($model,'carrera_id'); ?>
+		<?php echo $form->dropDownList($model,'carrera_id',CHtml::listData(Carreras::model()->findall(),"id","description")); ?>
+		<!--<?php echo $form->textField($model,'carrera_id'); ?>-->
 		<?php echo $form->error($model,'carrera_id'); ?>
 	</div>
 
