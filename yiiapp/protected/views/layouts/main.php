@@ -43,9 +43,11 @@
 		</div>
 	</div><!-- header -->
 	
+
 	<div id="mainMbMenu">
 	<?php 
-	if(!Yii::app()->user->isGuest) {
+	//if(!Yii::app()->user->isGuest) {
+	if(Yii::app()->user->isAdmin()) {
 		$this->widget('application.extensions.mbmenu.MbMenu',array(
 			'items'=>array(
 	//			array('label'=>'Home', 'url'=>array('/site/index')),
@@ -64,7 +66,20 @@
 			),
 		));
 	 } ?>
-		
+
+
+	<?php 
+	//if(!Yii::app()->user->isGuest) {
+	if(!Yii::app()->user->isAdmin()) {
+		$this->widget('application.extensions.mbmenu.MbMenu',array(
+			'items'=>array(
+			//	array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+			),
+		));
+	 } ?>
+
+
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(

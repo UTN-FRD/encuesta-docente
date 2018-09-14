@@ -34,6 +34,8 @@ return array(
 	'components'=>array(
 
 		'user'=>array(
+			// There you go, use our 'extended' version
+			'class'=>'application.components.EWebUser',
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),

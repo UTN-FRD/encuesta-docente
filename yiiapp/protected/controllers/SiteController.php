@@ -30,9 +30,12 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 	//	$this->render('index');
-	$this->redirect(Yii::app()->request->baseUrl."/index.php/AsignaturaProfesor/admin?view=about");
+		if (Yii::app()->user->isAdmin()) {
+			$this->redirect(Yii::app()->request->baseUrl."/index.php/AsignaturaProfesor/admin?view=about");
+		} else {
+			$this->redirect(Yii::app()->request->baseUrl."/index.php/asignaturaprofesor/create");
+		}
 	}
-
 	/**
 	 * This is the action to handle external exceptions.
 	 */

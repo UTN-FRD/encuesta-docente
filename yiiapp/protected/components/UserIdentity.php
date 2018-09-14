@@ -26,15 +26,19 @@ class UserIdentity extends CUserIdentity
 		);*/
 
 		$user = Users::model()->find("LOWER(users_name)=?", array(strtolower($this->username)));
-
 		if($user===null)
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
 		elseif(!password_verify($this->password, $user->password))
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;
 		else {
 			$this->_id=$user->uid;
+			$this->setState("parent_id",$user->parent_id);
 			$this->errorCode=self::ERROR_NONE;
 		}
 		return !$this->errorCode;
 	}
+	public function getId()
+    {
+        return $this->_id;
+    }
 }
