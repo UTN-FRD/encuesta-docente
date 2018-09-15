@@ -3,7 +3,7 @@ body
 	margin: 0;
 	padding: 0;
 	color: #555;
-	font: normal 10pt Arial,Helvetica,sans-serif;
+	font: normal 10pt Arial, Helvetica, sans-serif;
 	background: #EFEFEF;
 }
 
@@ -57,6 +57,7 @@ body
 	font-size: 200%;
 }
 
+/*
 #mainmenu
 {
 	background:white url(bg.gif) repeat-x left top;
@@ -89,6 +90,7 @@ body
 	background-color:#EFF4FA;
 	text-decoration:none;
 }
+*/
 
 div.flash-error, div.flash-notice, div.flash-success
 {
