@@ -24,7 +24,7 @@ body
 
 #content
 {
-	padding: 20px;
+	padding: 0 20px;
 }
 
 #content h1 {
@@ -35,6 +35,12 @@ body
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-top: 2em;
+}
+
+.form input[type="text"], .form input[type="password"] {
+	padding: 3px;
+	border-radius: 3px;
 }
 
 #sidebar
@@ -238,4 +244,10 @@ div.search-form
 .operations li a:hover
 {
 	background: #80CFFF;
+}
+
+@media (max-width: 620px) {
+	#content h1 {
+		font-size: 2.2em;
+	}
 }

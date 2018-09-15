@@ -56,7 +56,7 @@ div.form fieldset
 div.form label
 {
 	font-weight: bold;
-	font-size: 0.9em;
+	font-size: 1.2em;
 	display: block;
 }
 
@@ -161,4 +161,11 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 {
 	clear: left;
 	padding-left: 110px;
+}
+
+@media (max-width: 620px) {
+	div.form label
+	{
+		font-size: 1em;
+	}
 }
