@@ -26,8 +26,12 @@ class AsignaturaProfesorController extends Controller
 	 */
 	public function accessRules()
 	{
+		$noAdmins = Users::model()->findAllByAttributes(array('parent_id'=>"9999"));
+		$users = Users::model()->findAll();
+		$noAdmins = array_column($noAdmins,'users_name');
+		$users = array_column($users,'users_name');
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
+/*			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
@@ -35,9 +39,13 @@ class AsignaturaProfesorController extends Controller
 				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
+*/
+			array('deny',  // deny all users
+				'users'=>$noAdmins,
+			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('admin','delete','create','update','index','view'),
+				'users'=>$users,
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
