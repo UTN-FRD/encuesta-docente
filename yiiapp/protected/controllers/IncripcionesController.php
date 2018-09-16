@@ -31,6 +31,10 @@ class IncripcionesController extends Controller
 		$noAdmins = array_column($noAdmins,'users_name');
 		$users = array_column($users,'users_name');
 		return array(
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('encuestas'),
+				'users'=>$noAdmins,
+			),
 			array('deny',  // deny all users
 				'users'=>$noAdmins,
 			),
@@ -123,6 +127,15 @@ class IncripcionesController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('Incripciones');
 		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
+
+
+	public function actionEncuestas()
+	{
+		$dataProvider=new CActiveDataProvider('Incripciones');
+		$this->render('encuestas',array(
 			'dataProvider'=>$dataProvider,
 		));
 	}

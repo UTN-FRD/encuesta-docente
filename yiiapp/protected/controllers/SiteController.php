@@ -33,7 +33,7 @@ class SiteController extends Controller
 		if (Yii::app()->user->isAdmin()) {
 			$this->redirect(Yii::app()->request->baseUrl."/index.php/AsignaturaProfesor/admin?view=about");
 		} else {
-			$this->redirect(Yii::app()->request->baseUrl."/index.php/asignaturaprofesor/create");
+			$this->redirect(Yii::app()->request->baseUrl."/index.php/incripciones/encuestas");
 		}
 	}
 	/**
@@ -99,7 +99,7 @@ class SiteController extends Controller
 				if (Yii::app()->user->isAdmin()) {
 					$this->redirect(Yii::app()->request->baseUrl."/index.php/AsignaturaProfesor/admin?view=about");
 				} else {
-					$this->redirect(Yii::app()->request->baseUrl."/index.php/asignaturaprofesor/create");
+					$this->redirect(Yii::app()->request->baseUrl."/index.php/incripciones/encuestas");
 				}
 			}
 		}
