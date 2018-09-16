@@ -95,8 +95,13 @@ class SiteController extends Controller
 		{
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+			if($model->validate() && $model->login()) {
+				if (Yii::app()->user->isAdmin()) {
+					$this->redirect(Yii::app()->request->baseUrl."/index.php/AsignaturaProfesor/admin?view=about");
+				} else {
+					$this->redirect(Yii::app()->request->baseUrl."/index.php/asignaturaprofesor/create");
+				}
+			}
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
