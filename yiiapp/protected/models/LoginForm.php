@@ -62,13 +62,12 @@ class LoginForm extends CFormModel
 	 */
 	public function login()
 	{
-		if($this->username===null or $this->username=='Guest') return false;
-
 		if($this->_identity===null)
 		{
 			$this->_identity=new UserIdentity($this->username,$this->password);
 			$this->_identity->authenticate();
 		}
+
 		if($this->_identity->errorCode===UserIdentity::ERROR_NONE)
 		{
 			$duration=$this->rememberMe ? 3600*24*30 : 0; // 30 days
