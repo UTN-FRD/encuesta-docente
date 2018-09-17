@@ -62,6 +62,8 @@ class LoginForm extends CFormModel
 	 */
 	public function login()
 	{
+		if($this->username===null) return false;
+		
 		if($this->_identity===null)
 		{
 			$this->_identity=new UserIdentity($this->username,$this->password);
