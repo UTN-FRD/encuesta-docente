@@ -1,12 +1,13 @@
 #nav-bar {
 	/* border-top: 1px solid #2d444f; */
 	/* border-bottom: 1px solid #2d444f; */
-	background: url(nav1_bg.gif) repeat-x 0 100% #666e73;
+	/*background: url(nav1_bg.gif) repeat-x 0 100% #666e73;*/
+	background: #265a88;
 	padding: 0 30px;
 }
 
 #nav {
-	float: left;
+	float: right;
 	margin: 0;
 	list-style-image: none;
 	list-style-position: outside;
@@ -54,7 +55,7 @@
 
 #nav li.active {
 	margin-left: -1px;
-	background: url(nav1_active.gif) no-repeat;
+	background: linear-gradient(to top, #0f0c29, #302b63, #24243e);
 	color: #fff;
 	font-weight: bold;
 }

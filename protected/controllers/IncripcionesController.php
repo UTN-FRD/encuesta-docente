@@ -134,7 +134,7 @@ class IncripcionesController extends Controller
 
 	public function actionEncuestas()
 	{
-		$dataProvider=new CActiveDataProvider('Incripciones');
+		$dataProvider=new CActiveDataProvider("AsignaturaProfesor");
 		$this->render('encuestas',array(
 			'dataProvider'=>$dataProvider,
 		));
