@@ -53,7 +53,7 @@ $('.search-form form').submit(function(){
 		array(
 			'class'=>'CLinkColumn',
 			'label'=>'Ver',
-			'urlExpression'=>'\Yii::app()->createUrl("asignaturaprofesor/admin", array("AsignaturaProfesor[asignatura_id]" => $data->asignatura_id))',
+			'urlExpression'=>'\Yii::app()->createUrl("AsignaturaProfesor/admin", array("AsignaturaProfesor[asignatura_id]" => $data->asignatura_id))',
 			),
 		'asignatura.plan',
 		'asignatura.perteneceACarrera.description',
@@ -61,7 +61,7 @@ $('.search-form form').submit(function(){
 		array(
 			'class'=>'CLinkColumn',
 			'label'=>'Ver',
-			'urlExpression'=>'\Yii::app()->createUrl("asignaturaprofesor/admin", array("AsignaturaProfesor[profesor_id]" => $data->profesor_id))',
+			'urlExpression'=>'\Yii::app()->createUrl("AsignaturaProfesor/admin", array("AsignaturaProfesor[profesor_id]" => $data->profesor_id))',
 		),
 		array(
 			'class'=>'CButtonColumn',
