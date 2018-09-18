@@ -129,7 +129,7 @@
 
     $listheading = "<div class='container'>
                     <div class='h3'>
-                    ".gT("The following surveys are available:")."
+                    ".gT("Las siguientes encuestas están disponibles:")."
                     <span class='pull-right'>".$legendForSurvey_button."</span>
                     </div>
                     ".$legendForSurvey."

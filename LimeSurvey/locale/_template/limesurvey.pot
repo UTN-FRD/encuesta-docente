@@ -6651,7 +6651,7 @@ msgstr ""
 
 #: application/core/plugins/extendedStartPage/views/publicSurveyList_extended.php:132
 #: application/views/admin/themes/templateeditor_surveylist_view.php:92
-msgid "The following surveys are available:"
+msgid "The following surveys ... are available:"
 msgstr ""
 
 #: application/core/plugins/extendedStartPage/views/publicSurveyList_extended.php:138

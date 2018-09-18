@@ -89,7 +89,7 @@
     }
 
     $listheading="<div class='h3 '>
-                    ".gT("The following surveys are available:")."
+                    ".gT(">The following surveys are available:")."
                     </div>";
     if( $outputSurveys==0)
     {

@@ -23,7 +23,7 @@
 #}
 
 {# There is many condition where the language changer should not be shown. Eg: there is only one language available #}
-{% if  aSurveyInfo.alanguageChanger.show == true %}
+{% if  aSurveyInfo.alanguageChanger.show == false %}
 
     {#  we set a shortcut for aSurveyInfo.alanguageChangerDatas #}
     {% set aLCD  = aSurveyInfo.alanguageChanger.datas %}
