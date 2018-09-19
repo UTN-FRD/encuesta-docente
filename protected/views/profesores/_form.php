@@ -25,7 +25,7 @@
 		<?php echo $form->error($model,'nombre'); ?>
 	</div>
 
-	<div>
+	<div class="hide">
 		<?php echo $form->labelEx($model,'apellido'); ?>
 		<?php echo $form->textField($model,'apellido',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'apellido'); ?>
@@ -33,7 +33,7 @@
 
 	<div>
 		<?php echo $form->labelEx($model,'cargo'); ?>
-		<?php echo $form->textField($model,'cargo',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->dropDownList($model,'cargo',array(1=>'Titular',2=>'Auxiliar'),array('empty' => '(Seleccione)'),array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'cargo'); ?>
 	</div>
 
@@ -51,7 +51,7 @@
 
 	<div>
 		<?php echo $form->labelEx($model,'fecha_ingreso'); ?>
-		<?php echo $form->textField($model,'fecha_ingreso'); ?>
+		<?php echo $form->dateField($model,'fecha_ingreso'); ?>
 		<?php echo $form->error($model,'fecha_ingreso'); ?>
 	</div>
 

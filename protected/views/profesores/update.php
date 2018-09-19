@@ -3,8 +3,8 @@
 /* @var $model Profesores */
 
 $this->breadcrumbs=array(
-	'Profesores'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
+	'Profesores'=>array('update'),
+	$model->nombre=>array('view','id'=>$model->id),
 	'Modificar',
 );
 
@@ -16,6 +16,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Modificar Profesores <?php echo $model->id; ?></h1>
+<h1>Modificar Profesor</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

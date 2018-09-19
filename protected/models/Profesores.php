@@ -30,7 +30,7 @@ class Profesores extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, apellido, legajo, dni', 'required'),
+			array('nombre, legajo, dni', 'required'),
 			array('legajo', 'numerical', 'integerOnly'=>true),
 			array('nombre, apellido, cargo', 'length', 'max'=>255),
 			array('dni', 'length', 'max'=>10),
