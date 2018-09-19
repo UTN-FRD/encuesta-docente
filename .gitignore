@@ -3,3 +3,4 @@ LimeSurvey/application/config/config.php
 assets/
 */protected/config/database.php
 **.log
+database.php
