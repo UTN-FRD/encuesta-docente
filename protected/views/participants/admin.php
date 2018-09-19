@@ -47,7 +47,9 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
 		//'participant_id',
+		'dni',
 		'firstname',
+		'perteneceACarrera.description',
 		//array('header'=>'Nombre','value'=>'firstname'),
 		/*
 		'lastname',
