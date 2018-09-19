@@ -21,15 +21,13 @@
 
 	<div>
 		<?php echo $form->labelEx($model,'asignatura_id'); ?>
-		<?php echo $form->dropDownList($model,'asignatura_id',CHtml::listData(Asignaturas::model()->findall(),"id","descripcion")); ?>
-		<!-- <?php echo $form->textField($model,'asignatura_id'); ?> -->
+		<?php echo $form->dropDownList($model,'asignatura_id',CHtml::listData(Asignaturas::model()->findall(),"id","descripcion","plan")); ?>
 		<?php echo $form->error($model,'asignatura_id'); ?>
 	</div>
 
 	<div>
 		<?php echo $form->labelEx($model,'profesor_id'); ?>
 		<?php echo $form->dropDownList($model,'profesor_id',CHtml::listData(Profesores::model()->findall(),"id","nombre")); ?>
-		<!-- <?php echo $form->textField($model,'profesor_id'); ?> -->
 		<?php echo $form->error($model,'profesor_id'); ?>
 	</div>
 

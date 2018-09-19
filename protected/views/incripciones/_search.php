@@ -16,14 +16,16 @@
 		<?php echo $form->textField($model,'id'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'participant_id'); ?>
-		<?php echo $form->textField($model,'participant_id',array('size'=>50,'maxlength'=>50)); ?>
+	<div>
+		<?php echo $form->labelEx($model,'participant_id'); ?>
+		<?php echo $form->dropDownList($model,'participant_id',CHtml::listData(Participants::model()->findall(),"participant_id","firstname"),array('empty'=>'Todos')); ?>
+		<?php echo $form->error($model,'participant_id'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'asignatura_id'); ?>
-		<?php echo $form->textField($model,'asignatura_id'); ?>
+	<div>
+		<?php echo $form->labelEx($model,'asignatura_id'); ?>
+		<?php echo $form->dropDownList($model,'asignatura_id',CHtml::listData(Asignaturas::model()->findall(),"id","descripcion","plan"),array('empty'=>'Todos')); ?>
+		<?php echo $form->error($model,'asignatura_id'); ?>
 	</div>
 
 	<div class="row">
