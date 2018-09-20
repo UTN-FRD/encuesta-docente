@@ -22,43 +22,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'lastname'); ?>
-		<?php echo $form->textField($model,'lastname',array('size'=>60,'maxlength'=>150)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'email'); ?>
-		<?php echo $form->textArea($model,'email',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'language'); ?>
-		<?php echo $form->textField($model,'language',array('size'=>40,'maxlength'=>40)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'blacklisted'); ?>
-		<?php echo $form->textField($model,'blacklisted',array('size'=>1,'maxlength'=>1)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'owner_uid'); ?>
-		<?php echo $form->textField($model,'owner_uid'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'created_by'); ?>
-		<?php echo $form->textField($model,'created_by'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
+		<?php echo $form->textField($model,'email',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row">

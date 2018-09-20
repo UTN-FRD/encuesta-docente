@@ -28,7 +28,7 @@ class Incripciones extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('participant_id, asignatura_id, anio_academico', 'required'),
+			array('anio_academico', 'required'),
 			array('asignatura_id, anio_academico', 'numerical', 'integerOnly'=>true),
 			array('participant_id', 'length', 'max'=>50),
 			array('comentarios', 'length', 'max'=>255),

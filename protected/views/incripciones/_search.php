@@ -11,11 +11,6 @@
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
-
 	<div>
 	<?php
 		echo $form->labelEx($model,'participant_id'); 
@@ -44,11 +39,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'anio_academico'); ?>
 		<?php echo $form->textField($model,'anio_academico'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'comentarios'); ?>
-		<?php echo $form->textField($model,'comentarios',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row buttons">
