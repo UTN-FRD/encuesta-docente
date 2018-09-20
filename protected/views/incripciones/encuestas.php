@@ -4,7 +4,7 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<h2>Encuestas pendientes de completar</h2>
+<h2 id="encuesta">Encuestas pendientes de completar</h2>
 
 <div>
 <?php
@@ -31,7 +31,7 @@ foreach($asignaturaProfesor as $elemento){ ?>
         $asignatura = Asignaturas::model()->findAllByAttributes(array('id'=>$asignatura));
         $asignatura = array_column($asignatura,'descripcion');
         $asignatura = implode($asignatura);
-        echo CHtml::button('Materia: '.$asignatura.' de: '.$profesor,array("class"=>"btn btn-primary btn-large", "style"=>"width:100%;margin:5px")); ?>
+        echo CHtml::button('Materia: '.$asignatura.' de: '.$profesor,array("class"=>"btn btn-primary btn-large", "style"=>"width:100%; height:100%; margin: 5px; white-space: normal")); ?>
 <?php } ?>
 
 </div>

@@ -95,5 +95,16 @@
 
 </div><!-- page -->
 
+<script>
+	$(function(){
+		if (window.location.href == "http://localhost/encuestadocente/index.php/incripciones/encuestas") {
+				$(".span-4").hide();
+				$(".span-24").css("width", "100%");
+		} else {
+				$(".span-4").show();
+		}
+	});
+</script>
+
 </body>
 </html>

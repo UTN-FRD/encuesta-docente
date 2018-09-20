@@ -172,6 +172,10 @@ h2 {
 	margin-bottom: 0.75em;
 }
 
+h2#encuesta {
+	text-align: center;
+}
+
 h3 {
 	font-size: 1.4em;
 	line-height: 1;
