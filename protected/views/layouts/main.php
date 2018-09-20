@@ -90,9 +90,7 @@
 	<div class="clear"></div>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by LSI.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
+		Copyright &copy; <?php echo date('Y'); ?> by <a href="http://lsi.no-ip.org">LSI</a>.<br/>
 	</div><!-- footer -->
 
 </div><!-- page -->
