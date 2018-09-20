@@ -58,7 +58,7 @@ class Incripciones extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'participant_id' => 'Participant',
+			'participant_id' => 'Alumno',
 			'asignatura_id' => 'Asignatura',
 			'anio_academico' => 'Anio Academico',
 			'comentarios' => 'Comentarios',

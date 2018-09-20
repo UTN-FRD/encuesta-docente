@@ -39,7 +39,7 @@ class IncripcionesController extends Controller
 				'users'=>$noAdmins,
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','create','update','index','view'),
+				'actions'=>array('admin','delete','create','update','index','view','listarparticipants'),
 				'users'=>$users,
 			),
 			array('deny',  // deny all users
@@ -186,5 +186,24 @@ class IncripcionesController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	public function actionlistarparticipants($term)
+ 	{
+ 		$criteria = new CDbCriteria;
+ 		$criteria->condition = "LOWER(firstname) like LOWER(:term)";
+		$criteria->params = array(':term'=> '%'.$_GET['term'].'%');
+		$criteria->limit = 30;
+		$models = Participants::model()->findAll($criteria);
+		$arr = array();
+		foreach($models as $model)
+		{
+			$arr[] = array(
+				'label'=>($model->firstname), // label for dropdown list
+				'value'=>($model->firstname), // value for input field
+				'id'=>$model->participant_id, // return value from autocomplete
+			);
+		}
+		echo CJSON::encode($arr);
 	}
 }

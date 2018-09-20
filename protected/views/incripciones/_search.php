@@ -17,9 +17,22 @@
 	</div>
 
 	<div>
-		<?php echo $form->labelEx($model,'participant_id'); ?>
-		<?php echo $form->dropDownList($model,'participant_id',CHtml::listData(Participants::model()->findall(),"participant_id","firstname"),array('empty'=>'Todos')); ?>
-		<?php echo $form->error($model,'participant_id'); ?>
+	<?php
+		echo $form->labelEx($model,'participant_id'); 
+		echo $form->hiddenField($model, 'participant_id' ,array());
+		$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+			'name'=>'firstname',
+			'model'=>$model,
+			'sourceUrl'=>$this->createUrl('listarParticipants'),
+			'options'=>array(
+			'minLength'=>'2',
+			'showAnim'=>'fold',
+			'select' => 'js:function(event, ui)
+			{ jQuery("#Incripciones_participant_id").val(ui.item["id"]); }',
+			'search'=> 'js:function(event, ui)
+			{ jQuery("#Incripciones_participant_id").val(0); }'
+		),
+		)); ?>
 	</div>
 
 	<div>
