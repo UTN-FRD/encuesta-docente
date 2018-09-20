@@ -34,8 +34,8 @@
  * @license http://www.yiiframework.com/license/
  */
 
-div.form
-{
+div.form #login-form div:not(:last-child){
+	margin-bottom: 8px;
 }
 
 div.form input,
@@ -149,7 +149,7 @@ div.wide.form label
 	margin-right: 10px;
 	position: relative;
 	text-align: right;
-	width: 100px;
+	min-width: 100px;
 }
 
 div.wide.form .row

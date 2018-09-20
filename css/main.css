@@ -38,7 +38,7 @@ body
 	margin-top: 2em;
 }
 
-.form input[type="text"], .form input[type="password"] {
+#login-form input[type="text"], #login-form input[type="password"] {
 	padding: 3px;
 	border-radius: 3px;
 }

@@ -11,32 +11,32 @@
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
+	<div class="form-group">
+		<?php echo $form->label($model,'id', array('style'=>'text-align:left')); ?>
+		<?php echo $form->textField($model,'id', array('class'=>'form-control')); ?>
+	</div>
+
+	<div class="form-group">
+		<?php echo $form->label($model,'descripcion', array('style'=>'text-align:left')); ?>
+		<?php echo $form->textField($model,'descripcion', array('class'=>'form-control', 'maxlength'=>255)); ?>
+	</div>
+
+	<div class="form-group">
+		<?php echo $form->label($model,'electiva', array('style'=>'text-align:left')); ?>
+		<?php echo $form->textField($model,'electiva', array('class'=>'form-control')); ?>
+	</div>
+
+	<div class="form-group">
+		<?php echo $form->label($model,'plan', array('style'=>'text-align:left')); ?>
+		<?php echo $form->textField($model,'plan', array('class'=>'form-control', 'maxlength'=>255)); ?>
+	</div>
+
+	<div class="form-group">
+		<?php echo $form->label($model,'carrera_id', array('style'=>'text-align:left')); ?>
+		<?php echo $form->textField($model,'carrera_id', array('class'=>'form-control')); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'descripcion'); ?>
-		<?php echo $form->textField($model,'descripcion',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'electiva'); ?>
-		<?php echo $form->textField($model,'electiva'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'plan'); ?>
-		<?php echo $form->textField($model,'plan',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'carrera_id'); ?>
-		<?php echo $form->textField($model,'carrera_id'); ?>
-	</div>
-
-	<div class="row buttons">
 		<?php echo CHtml::submitButton('Buscar',array("class"=>"btn btn-primary btn-large")); ?>
 	</div>
 

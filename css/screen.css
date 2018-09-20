@@ -453,7 +453,8 @@ caption {
 }
 
 .span-4 {
-	width: 150px;
+	/* width: 150px; */
+	width: 20%;
 }
 
 .span-5 {
@@ -533,7 +534,8 @@ caption {
 }
 
 .span-24 {
-	width: 950px;
+	/* width: 950px; */
+	width: 80%;
 	margin-right: 0;
 }
 
@@ -1206,3 +1208,19 @@ hr.space {
 .clear {
 	clear: both;
 }
+
+@media (max-width: 680px) {
+	.span-4,
+	.span-24 {
+		float: none;
+		width: 100%;
+	}
+
+	.span-4 {
+		margin: 0 auto;
+		padding: 0 100px;
+	}
+
+}
+
+/* Alrededor de los 500px se rompe el grid */

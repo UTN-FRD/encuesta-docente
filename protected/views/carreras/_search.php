@@ -11,17 +11,17 @@
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
+	<div class="form-group">
+		<?php echo $form->label($model,'id', array('style'=>'text-align:left')); ?>
+		<?php echo $form->textField($model,'id', array('class'=>'form-control')); ?>
+	</div>
+
+	<div class="form-group">
+		<?php echo $form->label($model,'description', array('style'=>'text-align:left')); ?>
+		<?php echo $form->textField($model,'description',array('class'=>'form-control','maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'description'); ?>
-		<?php echo $form->textField($model,'description',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row buttons">
 		<?php echo CHtml::submitButton('Buscar',array("class"=>"btn btn-primary btn-large")); ?>
 	</div>
 

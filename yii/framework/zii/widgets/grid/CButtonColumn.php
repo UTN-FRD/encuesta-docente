@@ -215,11 +215,11 @@ class CButtonColumn extends CGridColumn
 	protected function initDefaultButtons()
 	{
 		if($this->viewButtonLabel===null)
-			$this->viewButtonLabel=Yii::t('zii','View');
+			$this->viewButtonLabel=Yii::t('zii','Ver');
 		if($this->updateButtonLabel===null)
-			$this->updateButtonLabel=Yii::t('zii','Update');
+			$this->updateButtonLabel=Yii::t('zii','Modificar');
 		if($this->deleteButtonLabel===null)
-			$this->deleteButtonLabel=Yii::t('zii','Delete');
+			$this->deleteButtonLabel=Yii::t('zii','Eliminar');
 		if($this->viewButtonImageUrl===null)
 			$this->viewButtonImageUrl=$this->grid->baseScriptUrl.'/view.png';
 		if($this->updateButtonImageUrl===null)
@@ -227,7 +227,7 @@ class CButtonColumn extends CGridColumn
 		if($this->deleteButtonImageUrl===null)
 			$this->deleteButtonImageUrl=$this->grid->baseScriptUrl.'/delete.png';
 		if($this->deleteConfirmation===null)
-			$this->deleteConfirmation=Yii::t('zii','Are you sure you want to delete this item?');
+			$this->deleteConfirmation=Yii::t('zii','¿Realmente quiere eliminar este ítem?');
 
 		foreach(array('view','update','delete') as $id)
 		{
