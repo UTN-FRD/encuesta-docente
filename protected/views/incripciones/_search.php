@@ -6,29 +6,15 @@
 
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
+	<?php $form=$this->beginWidget('CActiveForm', array(
+		'action'=>Yii::app()->createUrl($this->route),
+		'method'=>'get',
+	)); ?>
 
-	<div>
-	<?php
-		echo $form->labelEx($model,'participant_id'); 
-		echo $form->hiddenField($model, 'participant_id' ,array());
-		$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-			'name'=>'firstname',
-			'model'=>$model,
-			'sourceUrl'=>$this->createUrl('listarParticipants'),
-			'options'=>array(
-			'minLength'=>'2',
-			'showAnim'=>'fold',
-			'select' => 'js:function(event, ui)
-			{ jQuery("#Incripciones_participant_id").val(ui.item["id"]); }',
-			'search'=> 'js:function(event, ui)
-			{ jQuery("#Incripciones_participant_id").val(0); }'
-		),
-		)); ?>
-	</div>
+	<?php $this->renderPartial('../widgets/alumnosSuggester',array(
+		'model'=>$model,
+		'form'=>$form
+	)); ?>
 
 	<div>
 		<?php echo $form->labelEx($model,'asignatura_id'); ?>
