@@ -63,8 +63,8 @@ class Profesores extends CActiveRecord
 			'apellido' => 'Apellido',
 			'cargo' => 'Cargo',
 			'legajo' => 'Legajo',
-			'dni' => 'Dni',
-			'fecha_ingreso' => 'Fecha Ingreso',
+			'dni' => 'DNI',
+			'fecha_ingreso' => 'Fecha de Ingreso',
 		);
 	}
 
