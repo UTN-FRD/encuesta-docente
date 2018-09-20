@@ -9,10 +9,16 @@ $this->pageTitle=Yii::app()->name;
 <div>
 <?php
 $usuario = Yii::app()->user->name;
-//$usuario = "38433483";
+//$usuario = "40235174";
 $idUsuario = Participants::model()->findAllByAttributes(array('dni'=>$usuario));
-$idUsuario = min(array_column($idUsuario,'participant_id'));
-$asignaturas = Incripciones::model()->findAllByAttributes(array('participant_id'=>$idUsuario));
+
+$asignaturas = array();
+foreach(array_column($idUsuario,'participant_id') as $idTemp)
+{
+
+        $asignaturas = array_merge($asignaturas, Incripciones::model()->findAllByAttributes(array('participant_id'=>$idTemp)) );
+}
+
 $idAsignaturas = array_column($asignaturas,'asignatura_id');
 $asignaturaProfesor = AsignaturaProfesor::model()->findAllByAttributes(array('asignatura_id'=>$idAsignaturas));
 foreach($asignaturaProfesor as $elemento){ ?>
