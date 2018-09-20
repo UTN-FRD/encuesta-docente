@@ -7,8 +7,7 @@
 		'model'=>$model,
 		'sourceUrl'=>$this->createUrl('listarParticipants'),
 		'htmlOptions' => array(
-            'placeholder' => "Search...",
-            'class'=>'form-control',
+            'class'=>'form-control'
         ),
 
 		'options'=>array(

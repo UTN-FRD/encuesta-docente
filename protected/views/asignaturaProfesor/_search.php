@@ -6,26 +6,22 @@
 
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
+	<?php $form=$this->beginWidget('CActiveForm', array(
+		'action'=>Yii::app()->createUrl($this->route),
+		'method'=>'get',
+	)); ?>
 
-	<div>
-		<?php echo $form->labelEx($model,'asignatura_id'); ?>
-		<?php echo $form->dropDownList($model,'asignatura_id',CHtml::listData(Asignaturas::model()->findall(array('order'=>'`plan` ASC, descripcion ASC')),"id","descripcion","plan"),array('empty'=>'Todos')); ?>
-		<!-- <?php echo $form->textField($model,'asignatura_id'); ?> -->
-		<?php echo $form->error($model,'asignatura_id'); ?>
-	</div>
+	<?php $this->renderPartial('../widgets/asignaturaSelector',array(
+		'model'=>$model,
+		'form'=>$form
+	)); ?>
 
-	<div>
-		<?php echo $form->labelEx($model,'profesor_id'); ?>
-		<?php echo $form->dropDownList($model,'profesor_id',CHtml::listData(Profesores::model()->findall(array('order'=>'nombre ASC')),"id","nombre"),array('empty'=>'Todos')); ?>
-		<!-- <?php echo $form->textField($model,'profesor_id'); ?> -->
-		<?php echo $form->error($model,'profesor_id'); ?>
-	</div>
+	<?php $this->renderPartial('../widgets/profesorSelector',array(
+		'model'=>$model,
+		'form'=>$form
+	)); ?>
 
-	<div class="row buttons">
+	<div class="row ">
 		<?php echo CHtml::submitButton('Buscar',array("class"=>"btn btn-primary btn-large")); ?>
 	</div>
 

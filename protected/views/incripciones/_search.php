@@ -16,18 +16,17 @@
 		'form'=>$form
 	)); ?>
 
-	<div>
-		<?php echo $form->labelEx($model,'asignatura_id'); ?>
-		<?php echo $form->dropDownList($model,'asignatura_id',CHtml::listData(Asignaturas::model()->findall(),"id","descripcion","plan"),array('empty'=>'Todos')); ?>
-		<?php echo $form->error($model,'asignatura_id'); ?>
+	<?php $this->renderPartial('../widgets/asignaturaSelector',array(
+		'model'=>$model,
+		'form'=>$form
+	)); ?>
+
+	<div class="form-group">
+		<?php echo $form->label($model,'anio_academico', array('style'=>'text-align:left;width:auto')); ?>
+		<?php echo $form->textField($model,'anio_academico', array('class'=>'form-control')); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'anio_academico'); ?>
-		<?php echo $form->textField($model,'anio_academico'); ?>
-	</div>
-
-	<div class="row buttons">
 		<?php echo CHtml::submitButton('Buscar',array("class"=>"btn btn-primary btn-large")); ?>
 	</div>
 
