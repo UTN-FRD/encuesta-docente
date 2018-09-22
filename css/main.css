@@ -61,6 +61,13 @@ body
 {
 	padding: 10px 20px;
 	font-size: 200%;
+	display: flex;
+}
+
+#logo > span {
+	align-self: center;
+	text-align: center;
+	margin-left: 10px;
 }
 
 /*
