@@ -13,6 +13,10 @@
 	<?php echo CHtml::encode($data->asignatura_id); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('cargo')); ?>:</b>
+	<?php echo CHtml::encode($data->cargo); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('profesor_id')); ?>:</b>
 	<?php echo CHtml::encode($data->profesor_id); ?>
 	<br />

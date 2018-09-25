@@ -31,6 +31,12 @@
 		<?php echo $form->error($model,'profesor_id'); ?>
 	</div>
 
+	<div>
+		<?php echo $form->labelEx($model,'cargo'); ?>
+		<?php echo $form->dropDownList($model,'cargo',array('Titular'=>'Titular','Auxiliar'=>'Auxiliar'),array('empty' => '(Seleccione)'),array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'cargo'); ?>
+	</div>
+
 	<div class="buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar',array("class"=>"btn btn-primary btn-large")); ?>
 	</div>

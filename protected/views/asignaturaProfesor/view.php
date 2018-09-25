@@ -23,6 +23,7 @@ $this->menu=array(
 	'attributes'=>array(
 		'asignatura_id',
 		'profesor_id',
+		'cargo',
 		'id',
 	),
 )); ?>
