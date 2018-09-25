@@ -59,6 +59,7 @@ $('.search-form form').submit(function(){
 			'label'=>'Ver',
 			'urlExpression'=>'\Yii::app()->createUrl("AsignaturaProfesor/admin", array("AsignaturaProfesor[profesor_id]" => $data->profesor_id))',
 		),
+		'cargo',
 		array(
 			'class'=>'CButtonColumn',
 		),

@@ -55,6 +55,7 @@ class AsignaturaProfesor extends CActiveRecord
 		return array(
 			'asignatura_id' => 'Asignatura',
 			'profesor_id' => 'Profesor',
+			'cargo' => 'Cargo',
 			'id' => 'ID',
 		);
 	}
