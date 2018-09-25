@@ -32,12 +32,6 @@
 	</div>
 
 	<div>
-		<?php echo $form->labelEx($model,'cargo'); ?>
-		<?php echo $form->dropDownList($model,'cargo',array(1=>'Titular',2=>'Auxiliar'),array('empty' => '(Seleccione)'),array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'cargo'); ?>
-	</div>
-
-	<div>
 		<?php echo $form->labelEx($model,'legajo'); ?>
 		<?php echo $form->textField($model,'legajo'); ?>
 		<?php echo $form->error($model,'legajo'); ?>
