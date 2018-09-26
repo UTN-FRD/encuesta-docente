@@ -9,10 +9,11 @@ $this->pageTitle=Yii::app()->name;
 <div>
 <?php
 $usuario = Yii::app()->user->name;
-//$usuario = "40235174";
+
 $idUsuario = Participants::model()->findAllByAttributes(array('dni'=>$usuario));
 
 $asignaturas = array();
+
 foreach(array_column($idUsuario,'participant_id') as $idTemp)
 {
 
@@ -22,8 +23,7 @@ foreach(array_column($idUsuario,'participant_id') as $idTemp)
 $idAsignaturas = array_column($asignaturas,'asignatura_id');
 $asignaturaProfesor = AsignaturaProfesor::model()->findAllByAttributes(array('asignatura_id'=>$idAsignaturas));
 $url = Yii::app()->request->baseUrl;
-foreach($asignaturaProfesor as $elemento){ ?>
-        <?php
+foreach($asignaturaProfesor as $elemento){
         $asignatura = implode(array_column(array($elemento),'asignatura_id'));
         $profesor = implode(array_column(array($elemento),'profesor_id'));
         $profesor = Profesores::model()->findAllByAttributes(array('id'=>$profesor));
@@ -43,11 +43,11 @@ foreach($asignaturaProfesor as $elemento){ ?>
         echo CHtml::button(
                 'Materia: '.$asignatura.' de: '.$profesor,
                 array(
-                        'class'=>"btn btn-primary btn-large", "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
+                        'class'=>"btn btn-primary btn-large", 
+                        "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
                         'onclick'=>"window.open(`{$url}/limesurvey/index.php/164846?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`)",
                 )
         );
-        ?>
-<?php } ?>
+} ?>
 
 </div>
