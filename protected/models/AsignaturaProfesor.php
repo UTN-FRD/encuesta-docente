@@ -7,6 +7,7 @@
  * @property integer $asignatura_id
  * @property integer $profesor_id
  * @property integer $id
+ * @property varchar(50) $cargo
  */
 class AsignaturaProfesor extends CActiveRecord
 {
@@ -28,9 +29,10 @@ class AsignaturaProfesor extends CActiveRecord
 		return array(
 			array('asignatura_id, profesor_id', 'required'),
 			array('asignatura_id, profesor_id', 'numerical', 'integerOnly'=>true),
+			array('cargo', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('asignatura_id, profesor_id, id', 'safe', 'on'=>'search'),
+			array('asignatura_id, profesor_id, id, cargo', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -80,6 +82,7 @@ class AsignaturaProfesor extends CActiveRecord
 
 		$criteria->compare('asignatura_id',$this->asignatura_id);
 		$criteria->compare('profesor_id',$this->profesor_id);
+		$criteria->compare('cargo',$this->cargo);
 		$criteria->compare('id',$this->id);
 
 		return new CActiveDataProvider($this, array(
