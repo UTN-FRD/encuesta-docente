@@ -83,5 +83,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'sergioviera@gmail.com',
+		'encuestaTitular'=>'164846',
+		'encuestaAuxiliar'=>'123456',
 	),
 );

@@ -24,30 +24,48 @@ $idAsignaturas = array_column($asignaturas,'asignatura_id');
 $asignaturaProfesor = AsignaturaProfesor::model()->findAllByAttributes(array('asignatura_id'=>$idAsignaturas));
 $url = Yii::app()->request->baseUrl;
 foreach($asignaturaProfesor as $elemento){
-        $asignatura = implode(array_column(array($elemento),'asignatura_id'));
-        $profesor = implode(array_column(array($elemento),'profesor_id'));
-        $profesor = Profesores::model()->findAllByAttributes(array('id'=>$profesor));
-        $profesor = array_column($profesor,'nombre');
-        $profesor = implode($profesor);
-        $asignatura = Asignaturas::model()->findAllByAttributes(array('id'=>$asignatura));
-        $asignatura = array_column($asignatura,'descripcion');
-        $asignatura = implode($asignatura);
+
+        $profesor = $elemento->profesor_id;
+        $profesor = Profesores::model()->findByAttributes(array('id'=>$profesor));
+        $profesor = $profesor->nombre;
+
+        $asignatura = $elemento->asignatura_id;
+        $asignatura = Asignaturas::model()->findByAttributes(array('id'=>$asignatura));
+        $asignatura = $asignatura->descripcion;
+
+        $cargo = $elemento->cargo;
+
         $asignaturaProfesorId = $elemento->id;
         $token = $asignaturaProfesorId.$usuario;
         $token = str_replace(array('0','1','2','3','4','5','6','7','8','9'),array('A','S','D','F','G','H','J','K','L'),$token);
+
         if (Tokens::model()->findAllByAttributes(array('token'=>$token))===array()) {
                 $newToken=new Tokens;
                 $newToken->token=$token;
                 $newToken->save();
         }
-        echo CHtml::button(
-                'Materia: '.$asignatura.' de: '.$profesor,
-                array(
-                        'class'=>"btn btn-primary btn-large", 
-                        "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
-                        'onclick'=>"window.open(`{$url}/limesurvey/index.php/164846?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`)",
-                )
-        );
+        if ($cargo==='Titular') {
+                $encuesta = Yii::app()->params['encuestaTitular'];
+                echo CHtml::button(
+                        'Materia: '.$asignatura.'. Profesor: '.$profesor.'. Cargo: '.$cargo,
+                        array(
+                                'class'=>"btn btn-primary btn-large", 
+                                "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
+                                'onclick'=>"window.open(`{$url}/limesurvey/index.php/{$encuesta}?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`)",
+                        )
+                );
+        }
+        if ($cargo==='Auxiliar') {
+                $encuesta = Yii::app()->params['encuestaAuxiliar'];
+                echo CHtml::button(
+                        'Materia: '.$asignatura.'. Profesor: '.$profesor.'. Cargo: '.$cargo,
+                        array(
+                                'class'=>"btn btn-primary btn-large", 
+                                "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
+                                'onclick'=>"window.open(`{$url}/limesurvey/index.php/{$encuesta}?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`)",
+                        )
+                );
+        }
 } ?>
 
 </div>
