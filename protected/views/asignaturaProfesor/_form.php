@@ -19,23 +19,21 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div>
-		<?php echo $form->labelEx($model,'asignatura_id'); ?>
-		<?php echo $form->dropDownList($model,'asignatura_id',CHtml::listData(Asignaturas::model()->findall(),"id","descripcion","plan")); ?>
-		<?php echo $form->error($model,'asignatura_id'); ?>
-	</div>
+	<?php $this->renderPartial('../widgets/asignaturaSelector',array(
+		'model'=>$model,
+		'form'=>$form
+	)); ?>
 
-	<div>
-		<?php echo $form->labelEx($model,'profesor_id'); ?>
-		<?php echo $form->dropDownList($model,'profesor_id',CHtml::listData(Profesores::model()->findall(),"id","nombre")); ?>
-		<?php echo $form->error($model,'profesor_id'); ?>
-	</div>
+	<?php $this->renderPartial('../widgets/profesorSelector',array(
+		'model'=>$model,
+		'form'=>$form
+	)); ?>
 
-	<div>
-		<?php echo $form->labelEx($model,'cargo'); ?>
-		<?php echo $form->dropDownList($model,'cargo',array('Titular'=>'Titular','Auxiliar'=>'Auxiliar'),array('empty' => '(Seleccione)'),array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'cargo'); ?>
-	</div>
+	<?php $this->renderPartial('../widgets/cargoSelector',array(
+		'model'=>$model,
+		'form'=>$form
+	)); ?>
+
 
 	<div class="buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar',array("class"=>"btn btn-primary btn-large")); ?>

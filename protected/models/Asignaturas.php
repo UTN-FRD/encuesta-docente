@@ -92,6 +92,33 @@ class Asignaturas extends CActiveRecord
 		));
 	}
 
+
+	public function getAsignaturaDescripcion() {
+		$carreraDesc;
+		switch ($this->carrera_id) {
+			case '5':
+				$carreraDesc = "Ing. Sistemas";
+				break;
+			
+			case '7':
+				$carreraDesc = "Ing. Electrica";
+				break;
+			
+			case '17':
+				$carreraDesc = "Ing. Mecanica";
+				break;
+			
+			case '27':
+				$carreraDesc = "Ing. Quimica";
+				break;
+			
+			default:
+				$carreraDesc = $this->carrera_id;
+				break;
+		}
+
+		return sprintf('%s PLAN %s - %s', $this->descripcion, $this->plan, $carreraDesc);
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -102,4 +129,6 @@ class Asignaturas extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+
 }
