@@ -24,12 +24,13 @@
  */
 class Tokens extends CActiveRecord
 {
+	public $helperVar;
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'tokens_164846';
+		return 'tokens_'.Tokens::model()->helperVar;
 	}
 
 	/**

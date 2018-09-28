@@ -39,33 +39,27 @@ foreach($asignaturaProfesor as $elemento){
         $token = $asignaturaProfesorId.$usuario;
         $token = str_replace(array('0','1','2','3','4','5','6','7','8','9'),array('A','S','D','F','G','H','J','K','L'),$token);
 
-        if (Tokens::model()->findAllByAttributes(array('token'=>$token))===array()) {
-                $newToken=new Tokens;
-                $newToken->token=$token;
-                $newToken->save();
+        $encuesta = Yii::app()->params[$cargo];
+        Tokens::model()->helperVar = $encuesta;
+        Tokens::model()->refreshMetaData();
+
+        if ($cargo) {
+                if (Tokens::model()->findAllByAttributes(array('token'=>$token))===array()) {
+                        echo Tokens::model()->helperVar;
+                        $newToken=new Tokens;
+                        $newToken->token=$token;
+                        $newToken->save();
+                }
         }
-        if ($cargo==='Titular') {
-                $encuesta = Yii::app()->params['encuestaTitular'];
-                echo CHtml::button(
-                        'Materia: '.$asignatura.'. Profesor: '.$profesor.'. Cargo: '.$cargo,
-                        array(
-                                'class'=>"btn btn-primary btn-large", 
-                                "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
-                                'onclick'=>"window.open(`{$url}/limesurvey/index.php/{$encuesta}?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`)",
-                        )
-                );
-        }
-        if ($cargo==='Auxiliar') {
-                $encuesta = Yii::app()->params['encuestaAuxiliar'];
-                echo CHtml::button(
-                        'Materia: '.$asignatura.'. Profesor: '.$profesor.'. Cargo: '.$cargo,
-                        array(
-                                'class'=>"btn btn-primary btn-large", 
-                                "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
-                                'onclick'=>"window.open(`{$url}/limesurvey/index.php/{$encuesta}?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`)",
-                        )
-                );
-        }
+        echo CHtml::button(
+                'Materia: '.$asignatura.'. Profesor: '.$profesor.'. Cargo: '.$cargo,
+                array(
+                        'class'=>"btn btn-primary btn-large", 
+                        "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
+                        'onclick'=>"window.open(`{$url}/limesurvey/index.php/{$encuesta}?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`)",
+                )
+        );
+        
 } ?>
 
 </div>
