@@ -30,7 +30,7 @@ class Tokens extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tokens_'.Tokens::model()->helperVar;
+		return 'tokens_' . $this->helperVar;
 	}
 
 	/**

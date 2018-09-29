@@ -45,12 +45,13 @@ foreach($asignaturaProfesor as $elemento){
 
         if ($cargo) {
                 if (Tokens::model()->findAllByAttributes(array('token'=>$token))===array()) {
-                        echo Tokens::model()->helperVar;
+                        // echo Tokens::model()->helperVar;
                         $newToken=new Tokens;
                         $newToken->token=$token;
                         $newToken->save();
                 }
         }
+        
         echo CHtml::button(
                 'Materia: '.$asignatura.'. Profesor: '.$profesor.'. Cargo: '.$cargo,
                 array(
