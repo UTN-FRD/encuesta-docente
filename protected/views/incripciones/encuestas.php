@@ -45,22 +45,22 @@ foreach($asignaturaProfesor as $elemento){
 
         if ($cargo) {
                 if (Tokens::model()->findAllByAttributes(array('token'=>$token))===array()) {
-                        // echo Tokens::model()->helperVar;
                         $newToken=new Tokens;
                         $newToken->token=$token;
                         $newToken->save();
                 }
+                
+                if ((Tokens::model()->findByAttributes(array('token'=>$token)))->usesleft==='1') {
+                        echo CHtml::button(
+                                'Materia: '.$asignatura.'. Profesor: '.$profesor.'. Cargo: '.$cargo,
+                                array(
+                                        'class'=>"btn btn-primary btn-large", 
+                                        "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
+                                        'onclick'=>"window.open(`{$url}/limesurvey/index.php/{$encuesta}?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`)",
+                                )
+                        );
+                }
         }
-        
-        echo CHtml::button(
-                'Materia: '.$asignatura.'. Profesor: '.$profesor.'. Cargo: '.$cargo,
-                array(
-                        'class'=>"btn btn-primary btn-large", 
-                        "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
-                        'onclick'=>"window.open(`{$url}/limesurvey/index.php/{$encuesta}?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`)",
-                )
-        );
-        
 } ?>
 
 </div>
