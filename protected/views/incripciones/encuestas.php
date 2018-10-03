@@ -60,6 +60,15 @@ foreach($asignaturaProfesor as $elemento){
                                 )
                         );
                 }
+                if ((Tokens::model()->findByAttributes(array('token'=>$token)))->usesleft==='0') {
+                        echo CHtml::button(
+                                'Materia: '.$asignatura.'. Profesor: '.$profesor.'. Cargo: '.$cargo.' ✔',
+                                array(
+                                        'class'=>"btn btn-light btn-large", 
+                                        "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
+                                )
+                        );
+                }
         }
 } ?>
 

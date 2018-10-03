@@ -96,26 +96,26 @@ class index extends CAction
         App()->getPluginManager()->dispatchEvent($beforeSurveyPageEvent);
 
         if ($this->_isClientTokenDifferentFromSessionToken($clienttoken, $surveyid)) {
-            $sReloadUrl = $this->getController()->createUrl("/survey/index/sid/{$surveyid}", array('token'=>$clienttoken, 'lang'=>App()->language, 'newtest'=>'Y'));
+           /* $sReloadUrl = $this->getController()->createUrl("/survey/index/sid/{$surveyid}", array('token'=>$clienttoken, 'lang'=>App()->language, 'newtest'=>'Y'));
             $aErrors    = array(gT('Token mismatch'));
             $asMessage  = array(gT('The token you provided doesn\'t match the one in your session.'));
             $aUrl       = array(
                             'url'=>$sReloadUrl,
                             'type'=>'restart-survey',
                             'description'=>gT("Click here to start the survey.")
-                            );
+                            );*/
 
             killSurveySession($surveyid);
 
-            App()->getController()->renderExitMessage(
+            /*App()->getController()->renderExitMessage(
                 $surveyid,
                 'restart-survey',
                 $asMessage,
                 $aUrl,
                 $aErrors
-            );
+            );*/
 
-            $this->_createNewUserSessionAndRedirect($surveyid, $redata, __LINE__, $asMessage);
+            // $this->_createNewUserSessionAndRedirect($surveyid, $redata, __LINE__, $asMessage);
 
         } elseif (!$clienttoken) {
             $clienttoken = isset($_SESSION['survey_'.$surveyid]['token']) ? $_SESSION['survey_'.$surveyid]['token'] : ""; // Fix for #12003
