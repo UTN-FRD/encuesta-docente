@@ -45,7 +45,7 @@
 
 	<div>
 		<?php echo $form->labelEx($model,'fecha_ingreso'); ?>
-		<?php echo $form->dateField($model,'fecha_ingreso'); ?>
+		<?php echo $form->dateField($model,'fecha_ingreso',array('value'=>date('Y-m-d'))); ?>
 		<?php echo $form->error($model,'fecha_ingreso'); ?>
 	</div>
 
