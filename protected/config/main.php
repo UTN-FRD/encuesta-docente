@@ -82,9 +82,9 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'sergioviera@gmail.com',
+		'adminEmail'=>'encuestadocentefrd@gmail.com',
 		//nro de la encuesta actual para asignatura/profesor titular o auxiliar
-		'Titular'=>'164846',
-		'Auxiliar'=>'954641',
+		'Titular'=>'398398',
+		'Auxiliar'=>'398398',
 	),
 );
