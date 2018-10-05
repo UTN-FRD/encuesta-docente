@@ -70,6 +70,8 @@ foreach($asignaturaProfesor as $elemento){
                         );
                 }
         }
-} ?>
+} 
+
+header("Refresh:60");?>
 
 </div>
