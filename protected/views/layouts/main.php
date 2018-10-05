@@ -67,7 +67,13 @@
 				array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		));
-	 } ?>
+	?>
+
+		<style type="text/css">
+			.span-4 { display: block; }
+		</style>
+
+	<?php } ?>
 
 	<?php 
 	if(!Yii::app()->user->isAdmin()) {
@@ -76,7 +82,15 @@
 				array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		));
-	 } ?>
+	?>
+
+		<style type="text/css">
+			.span-4 { display: none; }
+			.span-24 { width: 100%; }
+		</style>
+
+	<?php } ?>
+
 	</div><!-- mainmenu -->
 
 	<?php if(isset($this->breadcrumbs)):?>
@@ -94,17 +108,6 @@
 	</div><!-- footer -->
 
 </div><!-- page -->
-
-<script>
-	$(function(){
-		if (window.location.href == "http://localhost/encuestadocente/index.php/incripciones/encuestas") {
-				$(".span-4").hide();
-				$(".span-24").css("width", "100%");
-		} else {
-				$(".span-4").show();
-		}
-	});
-</script>
 
 </body>
 </html>
