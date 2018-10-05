@@ -17,6 +17,10 @@ body
 
 #header
 {
+	background-image: url('../themes/images/blurred-background-close-up-coffee-cup-908284.jpg');
+	background-position: center;
+	background-size: cover;
+	min-height: 30vh;
 	margin: 0;
 	padding: 0;
 	/* border-top: 3px solid #C9E0ED; */
@@ -68,6 +72,10 @@ body
 	align-self: center;
 	text-align: center;
 	margin-left: 10px;
+}
+
+#logo > img {
+	margin: 10px;
 }
 
 /*

@@ -36,7 +36,7 @@
 
 	<div id="header">
 		<div id="logo" style="padding:0">
-			<img src="<?php echo Yii::app()->baseUrl; ?>/themes/images/survey_list_header.jpg" height="100px"/>
+			<img src="<?php echo Yii::app()->baseUrl; ?>/themes/images/survey_list_header.png" height="100px"/>
 			<span>
 			<?php if(!Yii::app()->user->isGuest) {
 				echo CHtml::encode(Yii::app()->name); 
