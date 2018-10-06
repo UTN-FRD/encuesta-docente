@@ -23,7 +23,14 @@ body
 	min-height: 30vh;
 	margin: 0;
 	padding: 0;
+	opacity: 0.95;
+    filter: alpha(opacity=95); /* For IE8 and earlier */
 	/* border-top: 3px solid #C9E0ED; */
+}
+
+#header:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
 }
 
 #content
@@ -66,12 +73,17 @@ body
 	padding: 10px 20px;
 	font-size: 200%;
 	display: flex;
+	opacity: 0.85;
+    filter: alpha(opacity=85); /* For IE8 and earlier */
 }
 
 #logo > span {
 	align-self: center;
 	text-align: center;
 	margin-left: 10px;
+	color: #000000;
+	font-style: italic;
+	font-weight: 550;
 }
 
 #logo > img {
