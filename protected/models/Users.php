@@ -21,6 +21,9 @@
  */
 class Users extends CActiveRecord
 {
+	public $old_password;
+	public $new_password;
+	public $repeat_password;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -37,6 +40,12 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('old_password, new_password, repeat_password', 'required', 'on' => 'changePwd'),
+			array('old_password', 'findPasswords', 'on' => 'changePwd'),
+			array('repeat_password', 'compare', 'compareAttribute'=>'new_password', 'on'=>'changePwd'),
+			array('new_password, repeat_password', 'required', 'on' => 'changePwd2'),
+			array('old_password', 'findPasswords2', 'on' => 'changePwd2'),
+			array('repeat_password', 'compare', 'compareAttribute'=>'new_password', 'on'=>'changePwd2'),
 			array('password, full_name, parent_id', 'required'),
 			array('parent_id, dateformat', 'numerical', 'integerOnly'=>true),
 			array('users_name', 'length', 'max'=>64),
@@ -70,7 +79,7 @@ class Users extends CActiveRecord
 		return array(
 			'uid' => 'Uid',
 			'users_name' => 'Users Name',
-			'password' => 'Password',
+			'password' => 'Contrase&ntilde;a',
 			'full_name' => 'Full Name',
 			'parent_id' => 'Parent',
 			'lang' => 'Lang',
@@ -132,5 +141,16 @@ class Users extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function findPasswords($attribute, $params)
+	{
+		$user = Users::model()->findByPk(Yii::app()->user->id);
+		if (!password_verify($this->old_password,$user->password))
+			$this->addError($attribute, 'Old password is incorrect.');
+	}
+	public function findPasswords2($attribute, $params)
+	{
+		$user = Users::model()->findByPk(Yii::app()->user->id);
 	}
 }

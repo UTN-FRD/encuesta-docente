@@ -1,20 +1,13 @@
-<?php
-/* @var $this UsersController */
-/* @var $dataProvider CActiveDataProvider */
+<h3>Contraseña cambiada correctamente</h3>
 
-$this->breadcrumbs=array(
-	'Users',
-);
-
-$this->menu=array(
-	array('label'=>'Create Users', 'url'=>array('create')),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
-);
+ <?php
+ $url = Yii::app()->request->baseUrl;
+ echo CHtml::htmlButton(
+    'Volver a Encuestas',
+    array(
+        'class'=>"btn btn-primary", 
+		"style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
+		'onclick'=>"window.location.href = `{$url}/index.php/incripciones/encuestas`",
+        )
+	);
 ?>
-
-<h1>Users</h1>
-
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>

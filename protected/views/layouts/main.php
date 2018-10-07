@@ -61,6 +61,7 @@
 					array('label'=>'Alumnos', 'url'=>array('/participants/admin', 'view'=>'about')),
 					array('label'=>'Profesores', 'url'=>array('/profesores/admin', 'view'=>'about')),
 					array('label'=>'Carreras', 'url'=>array('/carreras/admin', 'view'=>'about')),
+					array('label'=>'Usuarios', 'url'=>array('/users/admin', 'view'=>'about')),
 				  ),
 				),
 				array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
@@ -76,10 +77,13 @@
 	<?php } ?>
 
 	<?php 
+	$user = Yii::app()->user->id;
 	if(!Yii::app()->user->isAdmin()) {
 		$this->widget('application.extensions.mbmenu.MbMenu',array(
 			'items'=>array(
-				array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				array('label'=>'Encuestas', 'url'=>array('/incripciones/encuestas'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Cambiar contraseña', 'url'=>array('/users/changePassword/'.$user), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
 			),
 		));
 	?>

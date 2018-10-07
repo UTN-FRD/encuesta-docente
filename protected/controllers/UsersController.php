@@ -31,12 +31,17 @@ class UsersController extends Controller
 		$noAdmins = array_column($noAdmins,'users_name');
 		$users = array_column($users,'users_name');
 		return array(
-			array('deny',  // deny all users
+			array('deny', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','update'),
 				'users'=>$noAdmins,
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','create','update','index','view'),
+				'actions'=>array('admin','update'),
 				'users'=>$users,
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('changepassword','index'),
+				'users'=>$noAdmins,
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -85,21 +90,29 @@ class UsersController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		$model = new Users;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$model = Users::model()->findByAttributes(array('uid'=>$id));
+		$model->setScenario('changePwd2');
 
-		if(isset($_POST['Users']))
-		{
-			$model->attributes=$_POST['Users'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->uid));
+
+		if(isset($_POST['Users'])){
+				
+			$model->attributes = $_POST['Users'];
+			$valid = $model->validate();
+					
+			if($valid){
+					
+				$model->password = password_hash($model->new_password,PASSWORD_DEFAULT);
+						
+				if($model->save())
+				$this->redirect(Yii::app()->request->baseUrl."/index.php/users/admin");
+				else
+					$this->redirect(array('changepassword','msg'=>'password not changed'));
+			}
 		}
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
+		$this->render('update',array('model'=>$model));	
 	}
 
 	/**
@@ -168,5 +181,32 @@ class UsersController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	public function actionChangepassword($id)
+	{		
+		$model = new Users;
+
+		$model = Users::model()->findByAttributes(array('uid'=>$id));
+		$model->setScenario('changePwd');
+
+
+		if(isset($_POST['Users'])){
+				
+			$model->attributes = $_POST['Users'];
+			$valid = $model->validate();
+					
+			if($valid){
+					
+				$model->password = password_hash($model->new_password,PASSWORD_DEFAULT);
+						
+				if($model->save())
+				$this->redirect(Yii::app()->request->baseUrl."/index.php/users/index");
+				else
+					$this->redirect(array('changepassword','msg'=>'password not changed'));
+			}
+		}
+
+		$this->render('changepassword',array('model'=>$model));	
 	}
 }
