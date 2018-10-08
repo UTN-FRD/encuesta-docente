@@ -56,7 +56,7 @@ foreach($asignaturaProfesor as $elemento){
                                 array(
                                         'class'=>"btn btn-primary btn-large", 
                                         "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
-                                        'onclick'=>"window.open(`{$url}/LimeSurvey/index.php/{$encuesta}?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`)",
+                                        'onclick'=>"window.open(`{$url}/LimeSurvey/index.php/{$encuesta}?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`,`_self`)",
                                 )
                         );
                 }
