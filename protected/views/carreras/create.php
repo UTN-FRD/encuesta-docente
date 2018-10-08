@@ -9,10 +9,10 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 //	array('label'=>'List Carreras', 'url'=>array('index')),
-	array('label'=>'Manage Carreras', 'url'=>array('admin')),
+	array('label'=>'Ver Carreras', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Crear Carreras</h1>
+<h1>Crear Carrera</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

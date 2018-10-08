@@ -1,12 +1,12 @@
-<h1>Cambiar </h1>
+<h1>Cambiar Contraseña</h1>
 
 <div class="form">
 
 <?php $form = $this->beginWidget('CActiveForm', array(
-			'id' => 'chnage-password-form',
+			'id' => 'change-password-form',
 			'enableClientValidation' => true,
 			'clientOptions' => array(
-				'validateOnSubmit' => true,
+			'validateOnSubmit' => true,
 			),
 	 ));
 ?>
@@ -18,5 +18,18 @@
   <div>
 		<?php echo CHtml::submitButton('Guardar',array("class"=>"btn btn-primary btn-large")); ?>
     </div>
-  <?php $this->endWidget(); ?>
+	<?php $this->endWidget(); ?>
+	
+	<style type="text/css">
+
+			.span-4 { display: none; }
+			.span-24 { width: 100%; }
+
+			div.form {
+				text-align: center;
+			}
+			
+	</style>
+
 </div>
+

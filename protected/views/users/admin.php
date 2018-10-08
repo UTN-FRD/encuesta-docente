@@ -3,8 +3,8 @@
 /* @var $model Users */
 
 $this->breadcrumbs=array(
-	'Users'=>array('index'),
-	'Manage',
+	'Usuarios'=>array('index'),
+	'Administar',
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -53,3 +53,11 @@ $('.search-form form').submit(function(){
 		),
 	),
 )); ?>
+
+<style type="text/css">
+
+	.span-4 { display: none; }
+	.span-24 { width: 100%; }
+	
+</style>
+			

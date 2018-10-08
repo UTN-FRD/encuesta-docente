@@ -80,9 +80,9 @@ class Participants extends CActiveRecord
 			'created_by' => 'Created By',
 			'created' => 'Created',
 			'modified' => 'Modified',
-			'dni' => 'Dni',
+			'dni' => 'DNI',
 			'legajo' => 'Legajo',
-			'anio_ingreso' => 'Anio Ingreso',
+			'anio_ingreso' => 'A&ntilde;o Ingreso',
 			'especialidad_plan' => 'Especialidad Plan',
 			'carrera_id' => 'Carrera',
 		);

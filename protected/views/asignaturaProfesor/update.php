@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 //	array('label'=>'List AsignaturaProfesor', 'url'=>array('index')),
-	array('label'=>'Nuevo Asignatura-Profesor', 'url'=>array('create')),
+	array('label'=>'Crear Asignatura-Profesor', 'url'=>array('create')),
 //	array('label'=>'View AsignaturaProfesor', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Ver Asignatura-Profesor', 'url'=>array('admin')),
 );

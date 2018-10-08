@@ -78,9 +78,9 @@ class Users extends CActiveRecord
 	{
 		return array(
 			'uid' => 'Uid',
-			'users_name' => 'Users Name',
+			'users_name' => 'Usuario',
 			'password' => 'Contrase&ntilde;a',
-			'full_name' => 'Full Name',
+			'full_name' => 'Nombre',
 			'parent_id' => 'Parent',
 			'lang' => 'Lang',
 			'email' => 'Email',
@@ -91,6 +91,11 @@ class Users extends CActiveRecord
 			'dateformat' => 'Dateformat',
 			'created' => 'Created',
 			'modified' => 'Modified',
+
+			// Atributos para el cambio de contraseña
+			'new_password' => 'Nueva Contraseña',
+			'repeat_password' => 'Repetir Contraseña',
+			'old_password' => 'Contraseña Actual'
 		);
 	}
 

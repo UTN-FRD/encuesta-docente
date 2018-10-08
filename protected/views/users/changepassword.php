@@ -1,11 +1,11 @@
 <div class="form">
 
 <?php $form = $this->beginWidget('CActiveForm', array(
-			'id' => 'chnage-password-form',
+			'id' => 'change-password-form',
 			'enableClientValidation' => true,
 			'htmlOptions' => array('class' => 'well'),
 			'clientOptions' => array(
-				'validateOnSubmit' => true,
+			'validateOnSubmit' => true,
 			),
 	 ));
 ?>

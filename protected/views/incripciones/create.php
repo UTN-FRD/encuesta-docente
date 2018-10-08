@@ -9,10 +9,10 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 //	array('label'=>'List Incripciones', 'url'=>array('index')),
-	array('label'=>'Ver Incripciones', 'url'=>array('admin')),
+	array('label'=>'Ver Inscripciones', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Crear Inscripciones</h1>
+<h1>Crear Inscripci&oacute;n</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -45,6 +45,10 @@ div.form select
 	margin: 0.2em 0 0.5em 0;
 }
 
+div.form form#change-password-form > div:not(:last-child) {
+	margin-bottom: 0.5em;
+}
+
 div.form fieldset
 {
 	border: 1px solid #DDD;
