@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
 <?php
 /* @var $this SiteController */
 /* @var $model LoginForm */
@@ -48,9 +57,17 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 		<?php echo $form->error($model,'rememberMe'); ?>
 	</div> -->
 
+	<a href="#" data-toggle="popover"  data-content="Si olvidó su contraseña, comuníquese con SAE a través de sae@frd.utn.edu.ar">Olvidé mi contraseña</a>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Entrar',array("class"=>"btn btn-primary btn-large")); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
