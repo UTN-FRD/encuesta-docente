@@ -4,4 +4,4 @@
  *
  */
 ?>
-<?php echo gT("Exit and clear survey"); ?>
+<?php echo gT("Salir y limpiar campos"); ?>

@@ -1,3 +1,5 @@
+<h1>Cambiar Contraseña</h1>
+
 <div class="form">
 
 <?php $form = $this->beginWidget('CActiveForm', array(

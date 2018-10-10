@@ -12,6 +12,9 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection">
 	<![endif]-->
 
+	<link rel="shortcut icon" href="../../themes/images/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="../../themes/images/favicon.ico" type="image/x-icon">
+
 	<!-- Bootstrap requiere jQuery -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -32,86 +35,79 @@
 
 <body>
 
-<div class="container" id="page">
-
 	<div id="header">
-		<div id="logo" style="padding:0">
-			<img src="<?php echo Yii::app()->baseUrl; ?>/themes/images/survey_list_header.png" height="100px"/>
-			<span>
-			<?php if(!Yii::app()->user->isGuest) {
-				echo CHtml::encode(Yii::app()->name); 
-			}
-			?>
-			</span>
+		<img src="<?php echo Yii::app()->baseUrl; ?>/themes/images/survey_list_header.png">
+
+		<div>
+			<?php echo CHtml::encode(Yii::app()->name); ?>
 		</div>
 	</div><!-- header -->
 	
 	<!-- Menú de navegación -->
 	<div id="mainMbMenu">
-	<?php
-	if(Yii::app()->user->isAdmin()) {
-		$this->widget('application.extensions.mbmenu.MbMenu',array(
-			'items'=>array(
-	//			array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'Asignaturas-Profesor', 'url'=>array('/AsignaturaProfesor/admin', 'view'=>'about')),
-				array('label'=>'Inscripciones', 'url'=>array('/incripciones/admin', 'view'=>'about')),
-				array('label'=>'Administrar', 'url'=>array(''),
-				  'items'=>array(
-					array('label'=>'Asignaturas', 'url'=>array('/asignaturas/admin', 'view'=>'about')),
-					array('label'=>'Alumnos', 'url'=>array('/participants/admin', 'view'=>'about')),
-					array('label'=>'Profesores', 'url'=>array('/profesores/admin', 'view'=>'about')),
-					array('label'=>'Carreras', 'url'=>array('/carreras/admin', 'view'=>'about')),
-					array('label'=>'Usuarios', 'url'=>array('/users/admin', 'view'=>'about')),
-				  ),
-				),
-				array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		));
-	?>
+		<?php
+			if(Yii::app()->user->isAdmin()) {
+				$this->widget('application.extensions.mbmenu.MbMenu',array(
+					'items'=>array(
+						// array('label'=>'Home', 'url'=>array('/site/index')),
+						array('label'=>'Asignaturas-Profesor', 'url'=>array('/AsignaturaProfesor/admin', 'view'=>'about')),
+						array('label'=>'Inscripciones', 'url'=>array('/incripciones/admin', 'view'=>'about')),
+						array('label'=>'Administrar', 'url'=>array(''),
+						'items'=>array(
+							array('label'=>'Asignaturas', 'url'=>array('/asignaturas/admin', 'view'=>'about')),
+							array('label'=>'Alumnos', 'url'=>array('/participants/admin', 'view'=>'about')),
+							array('label'=>'Profesores', 'url'=>array('/profesores/admin', 'view'=>'about')),
+							array('label'=>'Carreras', 'url'=>array('/carreras/admin', 'view'=>'about')),
+							array('label'=>'Usuarios', 'url'=>array('/users/admin', 'view'=>'about')),
+						),
+						),
+						array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+						array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+					),
+				));
+		?>
 
-		<style type="text/css">
-			.span-4 { display: block; }
-		</style>
+			<style type="text/css">
+				.span-4 { display: block; }
+			</style>
 
-	<?php } ?>
+		<?php } ?>
 
-	<?php 
-	$user = Yii::app()->user->id;
-	if(!Yii::app()->user->isAdmin()) {
-		$this->widget('application.extensions.mbmenu.MbMenu',array(
-			'items'=>array(
-				array('label'=>'Encuestas', 'url'=>array('/incripciones/encuestas'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Cambiar contraseña', 'url'=>array('/users/changePassword/'.$user), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
-			),
-		));
-	?>
+		<?php 
+			$user = Yii::app()->user->id;
+			if(!Yii::app()->user->isAdmin()) {
+				$this->widget('application.extensions.mbmenu.MbMenu',array(
+					'items'=>array(
+						array('label'=>'Encuestas', 'url'=>array('/incripciones/encuestas'), 'visible'=>!Yii::app()->user->isGuest),
+						array('label'=>'Cambiar contraseña', 'url'=>array('/users/changePassword/'.$user), 'visible'=>!Yii::app()->user->isGuest),
+						array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+					),
+				));
+		?>
 
-		<style type="text/css">
-			.span-4 { display: none; }
-			.span-24 { width: 100%; }
-		</style>
+			<style type="text/css">
+				.span-4 { display: none; }
+				.span-24 { width: 100%; }
+			</style>
 
-	<?php } ?>
-
+		<?php } ?>
 	</div><!-- mainmenu -->
 
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
+	<div class="site-wrap">
+		<?php if(isset($this->breadcrumbs)):?>
+			<?php $this->widget('zii.widgets.CBreadcrumbs', array(
+				'links'=>$this->breadcrumbs,
+			)); ?><!-- breadcrumbs -->
+		<?php endif?>
 
-	<?php echo $content; ?>
+		<?php echo $content; ?>
 
-	<div class="clear"></div>
+		<div class="clear"></div>
 
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by <a href="http://lsi.no-ip.org">LSI</a>.<br/>
-	</div><!-- footer -->
-
-</div><!-- page -->
+		<div id="footer">
+			Copyright &copy; <?php echo date('Y'); ?> by <a href="http://lsi.no-ip.org">LSI</a>.<br/>
+		</div><!-- footer -->
+	</div><!-- site-wrap -->
 
 </body>
 </html>

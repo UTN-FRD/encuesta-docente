@@ -4,4 +4,4 @@
  * @todo : some cmlass ? Review class ?
  */
 ?>
-<p><?php echo gT("Please confirm you want to clear your response?"); ?></p>
+<p><?php echo gT("Realmente desea salir de la encuesta?"); ?></p>

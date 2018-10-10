@@ -56,7 +56,8 @@ foreach($asignaturaProfesor as $elemento){
                                 array(
                                         'class'=>"btn btn-primary btn-large", 
                                         "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
-                                        'onclick'=>"window.open(`{$url}/LimeSurvey/index.php/{$encuesta}?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`,`_self`)",
+                                        // 'onclick'=>"window.open(`{$url}/LimeSurvey/index.php/{$encuesta}?token={$token}&asignatura_profesor_id={$asignaturaProfesorId}`,`_self`)",
+                                        'onclick'=>"abrirEncuesta('$url', '$encuesta', '$token', '$asignaturaProfesorId')"
                                 )
                         );
                 }
@@ -75,3 +76,11 @@ foreach($asignaturaProfesor as $elemento){
 header("Refresh:60");?>
 
 </div>
+
+<script>
+        let url, encuesta, token, asignaturaProfesorId;
+
+        function abrirEncuesta(url, encuesta, token, asignaturaProfesorId) {
+                window.open(`${url}/LimeSurvey/index.php/${encuesta}/token=${token}&asignatura_profesor_id=${asignaturaProfesorId}`, '_self');
+        }
+</script>

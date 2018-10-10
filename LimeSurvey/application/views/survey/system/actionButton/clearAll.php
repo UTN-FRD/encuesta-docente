@@ -11,9 +11,9 @@
 echo CHtml::openTag("div",array("class"=>"form-inline ls-{$name}-form"));
     echo CHtml::openTag("label",array("class"=>"form-group hidden"));
         echo CHtml::checkBox($confirmedby,false,array('id'=>false,'value'=>$confirmvalue));
-        echo CHtml::tag("span",array('class'=>'control-label'),gT("Please confirm you want to clear your response?"));
+        echo CHtml::tag("span",array('class'=>'control-label'),gT("Realmente desea salir de la encuesta?"));
     echo CHtml::closeTag("label");
-    echo CHtml::htmlButton(gT("Exit and clear survey"),array(
+    echo CHtml::htmlButton(gT("Salir y limpiar campos"),array(
         'type'=>'submit',
         'id'=>null,
         'value'=>$value,

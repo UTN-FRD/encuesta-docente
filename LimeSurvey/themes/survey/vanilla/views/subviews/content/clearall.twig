@@ -11,14 +11,14 @@
 
     (¯`·._.·(¯`·._.· Clear All Content  ·._.·´¯)·._.·´¯)
 
-    This file displays the page shown to a respondent when they have cleared the survey (only show "Restart this survey")
+    This file displays the page shown to a respondent when they have cleared the survey (only show "Completar la encuesta nuevamente")
 
     NOTE: This content is included inside mainrow.twig
 #}
 
 <div class='{{ aSurveyInfo.class.clearall }}' {{ aSurveyInfo.attr.clearall }}>
     <div class=" {{ aSurveyInfo.class.clearalldiv }} " {{ aSurveyInfo.attr.clearalldiv }}>
-        <p>{{ gT("Answers cleared") }}</p>
-        <a href="{{ aSurveyInfo.surveyUrl }}" class="{{ aSurveyInfo.class.clearalla }}" {{ aSurveyInfo.attr.clearalla }}>{{ gT("Restart this survey") }}</a>
+        <p>{{ gT("Respuestas reiniciadas") }}</p>
+        <a href="{{ aSurveyInfo.surveyUrl }}" class="{{ aSurveyInfo.class.clearalla }}" {{ aSurveyInfo.attr.clearalla }}>{{ gT("Completar la encuesta nuevamente") }}</a>
     </div>
 </div>

@@ -94,7 +94,7 @@ class Users extends CActiveRecord
 
 			// Atributos para el cambio de contraseña
 			'new_password' => 'Nueva Contraseña',
-			'repeat_password' => 'Repetir Contraseña',
+			'repeat_password' => 'Repetir Nueva Contraseña',
 			'old_password' => 'Contraseña Actual'
 		);
 	}
