@@ -57,7 +57,7 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 		<?php echo $form->error($model,'rememberMe'); ?>
 	</div> -->
 
-	<a href="#" data-toggle="popover"  data-content="Si olvidó su contraseña, comuníquese con SAE a través de sae@frd.utn.edu.ar">Olvidé mi contraseña</a>
+	<a href="#" data-toggle="popover" data-placement="bottom" data-content="Comuníquese con SAE a través de sae@frd.utn.edu.ar">Olvidé mi contraseña</a>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Entrar',array("class"=>"btn btn-primary btn-large")); ?>
