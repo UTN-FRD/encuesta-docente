@@ -15,13 +15,12 @@
 #}
 
 {# It must not be shown once survey is completed #}
-{#
+
 {% if aSurveyInfo.bShowClearAll == true  %}
     <!-- Exit and clear survey -->
     <li class="{{ aSurveyInfo.class.clearalllinks }}" {{ aSurveyInfo.attr.clearalllinks }}>
-        <a href="#" data-limesurvey-submit='{ "clearall":"clearall" }'  data-confirmedby='{ "confirm-clearall":"confirm" }' data-confirmlabel='{{gT("Realmente desea salir de la encuesta?" )}}' class='{{ aSurveyInfo.class.clearalllink }} animate' {{ aSurveyInfo.attr.clearalllink }}>
-            {{gT("Salir y limpiar campos" )}}
+        <a href="../../" data-confirmlabel='{{gT("Realmente desea salir de la encuesta?" )}}' animate' {{ aSurveyInfo.attr.clearalllink }}>
+            {{gT("Volver a encuestas" )}}
         </a>
     </li>
 {% endif %}
-#}
