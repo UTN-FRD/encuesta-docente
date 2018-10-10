@@ -5471,6 +5471,7 @@
                 if (isset($_SESSION[$this->sessid]['startingValues']['seed'])) {
                     $sdata['seed'] = $_SESSION[$this->sessid]['startingValues']['seed'];
                 }
+                $sdata['asignatura_profesor_id'] = Yii::app()->getRequest()->getParam('asignatura_profesor_id');
 
                 $sdata = array_filter($sdata);
                 SurveyDynamic::sid($this->sid);

@@ -26,6 +26,8 @@ class SurveyDynamic extends LSActiveRecord
     public $email_filter;
     /** @var integer $lastpage */
     public $lastpage;
+    /** @var integer $asignatura_profesor_id */
+    public $asignatura_profesor_id;
 
     /** @var int $sid */
     protected static $sid = 0;
@@ -109,6 +111,7 @@ class SurveyDynamic extends LSActiveRecord
      */
     public function insertRecords($data)
     {
+
         $record = new self;
         foreach ($data as $k => $v) {
             $search = array('`', "'");
@@ -571,7 +574,7 @@ class SurveyDynamic extends LSActiveRecord
      */
     public function getDefaultColumns()
     {
-        return array('id', 'token', 'submitdate', 'lastpage', 'startlanguage', 'completed', 'seed');
+        return array('id', 'token', 'submitdate', 'lastpage', 'startlanguage', 'completed', 'seed', 'asignatura_profesor_id');
     }
 
     /**

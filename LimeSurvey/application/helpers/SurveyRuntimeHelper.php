@@ -46,6 +46,7 @@ class SurveyRuntimeHelper
     // The only private variable here should be $oSurvey.
     private $aSurveyInfo; // Array returned by common_helper::getSurveyInfo(); (survey row + language settings );
     private $iSurveyid              = null; // The survey id
+    private $asignatura_profesor_id   = null;
     private $bShowEmptyGroup        = false; // True only when $_SESSION[$this->LEMsessid]['step'] == 0 ; Just a variable for a logic step ==> should not be a Class variable (for now, only here for the redata== get_defined_vars mess)
     private $sSurveyMode; // {Group By Group,  All in one, Question by question}
     private $aSurveyOptions; // Few options comming from thissurvey, App->getConfig, LEM. Could be replaced by $oSurvey + relations ; the one coming from LEM and getConfig should be public variable on the surveyModel, set via public methods (active, allowsave, anonymized, assessments, datestamp, deletenonvalues, ipaddr, radix, refurl, savetimings, surveyls_dateformat, startlanguage, target, tempdir,timeadjust)
@@ -431,6 +432,8 @@ class SurveyRuntimeHelper
             $this->aSurveyInfo['hiddenInputs']          = "<input type='hidden' name='thisstep' value='{$_SESSION[$this->LEMsessid]['step']}' id='thisstep' />\n";
             $this->aSurveyInfo['hiddenInputs']         .= "<input type='hidden' name='sid' value='$this->iSurveyid' id='sid' />\n";
             $this->aSurveyInfo['hiddenInputs']         .= "<input type='hidden' name='start_time' value='".time()."' id='start_time' />\n";
+            $this->aSurveyInfo['hiddenInputs']         .= "<input type='hidden' name='asignatura_profesor_id' value='".Yii::app()->getRequest()->getParam('asignatura_profesor_id')."' id='asignatura_profesor_id' />\n";
+
             $_SESSION[$this->LEMsessid]['LEMpostKey'] = mt_rand();
             $this->aSurveyInfo['hiddenInputs']         .= "<input type='hidden' name='LEMpostKey' value='{$_SESSION[$this->LEMsessid]['LEMpostKey']}' id='LEMpostKey' />\n";
 
@@ -997,6 +1000,7 @@ class SurveyRuntimeHelper
                 $oResponse->lastpage = $_SESSION[$this->LEMsessid]['step'];
                 $oResponse->save();
 
+
                 App()->clientScript->registerScript("saveflashmessage", "
                     console.ls.log($('[data-limesurvey-submit=\'{ \"saveall\":\"saveall\" }\']'));
                     $('[data-limesurvey-submit=\'{ \"saveall\":\"saveall\" }\']').popover({
@@ -1312,12 +1316,12 @@ class SurveyRuntimeHelper
 
         //Mandatory question(s) with unanswered answer
         if ($this->aStepInfo['mandViolation'] && $this->okToShowErrors) {
-            $aErrorsMandatory[] = gT("One or more mandatory questions have not been answered. You cannot proceed until these have been completed.");
+            $aErrorsMandatory[] = gT("Una o mas preguntas requeridas no han sido respondidas. No puedes continuar hasta que completes esas preguntas.");
         }
 
         // Question(s) with not valid answer(s)
         if ($this->aStepInfo['valid'] && $this->okToShowErrors) {
-            $aErrorsMandatory[] = gT("One or more questions have not been answered in a valid manner. You cannot proceed until these answers are valid.");
+            $aErrorsMandatory[] = gT("Una o más preguntas requeridas no han sido respondidas con la informacion requerida. No puedes continuar hasta que esas preguntas sean validas.");
         }
 
         // Upload question(s) with invalid file(s)
