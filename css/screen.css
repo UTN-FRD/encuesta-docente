@@ -230,7 +230,7 @@ p .right {
 	padding: 0;
 }
 
-a:focus,
+/* a:focus,
 a:hover {
 	color: #09f;
 }
@@ -238,7 +238,7 @@ a:hover {
 a {
 	color: #06c;
 	text-decoration: underline;
-}
+} */
 
 blockquote {
 	margin: 1.5em;
@@ -292,11 +292,11 @@ li ol {
 	margin: 0;
 }
 
-ul,
+/* ul,
 ol {
 	margin: 0 1.5em 1.5em 0;
 	padding-left: 1.5em;
-}
+} */
 
 ul {
 	list-style-type: disc;

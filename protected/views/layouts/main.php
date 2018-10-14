@@ -44,26 +44,23 @@
 	</div><!-- header -->
 	
 	<!-- Menú de navegación -->
-	<div id="mainMbMenu">
+	<div>
 		<?php
 			if(Yii::app()->user->isAdmin()) {
-				$this->widget('application.extensions.mbmenu.MbMenu',array(
-					'items'=>array(
-						// array('label'=>'Home', 'url'=>array('/site/index')),
-						array('label'=>'Asignaturas-Profesor', 'url'=>array('/AsignaturaProfesor/admin', 'view'=>'about')),
-						array('label'=>'Inscripciones', 'url'=>array('/incripciones/admin', 'view'=>'about')),
-						array('label'=>'Administrar', 'url'=>array(''),
-						'items'=>array(
+				$this->widget('application.extensions.eflatmenu.EFlatMenu', array(
+					'items' => array(
+						array('label' => 'Asignaturas-Profesor', 'url' => array('/AsignaturaProfesor/admin', 'view' => 'about')),
+						array('label' => 'Administrar', 'url' => array(''),
+						'items' => array(
 							array('label'=>'Asignaturas', 'url'=>array('/asignaturas/admin', 'view'=>'about')),
 							array('label'=>'Alumnos', 'url'=>array('/participants/admin', 'view'=>'about')),
 							array('label'=>'Profesores', 'url'=>array('/profesores/admin', 'view'=>'about')),
 							array('label'=>'Carreras', 'url'=>array('/carreras/admin', 'view'=>'about')),
 							array('label'=>'Usuarios', 'url'=>array('/users/admin', 'view'=>'about')),
-						),
-						),
+						)),
 						array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 						array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-					),
+					)
 				));
 		?>
 
@@ -76,7 +73,7 @@
 		<?php 
 			$user = Yii::app()->user->id;
 			if(!Yii::app()->user->isAdmin()) {
-				$this->widget('application.extensions.mbmenu.MbMenu',array(
+				$this->widget('application.extensions.eflatmenu.EFlatMenu',array(
 					'items'=>array(
 						array('label'=>'Encuestas', 'url'=>array('/incripciones/encuestas'), 'visible'=>!Yii::app()->user->isGuest),
 						array('label'=>'Cambiar contraseña', 'url'=>array('/users/changePassword/'.$user), 'visible'=>!Yii::app()->user->isGuest),
