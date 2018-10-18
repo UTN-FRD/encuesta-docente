@@ -36,18 +36,32 @@ foreach($asignaturaProfesor as $elemento){
         $cargo = $elemento->cargo;
 
         $asignaturaProfesorId = $elemento->id;
-        $token = $asignaturaProfesorId.$usuario;
-        $token = str_replace(array('0','1','2','3','4','5','6','7','8','9'),array('A','S','D','F','G','H','J','K','L'),$token);
+        $tokennro = $asignaturaProfesorId.$usuario;
+        $token = str_replace(array('0','1','2','3','4','5','6','7','8','9'),array('A','S','D','F','G','H','J','K','L'),$tokennro);
+        $token2 = str_replace(array('0','1','2','3','4','5','6','7','8','9'),array('A','S','D','F','G','H','J','K','L','Z'),$tokennro);
 
         $encuesta = Yii::app()->params[$cargo];
         Tokens::model()->helperVar = $encuesta;
         Tokens::model()->refreshMetaData();
 
         if ($cargo) {
-                if (Tokens::model()->findAllByAttributes(array('token'=>$token))===array()) {
-                        $newToken=new Tokens;
-                        $newToken->token=$token;
-                        $newToken->save();
+                if (Tokens::model()->findAllByAttributes(array('token'=>$token2))===array()) {
+                        if (Tokens::model()->findAllByAttributes(array('token'=>$token))===array()) {
+                                $newToken=new Tokens;
+                                $newToken->token=$token2;
+                                $newToken->save();
+                                $token = $token2;
+                        } else {
+                                if ((Tokens::model()->findByAttributes(array('token'=>$token)))->usesleft==='1') {
+                                        $tokenId = (Tokens::model()->findByAttributes(array('token'=>$token)))->tid;
+                                        Tokens::model()->findByPk($tokenId)->delete();
+                                        
+                                        $newToken=new Tokens;
+                                        $newToken->token=$token2;
+                                        $newToken->save();
+                                        $token = $token2;
+                                }
+                        }
                 }
                 
                 if ((Tokens::model()->findByAttributes(array('token'=>$token)))->usesleft==='1') {
