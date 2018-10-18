@@ -62,6 +62,8 @@ foreach($asignaturaProfesor as $elemento){
                                         $token = $token2;
                                 }
                         }
+                } else {
+                        $token = $token2;
                 }
                 
                 if ((Tokens::model()->findByAttributes(array('token'=>$token)))->usesleft==='1') {
