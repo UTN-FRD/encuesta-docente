@@ -46,7 +46,7 @@ $('.search-form form').submit(function(){
 		array(
 			'class'=>'CLinkColumn',
 			'label'=>'Ver Materias',
-			'urlExpression'=>'\Yii::app()->createUrl("asignaturaprofesor/admin", array("AsignaturaProfesor[profesor_id]" => $data->id))',
+			'urlExpression'=>'\Yii::app()->createUrl("AsignaturaProfesor/admin", array("AsignaturaProfesor[profesor_id]" => $data->id))',
 		),
 
 		'nombre',
