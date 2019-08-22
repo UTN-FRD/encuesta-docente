@@ -6,10 +6,10 @@ return array(
 	// uncomment the following lines to use a MySQL database
 
 	
-	'connectionString' => 'mysql:host=192.168.1.35;dbname=limesurvey',
+	'connectionString' => 'mysql:host=127.0.0.1;dbname=limesurvey',
 	'emulatePrepare' => true,
-	'username' => 'survey',
-	'password' => '3ncu3st4',
+	'username' => 'encuesta',
+	'password' => 'encuesta',
 	'charset' => 'utf8',
 
 /*
