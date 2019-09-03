@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Inscripciones</h1>
+<h1>Inscripciones <?php echo $_GET["Incripciones"]["anio_academico"]?> </h1> 
 
 <?php echo CHtml::link('Búsqueda Avanzada','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
