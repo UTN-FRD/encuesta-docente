@@ -37,7 +37,7 @@ foreach($asignaturaProfesor as $elemento){
 
         $asignaturaProfesorId = $elemento->id;
         $tokennro = $asignaturaProfesorId.$usuario;
-        $token = str_replace(array('0','1','2','3','4','5','6','7','8','9'),array('A','S','D','F','G','H','J','K','L'),$tokennro);
+        $token = str_replace(array('0','1','2','3','4','5','6','7','8','9'),array('A','S','D','F','G','H','J','K','L','Z'),$tokennro);
         $token2 = str_replace(array('0','1','2','3','4','5','6','7','8','9'),array('A','S','D','F','G','H','J','K','L','Z'),$tokennro);
 
         $encuesta = Yii::app()->params[$cargo];
