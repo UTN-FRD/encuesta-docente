@@ -8,8 +8,8 @@ return array(
 	
 	'connectionString' => 'mysql:host=127.0.0.1;dbname=limesurvey',
 	'emulatePrepare' => true,
-	'username' => 'encuesta',
-	'password' => 'encuesta',
+	'username' => 'root',
+	'password' => '',
 	'charset' => 'utf8',
 
 /*
