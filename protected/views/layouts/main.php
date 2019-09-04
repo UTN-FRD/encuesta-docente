@@ -50,7 +50,7 @@
 				$this->widget('application.extensions.eflatmenu.EFlatMenu', array(
 					'items' => array(
 						array('label' => 'Asignaturas-Profesor', 'url' => array('/AsignaturaProfesor/admin', 'view' => 'about')),
-						array('label' => 'Inscripciones', 'url' => array('/Incripciones/admin', 'anio_academico'=> date('Y'))),
+						array('label' => 'Inscripciones', 'url' => array('/Incripciones/admin', 'view' => 'about', 'Incripciones[anio_academico]'=> date('Y'))),
 						array('label' => 'Administrar', 'url' => array(''),
 						'items' => array(
 							array('label'=>'Asignaturas', 'url'=>array('/asignaturas/admin', 'view'=>'about')),

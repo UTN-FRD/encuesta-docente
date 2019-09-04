@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Inscripciones <span name="year"><?php echo $_GET["anio_academico"]?></span></h1> 
+<h1>Inscripciones <span name="year"><?php echo $_GET["Incripciones"]["anio_academico"]?></span></h1> 
 
 <?php echo CHtml::link('Búsqueda Avanzada','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
@@ -34,7 +34,6 @@ $('.search-form form').submit(function(){
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
-
 <script>
 document.querySelector('#yw0 input[type="submit"]').addEventListener('click', function () {
 	let titleYear = document.querySelector('h1 span[name="year"]')
