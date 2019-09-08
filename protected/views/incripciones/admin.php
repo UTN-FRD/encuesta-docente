@@ -48,13 +48,17 @@ document.querySelector('#yw0 input[type="submit"]').addEventListener('click', fu
 	'itemsCssClass'=>"table table-striped",
 	'pager'=>array("htmlOptions"=>array("class"=>"pagination")),
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	//'filter'=>$model,
 	'columns'=>array(
 		/* Comentamos campos que no nos interesan */
 		// 'id',
 		// 'participant_id',
 		// 'asignatura_id',
-		// 'anio_academico',
+		
+		array(
+			'name'=> 'anio_academico',
+			'sortable'=>false,
+		),
 		// 'comentarios',
 
 		'inscripto.firstname',
