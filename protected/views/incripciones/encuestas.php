@@ -13,11 +13,11 @@ $usuario = Yii::app()->user->name;
 $idUsuario = Participants::model()->findAllByAttributes(array('dni'=>$usuario));
 
 $asignaturas = array();
-
+$anio_academico = date('Y');
 foreach(array_column($idUsuario,'participant_id') as $idTemp)
 {
 
-        $asignaturas = array_merge($asignaturas, Incripciones::model()->findAllByAttributes(array('participant_id'=>$idTemp)) );
+        $asignaturas = array_merge($asignaturas, Incripciones::model()->findAllByAttributes(array('participant_id'=>$idTemp, 'anio_academico'=>$anio_academico)) );
 }
 
 $idAsignaturas = array_column($asignaturas,'asignatura_id');
