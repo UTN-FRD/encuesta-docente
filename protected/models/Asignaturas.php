@@ -29,8 +29,9 @@ class Asignaturas extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id, descripcion, carrera_id', 'required'),
-			array('id, electiva, carrera_id', 'numerical', 'integerOnly'=>true),
+			array('id, electiva, carrera_id, nivel, departamento_id', 'numerical', 'integerOnly'=>true),
 			array('descripcion, plan', 'length', 'max'=>255),
+			array('comision', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, descripcion, electiva, plan, carrera_id', 'safe', 'on'=>'search'),

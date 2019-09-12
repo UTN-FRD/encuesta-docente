@@ -49,16 +49,19 @@ CREATE TABLE `asignaturas` (
   `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `electiva` tinyint(1) DEFAULT NULL,
   `anio` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `carrera_id` int(11) NOT NULL
+  `carrera_id` int(11) NOT NULL,
+  `nivel` int(1) NOT NULL DEFAULT 0,
+  `comision` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL  DEFAULT 'Noche',
+  `departamento_id` varchar(11) COLLATE utf8mb4_unicode_ci,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `asignaturas`
 --
 
-INSERT INTO `asignaturas` (`id`, `description`, `electiva`, `anio`, `carrera_id`) VALUES
-(1, 'Análisis Matemático I', 0, NULL, 1),
-(2, 'Análisis Matemático I', 0, NULL, 2);
+INSERT INTO `asignaturas` (`id`, `description`, `lectiva`, `anio`, `carrera_id`, `departamento_id`) VALUES
+(1, 'Análisis Matemático I', 0, NULL, 1, NULL),
+(2, 'Análisis Matemático I', 0, NULL, 2, NULL);
 
 -- --------------------------------------------------------
 

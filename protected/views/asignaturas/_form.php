@@ -44,11 +44,29 @@
 	</div>
 
 	<div>
+		<?php echo $form->labelEx($model,'nivel'); ?>
+		<?php echo $form->textField($model,'nivel'); ?>
+		<?php echo $form->error($model,'nivel'); ?>
+	</div>
+
+	<div>
+		<?php echo $form->labelEx($model,'comision'); ?>
+		<?php echo $form->textField($model,'comision'); ?>
+		<?php echo $form->error($model,'comision'); ?>
+	</div>
+
+	<div>
+		<?php echo $form->labelEx($model,'departamento_id'); ?>
+		<?php echo $form->textField($model,'departamento_id'); ?>
+		<?php echo $form->error($model,'departamento_id'); ?>
+	</div>
+
+	<div>
 		<?php echo $form->labelEx($model,'carrera_id'); ?>
 		<?php echo $form->textField($model,'carrera_id'); ?>
 		<?php echo $form->error($model,'carrera_id'); ?>
 	</div>
-
+	
 	<div class="buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar',array("class"=>"btn btn-primary btn-large")); ?>
 	</div>

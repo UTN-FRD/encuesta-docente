@@ -47,6 +47,9 @@ $('.search-form form').submit(function(){
 		'electiva',
 		'plan',
 		'carrera_id',
+		'nivel',
+		'comision',
+		'departamento_id',
 		array(
 			'class'=>'CButtonColumn',
 		),
