@@ -60,7 +60,7 @@ class Incripciones extends CActiveRecord
 			'id' => 'ID',
 			'participant_id' => 'Alumno',
 			'asignatura_id' => 'Asignatura',
-			'anio_academico' => 'A&ntilde;o Acad&eacute;mico',
+			'anio_academico' => 'Año Académico',
 			'comentarios' => 'Comentarios',
 		);
 	}

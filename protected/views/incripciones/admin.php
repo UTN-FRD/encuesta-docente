@@ -48,29 +48,33 @@ document.querySelector('#yw0 input[type="submit"]').addEventListener('click', fu
 	'itemsCssClass'=>"table table-striped",
 	'pager'=>array("htmlOptions"=>array("class"=>"pagination")),
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	//'filter'=>$model,
 	'columns'=>array(
 		/* Comentamos campos que no nos interesan */
 		// 'id',
 		// 'participant_id',
 		// 'asignatura_id',
-		// 'anio_academico',
+		
+		array(
+			'name'=> 'anio_academico',
+			'sortable'=>false,
+		),
 		// 'comentarios',
 
 		'inscripto.firstname',
 		array(
 			'class'=>'CLinkColumn',
 			'label'=>'Ver',
-			'urlExpression'=>'\Yii::app()->createUrl("incripciones/admin", array("Incripciones[participant_id]=" => $data->participant_id))',
-			),
+			'urlExpression'=>'\Yii::app()->createUrl("incripciones/admin", array("Incripciones[participant_id]=" => $data->participant_id,"Incripciones[anio_academico]=" => $_GET["Incripciones"]["anio_academico"]))',
+		),
 		'inscripto.legajo',
 		'inscriptoA.descripcion',
 		'inscriptoA.plan',
 		array(
 			'class'=>'CLinkColumn',
 			'label'=>'Ver',
-			'urlExpression'=>'\Yii::app()->createUrl("incripciones/admin", array("Incripciones[asignatura_id]=" => $data->asignatura_id))',
-			),
+			'urlExpression'=>'\Yii::app()->createUrl("incripciones/admin", array("Incripciones[asignatura_id]=" => $data->asignatura_id,"Incripciones[anio_academico]=" => $_GET["Incripciones"]["anio_academico"]))',
+		),
 		'inscriptoA.perteneceACarrera.description',
 		array(
 			'class'=>'CButtonColumn',
