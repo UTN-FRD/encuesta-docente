@@ -1439,6 +1439,13 @@ function createFieldMap($survey, $style = 'short', $force_refresh = false, $ques
         $fieldmap["seed"]['group_name'] = "";
     }
 
+    $fieldmap['asignatura_profesor_id'] = array('fieldname' => 'asignatura_profesor_id', 'sid' => $surveyid, 'type' => 'asignatura_profesor_id', 'gid' => '', 'qid' => '', 'aid' => '');
+    if ($style == 'full') {
+        $fieldmap["asignatura_profesor_id"]['title'] = "";
+        $fieldmap["asignatura_profesor_id"]['question'] = gT("Asignatura Profesor");
+        $fieldmap["asignatura_profesor_id"]['group_name'] = "";
+    }
+
     //Check for any additional fields for this survey and create necessary fields (token and datestamp and ipaddr)
     $prow = $survey->getAttributes(); //Checked
 

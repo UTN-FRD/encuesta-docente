@@ -294,6 +294,9 @@ function activateSurvey($iSurveyID, $simulate = false)
             case 'seed':
                 $aTableDefinition[$aRow['fieldname']] = "string(31)";
                 break;
+            case 'asignatura_profesor_id':
+                $aTableDefinition[$aRow['fieldname']] = "int(11)";
+                break;
             case 'startlanguage':
                 $aTableDefinition[$aRow['fieldname']] = "string(20) NOT NULL";
                 break;
