@@ -84,7 +84,8 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'encuestadocentefrd@gmail.com',
 		//nro de la encuesta actual para asignatura/profesor titular o auxiliar
-		'Titular'=>'398398',
-		'Auxiliar'=>'398398',
+		'Titular'=>'20191',
+		'Auxiliar'=>'20192',
+		'Laboratorio'=>'20193'
 	),
 );
