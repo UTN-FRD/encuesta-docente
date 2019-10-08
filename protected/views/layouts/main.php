@@ -59,6 +59,7 @@
 							array('label'=>'Carreras', 'url'=>array('/carreras/admin', 'view'=>'about')),
 							array('label'=>'Usuarios', 'url'=>array('/users/admin', 'view'=>'about')),
 						)),
+						array('label'=>'Reportes', 'url'=>array('/reportes/index', 'view'=>'about')),
 						array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 						array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 					)
