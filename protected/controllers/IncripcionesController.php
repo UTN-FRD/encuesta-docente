@@ -35,10 +35,10 @@ class IncripcionesController extends Controller
 				'actions'=>array('encuestas'),
 				'users'=>$noAdmins,
 			),
-			array('deny',  // deny all users
+/*			array('deny',  // deny all users
 				'users'=>$noAdmins,
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+*/			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete','create','update','index','view','listarparticipants'),
 				'users'=>$users,
 			),
