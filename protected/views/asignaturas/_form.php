@@ -56,14 +56,14 @@
 	</div>
 
 	<div>
-		<?php echo $form->labelEx($model,'departamento_id'); ?>
-		<?php echo $form->textField($model,'departamento_id'); ?>
+		<?php echo $form->labelEx($model,'departamento'); ?>
+		<?php echo $form->dropDownList($model,'departamento_id',CHtml::listData(Departamentos::model()->findall(),"id","descripcion")); ?>
 		<?php echo $form->error($model,'departamento_id'); ?>
 	</div>
 
 	<div>
 		<?php echo $form->labelEx($model,'carrera_id'); ?>
-		<?php echo $form->textField($model,'carrera_id'); ?>
+		<?php echo $form->dropDownList($model,'carrera_id',CHtml::listData(Carreras::model()->findall(),"id","description")); ?>
 		<?php echo $form->error($model,'carrera_id'); ?>
 	</div>
 	
