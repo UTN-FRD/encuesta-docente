@@ -35,13 +35,27 @@ class ReportesController extends Controller
 			GROUP BY c.description, a.nivel
 			ORDER BY 1,2
 		')->queryAll();
+
+		$encuestaIds = array(Yii::app()->params['Titular']);
+		if(array_search(Yii::app()->params['Auxiliar'], $encuestaIds) === false){
+			array_push($encuestaIds, Yii::app()->params['Auxiliar']);
+		}
+		if(array_search(Yii::app()->params['Laboratorio'], $encuestaIds) === false){
+			array_push($encuestaIds, Yii::app()->params['Laboratorio']);
+		}
+		$subselect = '';
+		foreach ($encuestaIds as $value) {
+			$subselect = $subselect.' select asignatura_profesor_id, submitdate from survey_'.$value.' UNION ';
+		}
+		$subselect = substr($subselect, 0, -6);
+
 		$respuestasPorNivel = Yii::app()->db->createCommand('
 			SELECT c.description as CARRERA, a.nivel as NIVEL, count(1) as CANTIDAD
-			FROM survey_2019 s
+			FROM ('.$subselect.') s
 			  INNER JOIN asignatura_profesor ap on s.asignatura_profesor_id = ap.id
 			  INNER JOIN asignaturas a on ap.asignatura_id = a.id
 			  INNER JOIN carreras c ON a.carrera_id = c.id
-			WHERE s.submitdate is NOT null
+			WHERE s.submitdate is NOT null and a.nivel > 0
 			GROUP BY c.description, a.nivel
 			ORDER BY 1,2
 		')->queryAll();
