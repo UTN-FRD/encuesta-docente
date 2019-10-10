@@ -113,11 +113,10 @@ class ReportesController extends Controller
 	function loadCantidadAlumnosPorCarrera(){
 		$list = Yii::app()->db->createCommand('
 		SELECT ss.CARRERA as CARRERA, count(ss.ALUMNO) as ALUMNOS
-			from (SELECT c.description as CARRERA, i.participant_id as ALUMNO 
+			from (SELECT distinct c.description as CARRERA, i.participant_id as ALUMNO 
 				FROM incripciones i INNER JOIN asignaturas a ON i.asignatura_id = a.id 
 				    INNER JOIN carreras c ON a.carrera_id = c.id
-				WHERE i.anio_academico = 2019
-				GROUP BY i.participant_id) as ss
+				WHERE i.anio_academico = 2019 ) as ss
 			group by ss.CARRERA
 		')->queryAll();
 
@@ -135,7 +134,7 @@ class ReportesController extends Controller
 
 	function loadCandidadInscripcionesPorCarreraNivel(){
 		$list = Yii::app()->db->createCommand('
-		select c.description as CARRERA, a.nivel as NIVEL, count(1) as ALUMNOS
+		SELECT c.description as CARRERA, a.nivel as NIVEL, count(1) as ALUMNOS
 		from asignaturas a 
 		  INNER JOIN incripciones i
 		    ON a.id = i.asignatura_id
@@ -184,11 +183,11 @@ class ReportesController extends Controller
 		$list = Yii::app()->db->createCommand('
 
 		SELECT ss.CARRERA as CARRERA, ss.NIVEL as NIVEL, count(ss.ALUMNO) as ALUMNOS
-			from (SELECT c.description as CARRERA, a.nivel as NIVEL, i.participant_id as ALUMNO 
+			from (SELECT c.description as CARRERA, MIN(a.nivel) as NIVEL, i.participant_id as ALUMNO 
 				FROM incripciones i INNER JOIN asignaturas a ON i.asignatura_id = a.id 
 				    INNER JOIN carreras c ON a.carrera_id = c.id
 				WHERE a.nivel > 0 and i.anio_academico = 2019
-				GROUP BY i.participant_id) as ss
+				GROUP BY 3,1) as ss
 			group by 2,1
 		')->queryAll();
 
