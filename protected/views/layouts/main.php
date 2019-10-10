@@ -27,6 +27,9 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css">
 
@@ -59,7 +62,11 @@
 							array('label'=>'Carreras', 'url'=>array('/carreras/admin', 'view'=>'about')),
 							array('label'=>'Usuarios', 'url'=>array('/users/admin', 'view'=>'about')),
 						)),
-						array('label'=>'Reportes', 'url'=>array('/reportes/index', 'view'=>'about')),
+						array('label' => 'Reportes', 'url' => array(''),
+						'items' => array(
+							array('label'=>'Datos Generales', 'url'=>array('/reportes/index', 'view'=>'about')),
+							array('label'=>'Avances', 'url'=>array('/reportes/avances', 'view'=>'about')),
+						)),
 						array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 						array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 					)
