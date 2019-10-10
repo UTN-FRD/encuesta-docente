@@ -24,64 +24,71 @@ class ReportesController extends Controller
 
 	public function actionAvances()
 	{
-		$encuestasPorNivel = Yii::app()->db->createCommand('
-			SELECT c.description as CARRERA, a.nivel as NIVEL, count(1) as CANTIDAD
-			FROM asignaturas a 
-			  INNER JOIN incripciones i ON a.id = i.asignatura_id
-			  INNER JOIN carreras c ON c.id = a.carrera_id
-			WHERE
-			  a.nivel > 0 AND
-			  i.anio_academico = 2019 
-			GROUP BY c.description, a.nivel
-			ORDER BY 1,2
-		')->queryAll();
-
-		$encuestaIds = array(Yii::app()->params['Titular']);
-		if(array_search(Yii::app()->params['Auxiliar'], $encuestaIds) === false){
-			array_push($encuestaIds, Yii::app()->params['Auxiliar']);
-		}
-		if(array_search(Yii::app()->params['Laboratorio'], $encuestaIds) === false){
-			array_push($encuestaIds, Yii::app()->params['Laboratorio']);
-		}
-		$subselect = '';
-		foreach ($encuestaIds as $value) {
-			$subselect = $subselect.' select asignatura_profesor_id, submitdate from survey_'.$value.' UNION ';
-		}
-		$subselect = substr($subselect, 0, -6);
-
-		$respuestasPorNivel = Yii::app()->db->createCommand('
-			SELECT c.description as CARRERA, a.nivel as NIVEL, count(1) as CANTIDAD
-			FROM ('.$subselect.') s
-			  INNER JOIN asignatura_profesor ap on s.asignatura_profesor_id = ap.id
-			  INNER JOIN asignaturas a on ap.asignatura_id = a.id
-			  INNER JOIN carreras c ON a.carrera_id = c.id
-			WHERE s.submitdate is NOT null and a.nivel > 0
-			GROUP BY c.description, a.nivel
-			ORDER BY 1,2
-		')->queryAll();
-
-		$arrayDatos = array();
-		foreach ($encuestasPorNivel as $value) {
-			$arrayDatos[$value['CARRERA']][$value['NIVEL']] = array((int)$value['CANTIDAD'], 0);
-		}
-
-		foreach ($respuestasPorNivel as $value) {
-			$respuestas = (int)$value['CANTIDAD'];
-			$pendientes = $arrayDatos[$value['CARRERA']][$value['NIVEL']][0] - $respuestas;
-
-			$arrayDatos[$value['CARRERA']][$value['NIVEL']][0] = $pendientes;
-			$arrayDatos[$value['CARRERA']][$value['NIVEL']][1] = $respuestas;
-		}
-
 		$arrayFinal = array();
-		foreach ($arrayDatos as $key => $arrayNivel) {
-			$arrayFinal[$key] = array();
-			foreach ($arrayNivel as $keyNivel => $valueNivel) {
-				array_unshift($valueNivel, (string)$keyNivel);
-				array_push($arrayFinal[$key], $valueNivel);
+
+		try {
+				
+			$encuestasPorNivel = Yii::app()->db->createCommand('
+				SELECT c.description as CARRERA, a.nivel as NIVEL, count(1) as CANTIDAD
+				FROM asignaturas a 
+				  INNER JOIN incripciones i ON a.id = i.asignatura_id
+				  INNER JOIN carreras c ON c.id = a.carrera_id
+				WHERE
+				  a.nivel > 0 AND
+				  i.anio_academico = 2019 
+				GROUP BY c.description, a.nivel
+				ORDER BY 1,2
+			')->queryAll();
+
+			$encuestaIds = array(Yii::app()->params['Titular']);
+			if(array_search(Yii::app()->params['Auxiliar'], $encuestaIds) === false){
+				array_push($encuestaIds, Yii::app()->params['Auxiliar']);
 			}
-			array_unshift($arrayFinal[$key], array('Nivel','No Respondidas','Respondidas'));
+			if(array_search(Yii::app()->params['Laboratorio'], $encuestaIds) === false){
+				array_push($encuestaIds, Yii::app()->params['Laboratorio']);
+			}
+			$subselect = '';
+			foreach ($encuestaIds as $value) {
+				$subselect = $subselect.' select asignatura_profesor_id, submitdate from survey_'.$value.' UNION ';
+			}
+			$subselect = substr($subselect, 0, -6);
+
+			$respuestasPorNivel = Yii::app()->db->createCommand('
+				SELECT c.description as CARRERA, a.nivel as NIVEL, count(1) as CANTIDAD
+				FROM ('.$subselect.') s
+				  INNER JOIN asignatura_profesor ap on s.asignatura_profesor_id = ap.id
+				  INNER JOIN asignaturas a on ap.asignatura_id = a.id
+				  INNER JOIN carreras c ON a.carrera_id = c.id
+				WHERE s.submitdate is NOT null and a.nivel > 0
+				GROUP BY c.description, a.nivel
+				ORDER BY 1,2
+			')->queryAll();
+
+			$arrayDatos = array();
+			foreach ($encuestasPorNivel as $value) {
+				$arrayDatos[$value['CARRERA']][$value['NIVEL']] = array((int)$value['CANTIDAD'], 0);
+			}
+
+			foreach ($respuestasPorNivel as $value) {
+				$respuestas = (int)$value['CANTIDAD'];
+				$pendientes = $arrayDatos[$value['CARRERA']][$value['NIVEL']][0] - $respuestas;
+
+				$arrayDatos[$value['CARRERA']][$value['NIVEL']][0] = $pendientes;
+				$arrayDatos[$value['CARRERA']][$value['NIVEL']][1] = $respuestas;
+			}
+
+			foreach ($arrayDatos as $key => $arrayNivel) {
+				$arrayFinal[$key] = array();
+				foreach ($arrayNivel as $keyNivel => $valueNivel) {
+					array_unshift($valueNivel, (string)$keyNivel);
+					array_push($arrayFinal[$key], $valueNivel);
+				}
+				array_unshift($arrayFinal[$key], array('Nivel','No Respondidas','Respondidas'));
+			}
+		} catch (Exception $e) {
+				
 		}
+
 
 		$this->render('avances',array(
 			'arrayDatos'=> $arrayFinal,
