@@ -47,6 +47,7 @@ class Asignaturas extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'perteneceACarrera'=>array(self::BELONGS_TO, 'Carreras', 'carrera_id'),
+			'perteneceADepartamento'=>array(self::BELONGS_TO, 'Departamentos', 'departamento_id'),
 		);
 	}
 

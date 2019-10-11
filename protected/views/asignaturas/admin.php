@@ -49,7 +49,10 @@ $('.search-form form').submit(function(){
 		'carrera_id',
 		'nivel',
 		'comision',
-		'departamento_id',
+		array(
+			'header'=>'Departamento',
+			'name'=>'perteneceADepartamento.descripcion',
+		),
 		array(
 			'class'=>'CButtonColumn',
 		),
