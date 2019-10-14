@@ -60,6 +60,7 @@
 							array('label'=>'Alumnos', 'url'=>array('/participants/admin', 'view'=>'about')),
 							array('label'=>'Profesores', 'url'=>array('/profesores/admin', 'view'=>'about')),
 							array('label'=>'Carreras', 'url'=>array('/carreras/admin', 'view'=>'about')),
+							array('label'=>'Departamentos','url'=>array('/departamentos/admin','view'=>'about')),
 							array('label'=>'Usuarios', 'url'=>array('/users/admin', 'view'=>'about')),
 						)),
 						array('label' => 'Reportes', 'url' => array(''),

@@ -25,7 +25,12 @@ class Departamentos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('descripcion', 'required')
+			array('id, descripcion', 'required'),
+			array('id', 'numerical', 'integerOnly'=>true),
+			array('descripcion', 'length', 'max'=>255),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, descripcion', 'safe', 'on'=>'search'),
 		);
 	}
 
