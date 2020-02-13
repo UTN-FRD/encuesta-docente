@@ -67,6 +67,7 @@
 						'items' => array(
 							array('label'=>'Datos Generales', 'url'=>array('/reportes/index', 'view'=>'about')),
 							array('label'=>'Avances', 'url'=>array('/reportes/avances', 'view'=>'about')),
+							array('label'=>'Respuestas', 'url'=>array('/reportes/generales', 'view'=>'about')),
 						)),
 						array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 						array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)

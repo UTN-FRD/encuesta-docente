@@ -22,6 +22,31 @@ class ReportesController extends Controller
 		));
 	}
 
+	public function actionRespuestas($asignatura_profesor_id)
+	{
+		$asignaturaProfesor = Yii::app()->db->createCommand('SELECT p.id, ap.cargo, a.descripcion as asignatura, a.plan, p.nombre as docente, c.description as carrera, a.id as asignatura_id FROM asignatura_profesor ap JOIN asignaturas a on ap.asignatura_id = a.id JOIN profesores p on ap.profesor_id = p.id JOIN carreras c on a.carrera_id = c.id WHERE ap.id='.$asignatura_profesor_id)->queryAll();
+		$cargo = $asignaturaProfesor[0]['cargo'];
+		$surveyId = Yii::app()->params[$cargo];
+		$this->render('respuestas',array(
+			'asignaturaProfesor'=> $asignaturaProfesor,
+			'preguntas'=> 
+					Yii::app()->db->createCommand('SELECT * FROM questions WHERE sid='.$surveyId.' and parent_qid = 0')->queryAll(),
+			'respuestas'=> 
+					Yii::app()->db->createCommand('SELECT * FROM survey_'.$surveyId.' WHERE not(isnull(submitdate)) and asignatura_profesor_id = '.$asignatura_profesor_id)->queryAll(),
+			'totalEncuestas'=>
+					Yii::app()->db->createCommand('SELECT COUNT(1) as total FROM asignatura_profesor ap join incripciones i on ap.asignatura_id = i.asignatura_id where ap.id = '.$asignatura_profesor_id.' and i.anio_academico = 2019')->queryAll(),
+		)); //(235,243)
+	}
+
+	public function actionGenerales()
+	{
+
+		$this->render('generales',array(
+			'participacionPorCarrera'=> $this->loadParticipacionPorCarrera(),
+			'cantidadEncuestasPorCarrera'=> $this->loadCantidadEncuestasPorCarrera(),
+		));
+	}
+
 	public function actionAvances()
 	{
 		$arrayFinal = array();
@@ -227,6 +252,79 @@ class ReportesController extends Controller
 		array_unshift($arrayDatos, $arrayCarreras);
 
 		return $arrayDatos;
+	}
+
+
+	function loadParticipacionPorCarrera(){
+		$list = Yii::app()->db->createCommand('select ssa.carrera, ssa.inscriptosPorCarrera, ssb.alumnosParticipantes
+from
+(select ss.carrera as carrera, count(1) as inscriptosPorCarrera from ( SELECT p.firstname as alumno, p.legajo as legajo, c.description as carrera, count(1) as inscripciones FROM participants p JOIN incripciones i on p.participant_id = i.participant_id join carreras c on p.carrera_id = c.id WHERE i.anio_academico = 2019 GROUP BY 1, 2, 3) ss group by 1) ssa
+join (select ss.carrera as carrera, count(1) as alumnosParticipantes
+from (
+select distinct p.firstname, c.description as carrera, count(ss1.asignatura_profesor)
+from participants p join
+(select replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.ap_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as asignatura_profesor,  replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.dni_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\')  as dni
+from 
+(select REPLACE(t.token, RIGHT(t.token, 8), \'\') as ap_encrypt, RIGHT(t.token, 8) as dni_encrypt
+FROM tokens_20191 t
+WHERE t.usesleft = 0
+union 
+select REPLACE(t.token, RIGHT(t.token, 8), \'\') as ap_encrypt, RIGHT(t.token, 8) as dni_encrypt
+FROM tokens_20192 t
+WHERE t.usesleft = 0
+union 
+select REPLACE(t.token, RIGHT(t.token, 8), \'\') as ap_encrypt, RIGHT(t.token, 8) as dni_encrypt
+FROM tokens_20193 t
+WHERE t.usesleft = 0) ss ) ss1
+on ss1.dni = p.dni
+join carreras c on p.carrera_id = c.id
+group by 1,2
+) ss
+group by 1) ssb on ssa.carrera = ssb.carrera')->queryAll();
+
+
+/* Array ( 
+		[0] => Array ( 
+			[carrera] => Ingeniería Eléctrica 
+			[inscriptosPorCarrera] => 137 
+			[alumnosParticipantes] => 25 ) 
+		[1] => Array ( 
+			[carrera] => Ingeniería en Sistemas de Información 
+			[inscriptosPorCarrera] => 281 
+			[alumnosParticipantes] => 92 ) 
+		[2] => Array ( 
+			[carrera] => Ingeniería Mecánica 
+			[inscriptosPorCarrera] => 194 
+			[alumnosParticipantes] => 30 ) 
+		[3] => Array ( 
+			[carrera] => Ingeniería Química 
+			[inscriptosPorCarrera] => 285 
+			[alumnosParticipantes] => 63 )
+		) 1
+*/
+		$map = [];
+		foreach ($list as $row) {
+		    array_push($map, [$row['carrera'],strval($row['inscriptosPorCarrera']),strval($row['alumnosParticipantes'])]);
+		}
+
+		return $map;
+	}
+
+	function loadCantidadEncuestasPorCarrera(){
+		$list = Yii::app()->db->createCommand('select ssa.carrera, ssa.encuestasProfesor, ssb.encuestasAuxiliar
+from
+(select distinct c.description as carrera, count(ss1.asignatura_profesor) as encuestasProfesor from (select replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.ap_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as asignatura_profesor, replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.dni_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as dni from (select REPLACE(t.token, RIGHT(t.token, 8), \'\') as ap_encrypt, RIGHT(t.token, 8) as dni_encrypt FROM tokens_20191 t WHERE t.usesleft = 0 ) ss ) ss1
+ join asignatura_profesor ap on ss1.asignatura_profesor = ap.id join asignaturas a on ap.asignatura_id = a.id join carreras c on a.carrera_id = c.id group by 1) ssa
+left JOIN
+(select distinct c.description as carrera, count(ss1.asignatura_profesor) as encuestasAuxiliar from (select replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.ap_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as asignatura_profesor, replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.dni_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as dni from (select REPLACE(t.token, RIGHT(t.token, 8), \'\') as ap_encrypt, RIGHT(t.token, 8) as dni_encrypt FROM tokens_20192 t WHERE t.usesleft = 0 ) ss ) ss1
+ join asignatura_profesor ap on ss1.asignatura_profesor = ap.id join asignaturas a on ap.asignatura_id = a.id join carreras c on a.carrera_id = c.id group by 1) ssb on ssa.carrera = ssb.carrera')->queryAll();
+
+	$map = [];
+	foreach ($list as $row) {
+	    array_push($map, [$row['carrera'],strval($row['encuestasProfesor']),strval($row['encuestasAuxiliar'])]);
+	}
+
+	return $map;
 	}
 
 }

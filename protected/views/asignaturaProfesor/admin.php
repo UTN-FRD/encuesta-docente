@@ -61,6 +61,11 @@ $('.search-form form').submit(function(){
 		),
 		'cargo',
 		array(
+			'class'=>'CLinkColumn',
+			'label'=>'Ver Encuesta',
+			'urlExpression'=>'\Yii::app()->createUrl("reportes/respuestas", array("asignatura_profesor_id" => $data->id))',
+		),
+		array(
 			'class'=>'CButtonColumn',
 		),
 	),
