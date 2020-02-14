@@ -42,8 +42,9 @@ class ReportesController extends Controller
 	{
 
 		$this->render('generales',array(
-			'participacionPorCarrera'=> $this->loadParticipacionPorCarrera(),
-			'cantidadEncuestasPorCarrera'=> $this->loadCantidadEncuestasPorCarrera(),
+			 'participacionPorCarrera'=> $this->loadParticipacionPorCarrera(),
+			// 'cantidadEncuestasPorCarrera'=> $this->loadCantidadEncuestasPorCarrera(),
+			'generales'=> $this->loadGeneralStatistics(),
 		));
 	}
 
@@ -327,4 +328,202 @@ left JOIN
 	return $map;
 	}
 
+
+	function loadGeneralStatistics(){
+		$list = Yii::app()->db->createCommand('select ss2.asignatura_profesor as asignatura_profesor_id, ss2.respuestas as respuestas, ap.cargo, a.descripcion as asignatura, a.nivel, a.carrera_id, a.departamento_id, a.id as asignatura_id, p.nombre as profesor, p.id as profesor_id
+from
+(select replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.ap_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as asignatura_profesor,
+count(ss.dni_encrypt) as respuestas
+from (select REPLACE(token, RIGHT(token, 8), \'\') as ap_encrypt, RIGHT(token, 8) as dni_encrypt FROM tokens_20191 WHERE usesleft = 0
+union
+select REPLACE(token, RIGHT(token, 8), \'\') as ap_encrypt, RIGHT(token, 8) as dni_encrypt FROM tokens_20192 WHERE usesleft = 0
+union
+select REPLACE(token, RIGHT(token, 8), \'\') as ap_encrypt, RIGHT(token, 8) as dni_encrypt FROM tokens_20193 WHERE usesleft = 0 ) ss
+group by ss.ap_encrypt) ss2
+join asignatura_profesor ap on ss2.asignatura_profesor = ap.id
+join asignaturas a on ap.asignatura_id = a.id
+join profesores p on ap.profesor_id = p.id')->queryAll();
+
+		$inscripciones = Yii::app()->db->createCommand('SELECT a.carrera_id, a.nivel, a.departamento_id, count(1) as alumnos from incripciones i JOIN asignaturas a on i.asignatura_id = a.id WHERE i.anio_academico = 2019 GROUP BY a.carrera_id, a.nivel, a.departamento_id')->queryAll();
+		
+		$map = array(
+			"generales"=>array(
+				"totalRespuestas"=>0,
+				"totalEncuestas"=>0
+			),
+			"respuestasPorCarrera"=>array(
+				"5"=>array(
+					"descripcion"=>"Ingeniería en Sistemas de Información",
+					"totalRespuestas"=>0,
+					"totalEncuestas"=>0,
+					"1"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"2"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"3"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"4"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"5"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"0"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					)
+				),
+				"7"=>array(
+					"descripcion"=>"Ingeniería Eléctrica",
+					"totalRespuestas"=>0,
+					"totalEncuestas"=>0,
+					"1"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"2"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"3"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"4"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"5"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"0"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					)
+				),
+				"17"=>array(
+					"descripcion"=>"Ingeniería Mecánica",
+					"totalRespuestas"=>0,
+					"totalEncuestas"=>0,
+					"1"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"2"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"3"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"4"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"5"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"0"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					)
+				),
+				"27"=>array(
+					"descripcion"=>"Ingeniería Química",
+					"totalRespuestas"=>0,
+					"totalEncuestas"=>0,
+					"1"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"2"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"3"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"4"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"5"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					),
+					"0"=>array(
+						"totalRespuestas"=>0,
+						"totalEncuestas"=>0
+					)
+				)
+			),
+			"respuestasPorDepartamento"=>array(
+				"4"=>array(
+					"descripcion"=>"Química",
+					"totalRespuestas"=>0,
+					"totalEncuestas"=>0
+				),
+				"12"=>array(
+					"descripcion"=>"Sistemas de Información",
+					"totalRespuestas"=>0,
+					"totalEncuestas"=>0
+				),
+				"15"=>array(
+					"descripcion"=>"Eléctrica",
+					"totalRespuestas"=>0,
+					"totalEncuestas"=>0
+				),
+				"16"=>array(
+					"descripcion"=>"Mecánica",
+					"totalRespuestas"=>0,
+					"totalEncuestas"=>0
+				),
+				"17"=>array(
+					"descripcion"=>"Materias Básicas",
+					"totalRespuestas"=>0,
+					"totalEncuestas"=>0
+				),
+			)
+		);
+		
+		foreach ($list as $row) {
+			$map["generales"]["totalRespuestas"] = $map["generales"]["totalRespuestas"] + $row["respuestas"];
+
+			$map["respuestasPorCarrera"][$row["carrera_id"]]["totalRespuestas"] = $map["respuestasPorCarrera"][$row["carrera_id"]]["totalRespuestas"] + $row["respuestas"];
+			
+			$map["respuestasPorCarrera"][$row["carrera_id"]][$row["nivel"]]["totalRespuestas"] = $map["respuestasPorCarrera"][$row["carrera_id"]][$row["nivel"]]["totalRespuestas"] + $row["respuestas"];
+			
+			$map["respuestasPorDepartamento"][$row["departamento_id"]]["totalRespuestas"] = $map["respuestasPorDepartamento"][$row["departamento_id"]]["totalRespuestas"] + $row["respuestas"];
+		}
+
+		foreach ($inscripciones as $row) {
+			$map["generales"]["totalEncuestas"] = $map["generales"]["totalEncuestas"] + $row["alumnos"];
+			
+			$map["respuestasPorCarrera"][$row["carrera_id"]]["totalEncuestas"] = $map["respuestasPorCarrera"][$row["carrera_id"]]["totalEncuestas"] + $row["alumnos"];
+
+			$map["respuestasPorCarrera"][$row["carrera_id"]][$row["nivel"]]["totalEncuestas"] = $map["respuestasPorCarrera"][$row["carrera_id"]][$row["nivel"]]["totalEncuestas"] + $row["alumnos"];
+			
+			$map["respuestasPorDepartamento"][$row["departamento_id"]]["totalEncuestas"] = $map["respuestasPorDepartamento"][$row["departamento_id"]]["totalEncuestas"] + $row["alumnos"];
+		}
+
+		/*
+		//función lambda
+		$suma_item = function($n) { return $n++; };
+		//utilizamos array_map para aplicar la funcion de mapeo en cada array
+		array_map($suma_item, $precios['frutas']);
+*/
+		return $map;
+	}
 }

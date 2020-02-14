@@ -47,6 +47,7 @@ foreach ($respuestas as $key => $value) {
 	</div>
 </div>
 <div class="row">
+	<h3>Gráfico de Respuestas</h3>
 	<div id="plot-result" style="height:1000px"></div>
 </div>
 <script>
@@ -63,6 +64,7 @@ Plotly.newPlot('plot-result', data, layout,{showSendToCloud: true});
 </script>
 
 <div class="row">
+	<h3>Detalle de Respuestas</h3>
 	<table class="table table-striped table-bordered">
 		<tbody>
 		<?php
@@ -84,7 +86,7 @@ Plotly.newPlot('plot-result', data, layout,{showSendToCloud: true});
 	</table>
 </div>
 <div class="row">
-	<h2>Preguntas Abiertas</h2>
+	<h3>Preguntas Abiertas</h3>
 	<?php
 		foreach ($textResponses as $key => $value) { 
 	?>
