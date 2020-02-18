@@ -38,13 +38,22 @@ class ReportesController extends Controller
 		)); //(235,243)
 	}
 
-	public function actionGenerales()
+	public function actionGeneralesPorEncuestas()
 	{
 
-		$this->render('generales',array(
-			 'participacionPorCarrera'=> $this->loadParticipacionPorCarrera(),
+		$this->render('generalesPorEncuestas',array(
+			// 'participacionPorCarrera'=> $this->loadParticipacionPorCarrera(),
 			// 'cantidadEncuestasPorCarrera'=> $this->loadCantidadEncuestasPorCarrera(),
 			'generales'=> $this->loadGeneralStatistics(),
+		));
+	}
+
+	public function actionGeneralesPorAlumnos()
+	{
+		$this->render('generalesPorAlumnos',array(
+			 'participacionPorCarrera'=> $this->loadParticipacionPorCarrera(),
+			// 'cantidadEncuestasPorCarrera'=> $this->loadCantidadEncuestasPorCarrera(),
+			// 'generales'=> $this->loadGeneralStatistics(),
 		));
 	}
 
@@ -518,12 +527,6 @@ join profesores p on ap.profesor_id = p.id')->queryAll();
 			$map["respuestasPorDepartamento"][$row["departamento_id"]]["totalEncuestas"] = $map["respuestasPorDepartamento"][$row["departamento_id"]]["totalEncuestas"] + $row["alumnos"];
 		}
 
-		/*
-		//función lambda
-		$suma_item = function($n) { return $n++; };
-		//utilizamos array_map para aplicar la funcion de mapeo en cada array
-		array_map($suma_item, $precios['frutas']);
-*/
 		return $map;
 	}
 }

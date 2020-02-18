@@ -36,19 +36,6 @@ $this->menu=array();?>
 	<div class="col-md-6" style="border: solid 1px #eee">
 		<div id="cantidadEncuestasPorNivelSistemas" style="min-height: 400px"></div>
 	</div>
-	<div class="col-md-12" style="border: solid 1px #eee">
-		<h2>Basado en la Cantidad de alumnos</h2>
-	</div>
-	<div class="col-md-6" style="border: solid 1px #eee">
-		<h3>Participaci&oacute;n por Carrera</h3>
-		<div id="participacionPorCarrera"></div>
-	</div>
-	<div class="col-md-6" style="border: solid 1px #eee">
-		
-	</div>
-	<div class="col-md-12" style="border: solid 1px #eee; display: none">
-		<?php echo substr(print_r(json_encode($generales)),0,-1) ?>
-	</div>
 </div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -56,19 +43,9 @@ $this->menu=array();?>
       google.charts.setOnLoadCallback(drawTable);
 
       function drawTable() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Carrera');
-        data.addColumn('string', 'Inscriptos');
-        data.addColumn('string', 'Participantes');
-        data.addRows( <?php echo substr(print_r(json_encode($participacionPorCarrera)),0,-1) ?> );
-
-        var table = new google.visualization.Table(document.getElementById('participacionPorCarrera'));
-
-        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
-
 
         //cantidad de encuestas totales
-        data = google.visualization.arrayToDataTable([
+        var data = google.visualization.arrayToDataTable([
           ['Tipo', 'Cantidad'],
           ['Respondidas (<?php echo $generales['generales']['totalRespuestas'] ?>)', <?php echo $generales['generales']['totalRespuestas'] ?>],
           ['No Respondidas (<?php echo ($generales['generales']['totalEncuestas'] - $generales['generales']['totalRespuestas']) ?>)', <?php echo ($generales['generales']['totalEncuestas'] - $generales['generales']['totalRespuestas']) ?>]
