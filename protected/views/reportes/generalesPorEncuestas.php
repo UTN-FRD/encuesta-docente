@@ -9,10 +9,115 @@ $this->breadcrumbs=array(
 $this->menu=array();?>
 
 <h2>Resultados Generales</h2>
+<h4>C&aacute;lculos basados en la cantidad encuestas</h4>
 
 <div class="row">
-	<div class="col-md-12" style="border: solid 1px #eee">
-		<h2>Basado en la Cantidad Encuestas</h2>
+	<div class="col-md-12">
+		<h2>Total de encuestas respondidas: <?php echo $generales['generales']['totalRespuestas'] ?></h2>
+	</div>
+	<div class="col-md-6" >
+		<table class="table table-bordered">
+			<thead>
+			<tr>
+				<th></th>
+				<th scope="col" class="text-center">Profesores</th>
+				<th scope="col" class="text-center">Auxiliares</th>
+				<th scope="col" class="text-center">TOTAL</th>
+			</tr>
+			</thead>
+				<?php 
+				$totalTitular = 0;
+				$totalAuxiliar = 0;
+				?>
+			<tbody>
+			<tr>
+				<td>Ing. El&eacute;ctrica</td>
+				<?php 
+				$carreraId='7';
+				$totalTitular = $totalTitular + $generales['respuestasPorCarrera'][$carreraId]['Titular'];
+				$totalAuxiliar = $totalAuxiliar + $generales['respuestasPorCarrera'][$carreraId]['Auxiliar'];
+
+				?>
+				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Titular'] ?></td>
+				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Auxiliar'] ?></td>
+				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Titular']+$generales['respuestasPorCarrera'][$carreraId]['Auxiliar'] ?></td>
+			</tr>
+			<tr>
+				<td>Ing. Mec&aacute;nica</td>
+				<?php 
+				$carreraId="17";
+				$totalTitular = $totalTitular + $generales['respuestasPorCarrera'][$carreraId]['Titular'];
+				$totalAuxiliar = $totalAuxiliar + $generales['respuestasPorCarrera'][$carreraId]['Auxiliar'];
+
+				?>
+				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Titular'] ?></td>
+				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Auxiliar'] ?></td>
+				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Titular']+$generales['respuestasPorCarrera'][$carreraId]['Auxiliar'] ?></td>
+			</tr>
+			<tr>
+				<td>Ing. Qu&iacute;mica</td>
+				<?php 
+				$carreraId="27";
+				$totalTitular = $totalTitular + $generales['respuestasPorCarrera'][$carreraId]['Titular'];
+				$totalAuxiliar = $totalAuxiliar + $generales['respuestasPorCarrera'][$carreraId]['Auxiliar'];
+
+				?>
+				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Titular'] ?></td>
+				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Auxiliar'] ?></td>
+				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Titular']+$generales['respuestasPorCarrera'][$carreraId]['Auxiliar'] ?></td>
+			</tr>
+			<tr>
+				<td>Ing. en Sistemas</td>
+				<?php 
+				$carreraId="5";
+				$totalTitular = $totalTitular + $generales['respuestasPorCarrera'][$carreraId]['Titular'];
+				$totalAuxiliar = $totalAuxiliar + $generales['respuestasPorCarrera'][$carreraId]['Auxiliar'];
+
+				?>
+				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Titular'] ?></td>
+				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Auxiliar'] ?></td>
+				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Titular']+$generales['respuestasPorCarrera'][$carreraId]['Auxiliar'] ?></td>
+			</tr>
+			<tr>
+				<td>TOTAL</td>
+				<th scope="row" class="text-right"><?php echo $totalTitular ?></th>
+				<th scope="row" class="text-right"><?php echo $totalAuxiliar ?></th>
+				<th scope="row" class="text-right"><?php echo $totalTitular + $totalAuxiliar ?></th>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-6">
+		<table class="table">
+			<tr>
+				<td></td>
+				<td class="text-right">Encuestas Respondidas</td>
+			</tr>
+			<tr>
+				<td>Lab. El&eacute;ctrica</td>
+				<td class="text-right"><?php echo $generales["Laboratorio"]["Laboratorio_de_Electrica"]?></td>
+			</tr>
+			<tr>
+				<td>Lab. Mec&aacute;nica</td>
+				<td class="text-right"><?php echo $generales["Laboratorio"]["Laboratorio_de_Mecánica"]?></td>
+			</tr>
+			<tr>
+				<td>Lab. Qu&iacute;mica</td>
+				<td class="text-right"><?php echo $generales["Laboratorio"]["Laboratorio_de_Química"]?></td>
+			</tr>
+			<tr>
+				<td>Lab. en Sistemas</td>
+				<td class="text-right"><?php echo $generales["Laboratorio"]["Laboratorio_de_Sistemas_"]?></td>
+			</tr>
+			<tr>
+				<td>Lab. de F&iacute;sica</td>
+				<td class="text-right"><?php echo $generales["Laboratorio"]["Laboratorio_de_Física"]?></td>
+			</tr>
+			<tr>
+				<td>TOTAL</td>
+				<th scope="row" class="text-right"><?php echo $generales["Laboratorio"]["Laboratorio_de_Electrica"] + $generales["Laboratorio"]["Laboratorio_de_Mecánica"] + $generales["Laboratorio"]["Laboratorio_de_Química"] + $generales["Laboratorio"]["Laboratorio_de_Sistemas_"] + $generales["Laboratorio"]["Laboratorio_de_Física"]?></th>
+			</tr>
+		</table>
 	</div>
 	<div class="col-md-6" style="border: solid 1px #eee">
 		<div id="cantidadEncuestasGeneral" style="min-height: 400px"></div>

@@ -18,6 +18,12 @@ $this->menu=array();?>
 		<h3>Participaci&oacute;n por Carrera</h3>
 		<div id="participacionPorCarrera"></div>
 	</div>
+	<div class="col-md-12" style="border: solid 1px #eee; ">
+		<?php echo substr(print_r(json_encode(array_count_values(array_column($generalesPorAlumnos,'alumno_carrera')))),0,-1) ?>
+	</div>
+	<div class="col-md-12" style="border: solid 1px #eee; ">
+		<?php echo substr(print_r(json_encode($generalesPorAlumnos)),0,-1) ?>
+	</div>
 	<div class="col-md-6" style="border: solid 1px #eee">
 		
 	</div>

@@ -52,6 +52,7 @@ class ReportesController extends Controller
 	{
 		$this->render('generalesPorAlumnos',array(
 			 'participacionPorCarrera'=> $this->loadParticipacionPorCarrera(),
+			 'generalesPorAlumnos'=> $this->loadGeneralStatisticsByParticipant(),
 			// 'cantidadEncuestasPorCarrera'=> $this->loadCantidadEncuestasPorCarrera(),
 			// 'generales'=> $this->loadGeneralStatistics(),
 		));
@@ -365,6 +366,8 @@ join profesores p on ap.profesor_id = p.id')->queryAll();
 					"descripcion"=>"Ingeniería en Sistemas de Información",
 					"totalRespuestas"=>0,
 					"totalEncuestas"=>0,
+					"Titular"=>0,
+					"Auxiliar"=>0,
 					"1"=>array(
 						"totalRespuestas"=>0,
 						"totalEncuestas"=>0
@@ -394,6 +397,8 @@ join profesores p on ap.profesor_id = p.id')->queryAll();
 					"descripcion"=>"Ingeniería Eléctrica",
 					"totalRespuestas"=>0,
 					"totalEncuestas"=>0,
+					"Titular"=>0,
+					"Auxiliar"=>0,
 					"1"=>array(
 						"totalRespuestas"=>0,
 						"totalEncuestas"=>0
@@ -423,6 +428,8 @@ join profesores p on ap.profesor_id = p.id')->queryAll();
 					"descripcion"=>"Ingeniería Mecánica",
 					"totalRespuestas"=>0,
 					"totalEncuestas"=>0,
+					"Titular"=>0,
+					"Auxiliar"=>0,
 					"1"=>array(
 						"totalRespuestas"=>0,
 						"totalEncuestas"=>0
@@ -452,6 +459,8 @@ join profesores p on ap.profesor_id = p.id')->queryAll();
 					"descripcion"=>"Ingeniería Química",
 					"totalRespuestas"=>0,
 					"totalEncuestas"=>0,
+					"Titular"=>0,
+					"Auxiliar"=>0,
 					"1"=>array(
 						"totalRespuestas"=>0,
 						"totalEncuestas"=>0
@@ -504,6 +513,13 @@ join profesores p on ap.profesor_id = p.id')->queryAll();
 					"totalRespuestas"=>0,
 					"totalEncuestas"=>0
 				),
+			),
+			"Laboratorio"=>array(
+				"Laboratorio_de_Mecánica"=>0,
+				"Laboratorio_de_Física"=>0,
+				"Laboratorio_de_Química"=>0,
+				"Laboratorio_de_Electrica"=>0,
+				"Laboratorio_de_Sistemas_"=>0
 			)
 		);
 		
@@ -515,6 +531,13 @@ join profesores p on ap.profesor_id = p.id')->queryAll();
 			$map["respuestasPorCarrera"][$row["carrera_id"]][$row["nivel"]]["totalRespuestas"] = $map["respuestasPorCarrera"][$row["carrera_id"]][$row["nivel"]]["totalRespuestas"] + $row["respuestas"];
 			
 			$map["respuestasPorDepartamento"][$row["departamento_id"]]["totalRespuestas"] = $map["respuestasPorDepartamento"][$row["departamento_id"]]["totalRespuestas"] + $row["respuestas"];
+
+			if ($row["cargo"]=="Laboratorio") {
+				$map["Laboratorio"][str_replace(' ','_',$row["asignatura"])] = $map["Laboratorio"][str_replace(' ','_',$row["asignatura"])] + $row["respuestas"];
+			}else{
+				$map["respuestasPorCarrera"][$row["carrera_id"]][$row["cargo"]] = $map["respuestasPorCarrera"][$row["carrera_id"]][$row["cargo"]] + $row["respuestas"];
+			}
+
 		}
 
 		foreach ($inscripciones as $row) {
@@ -528,5 +551,24 @@ join profesores p on ap.profesor_id = p.id')->queryAll();
 		}
 
 		return $map;
+	}
+
+	function loadGeneralStatisticsByParticipant(){
+		$list = Yii::app()->db->createCommand('select ss2.asignatura_profesor as asignatura_profesor_id, ss2.dni_alumno as dni_alumno, a.nivel,
+ss3.carrera_id as alumno_carrera, 
+a.carrera_id as asignatura_carrera, a.departamento_id, a.id as asignatura_id 
+from (select replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.dni_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as dni_alumno,
+replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.ap_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as asignatura_profesor
+from (select REPLACE(token, RIGHT(token, 8), \'\') as ap_encrypt, RIGHT(token, 8) as dni_encrypt FROM tokens_20191 WHERE usesleft = 0
+union
+select REPLACE(token, RIGHT(token, 8), \'\') as ap_encrypt, RIGHT(token, 8) as dni_encrypt FROM tokens_20192 WHERE usesleft = 0
+union
+select REPLACE(token, RIGHT(token, 8), \'\') as ap_encrypt, RIGHT(token, 8) as dni_encrypt FROM tokens_20193 WHERE usesleft = 0 ) ss) ss2
+join asignatura_profesor ap on ap.id = ss2.asignatura_profesor
+join asignaturas a on a.id = ap.asignatura_id
+join 
+(select p.dni, p.carrera_id from participants p INNER JOIN (SELECT pa.dni, max(pa.anio_ingreso) as anio from participants pa group by pa.dni) pb ON p.dni = pb.dni and p.anio_ingreso = pb.anio) ss3 ON ss2.dni_alumno = ss3.dni')->queryAll();
+
+		return $list;
 	}
 }
