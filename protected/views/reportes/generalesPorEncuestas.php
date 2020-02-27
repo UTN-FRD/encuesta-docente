@@ -78,21 +78,26 @@ $this->menu=array();?>
 				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Auxiliar'] ?></td>
 				<td class="text-right"><?php echo $generales['respuestasPorCarrera'][$carreraId]['Titular']+$generales['respuestasPorCarrera'][$carreraId]['Auxiliar'] ?></td>
 			</tr>
+			</tbody>
+			<tfoot>
 			<tr>
 				<td>TOTAL</td>
 				<th scope="row" class="text-right"><?php echo $totalTitular ?></th>
 				<th scope="row" class="text-right"><?php echo $totalAuxiliar ?></th>
 				<th scope="row" class="text-right"><?php echo $totalTitular + $totalAuxiliar ?></th>
 			</tr>
-			</tbody>
+			</tfoot>
 		</table>
 	</div>
 	<div class="col-md-6">
-		<table class="table">
+		<table class="table table-bordered">
+			<thead>
 			<tr>
-				<td></td>
-				<td class="text-right">Encuestas Respondidas</td>
+				<th></th>
+				<th class="text-right">Encuestas Respondidas</th>
 			</tr>
+			</thead>
+			<tbody>
 			<tr>
 				<td>Lab. El&eacute;ctrica</td>
 				<td class="text-right"><?php echo $generales["Laboratorio"]["Laboratorio_de_Electrica"]?></td>
@@ -113,10 +118,13 @@ $this->menu=array();?>
 				<td>Lab. de F&iacute;sica</td>
 				<td class="text-right"><?php echo $generales["Laboratorio"]["Laboratorio_de_Física"]?></td>
 			</tr>
+			</tbody>
+			<tfoot>
 			<tr>
 				<td>TOTAL</td>
 				<th scope="row" class="text-right"><?php echo $generales["Laboratorio"]["Laboratorio_de_Electrica"] + $generales["Laboratorio"]["Laboratorio_de_Mecánica"] + $generales["Laboratorio"]["Laboratorio_de_Química"] + $generales["Laboratorio"]["Laboratorio_de_Sistemas_"] + $generales["Laboratorio"]["Laboratorio_de_Física"]?></th>
 			</tr>
+			</tfoot>
 		</table>
 	</div>
 	<div class="col-md-6" style="border: solid 1px #eee">
