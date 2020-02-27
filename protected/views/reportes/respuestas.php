@@ -3,12 +3,17 @@
 $this->menu=array();?>
 <?php
 $plotValues='';
+$tickvals='[';
+$ticktext='[';
+$i = 0;
 foreach ($preguntas as $key => $value) { 
 	$questionCode = $value['sid'].'X'.$value['gid'].'X'.$value['qid'];
 	if( $value['type']=='B' ) {
 		$questionCode .='SQ001';
 		$questionsTable[ $questionCode ] = array();
-		array_push($questionsTable[ $questionCode ], trim(strip_tags($value['question'])));
+		array_push($questionsTable[ $questionCode ], chr(65+$i).' - '.trim(strip_tags($value['question'])));
+		$tickvals=$tickvals.$i.',';
+		$ticktext=$ticktext.'"'.chr(65+$i++).'",';
 	}else{
 		$textResponses[ $questionCode ] = array();
 		array_push($textResponses[ $questionCode ], $value['question']);
@@ -28,7 +33,7 @@ foreach ($questionsTable as $key => $value) {
 			$plotValue .= $v.',';
 		}
 	}
-	$plotValues .= '{y:['.substr($plotValue,0,-1).'],type:"box",name:"'.strip_tags($questionsTable[$key][0]).'"},';
+	$plotValues .= '{y:['.substr($plotValue,0,-1).'],type:"box",name:"'.strip_tags($questionsTable[$key][0]).'",marker:{size:10}, shapes: [{line: {width: 30}}]},';
 } 
 
 foreach ($respuestas as $key => $value) { 
@@ -48,7 +53,7 @@ foreach ($respuestas as $key => $value) {
 </div>
 <div class="row">
 	<h3>Gráfico de Respuestas</h3>
-	<div id="plot-result" style="height:1000px"></div>
+	<div id="plot-result" style="height:650px"></div>
 </div>
 <script>
 var data = [<?php print_r($plotValues)?>];
@@ -56,11 +61,26 @@ var data = [<?php print_r($plotValues)?>];
 var layout = {
   title: '',
   showlegend: true,
-  orientation: "h",
-  legend: {"orientation": "h"}
+  legend: {
+	xanchor:"center",//"auto" | "left" | "center" | "right"
+	yanchor:"top",//"auto" | "top" | "middle" | "bottom"
+	y:3,//number between or equal to -2 and 3
+	x:0.5,//number between or equal to -2 and 3
+	orientation: "h"
+  },	
+  xaxis: {
+  	showticklabels: true,
+  	tickmode: 'array',
+  	tickvals: <?php echo substr($tickvals,0,-1)?>],
+  	ticktext: <?php echo substr($ticktext,0,-1)?>]
+  },
+  yaxis: {
+    gridcolor: 'rgb(200, 200, 200)',
+    gridwidth: 2
+  }
 };
 
-Plotly.newPlot('plot-result', data, layout,{showSendToCloud: true});
+Plotly.newPlot('plot-result', data, layout);
 </script>
 
 <div class="row">
@@ -109,3 +129,6 @@ Plotly.newPlot('plot-result', data, layout,{showSendToCloud: true});
 		} 
 	?>
 </div>
+<style>
+.plot .boxlayer .boxes .box{stroke-width: 3px !important;}
+</style>
