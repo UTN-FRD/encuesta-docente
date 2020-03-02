@@ -27,6 +27,7 @@ class ReportesController extends Controller
 		$asignaturaProfesor = Yii::app()->db->createCommand('SELECT p.id, ap.cargo, a.descripcion as asignatura, a.plan, p.nombre as docente, c.description as carrera, a.id as asignatura_id FROM asignatura_profesor ap JOIN asignaturas a on ap.asignatura_id = a.id JOIN profesores p on ap.profesor_id = p.id JOIN carreras c on a.carrera_id = c.id WHERE ap.id='.$asignatura_profesor_id)->queryAll();
 		$cargo = $asignaturaProfesor[0]['cargo'];
 		$surveyId = Yii::app()->params[$cargo];
+		
 		$this->render('respuestas',array(
 			'asignaturaProfesor'=> $asignaturaProfesor,
 			'preguntas'=> 
@@ -35,6 +36,17 @@ class ReportesController extends Controller
 					Yii::app()->db->createCommand('SELECT * FROM survey_'.$surveyId.' WHERE not(isnull(submitdate)) and asignatura_profesor_id = '.$asignatura_profesor_id)->queryAll(),
 			'totalEncuestas'=>
 					Yii::app()->db->createCommand('SELECT COUNT(1) as total FROM asignatura_profesor ap join incripciones i on ap.asignatura_id = i.asignatura_id where ap.id = '.$asignatura_profesor_id.' and i.anio_academico = 2019')->queryAll(),
+		)); //(235,243)
+	}
+
+	public function actionRespuestasAgrupadas($pcarrera, $pcargo)
+	{
+
+		$this->render('reporteCarrera',array(
+			'datos'=>Yii::app()->db->createCommand('SELECT a.nivel AS NIVEL, a.descripcion AS MATERIA, p.nombre AS PROFESOR, COALESCE(r.respuestas, 0) AS RESPUESTAS, count(1) AS INSCRIPTOS, ap.id AS asignatura_profesor_id FROM asignaturas a JOIN incripciones i on a.id = i.asignatura_id JOIN asignatura_profesor ap on i.asignatura_id = ap.asignatura_id JOIN profesores p on ap.profesor_id = p.id LEFT JOIN respuestas_2019_cant_por_asignatura_profesor r ON r.asignatura_profesor_id = ap.id WHERE i.anio_academico = 2019 and a.carrera_id = '.$pcarrera.' and ap.cargo = \''.$pcargo.'\' GROUP BY 1,2,3 ORDER BY 1,2')->queryAll(),
+			'carrera'=>Yii::app()->db->createCommand('SELECT id,description FROM carreras WHERE id = '.$pcarrera)->queryAll(),
+			'cargo'=>$pcargo
+
 		)); //(235,243)
 	}
 
@@ -154,14 +166,7 @@ class ReportesController extends Controller
 	}
 
 	function loadCantidadAlumnosPorCarrera(){
-		$list = Yii::app()->db->createCommand('
-		SELECT ss.CARRERA as CARRERA, count(ss.ALUMNO) as ALUMNOS
-			from (SELECT distinct c.description as CARRERA, i.participant_id as ALUMNO 
-				FROM incripciones i INNER JOIN asignaturas a ON i.asignatura_id = a.id 
-				    INNER JOIN carreras c ON a.carrera_id = c.id
-				WHERE i.anio_academico = 2019 ) as ss
-			group by ss.CARRERA
-		')->queryAll();
+		$list = Yii::app()->db->createCommand('SELECT carrera as CARRERA, inscriptosPorCarrera as ALUMNOS FROM inscriptos_por_carrera')->queryAll(); //SELECT ss.CARRERA as CARRERA, count(ss.ALUMNO) as ALUMNOS from (SELECT distinct c.description as CARRERA, i.participant_id as ALUMNO FROM incripciones i INNER JOIN asignaturas a ON i.asignatura_id = a.id INNER JOIN carreras c ON a.carrera_id = c.id WHERE i.anio_academico = 2019 ) as ss group by ss.CARRERA
 
 		$tituloYDato = array_column($list, 'ALUMNOS', 'CARRERA');
 
@@ -176,20 +181,7 @@ class ReportesController extends Controller
 	}
 
 	function loadCandidadInscripcionesPorCarreraNivel(){
-		$list = Yii::app()->db->createCommand('
-		SELECT c.description as CARRERA, a.nivel as NIVEL, count(1) as ALUMNOS
-		from asignaturas a 
-		  INNER JOIN incripciones i
-		    ON a.id = i.asignatura_id
-		  INNER JOIN carreras c
-		    ON c.id = a.carrera_id
-		WHERE
-		  a.nivel > 0 and
-		  i.anio_academico = 2019 
-		GROUP BY
-		  c.description, a.nivel
-		ORDER BY 2, 1
-		')->queryAll();
+		$list = Yii::app()->db->createCommand('SELECT * from inscripciones_por_carrera_nivel')->queryAll();
 
 		$arrayDatosAux = array();
 		$arrayNivel = array();
@@ -267,31 +259,7 @@ class ReportesController extends Controller
 
 
 	function loadParticipacionPorCarrera(){
-		$list = Yii::app()->db->createCommand('select ssa.carrera, ssa.inscriptosPorCarrera, ssb.alumnosParticipantes
-from
-(select ss.carrera as carrera, count(1) as inscriptosPorCarrera from ( SELECT p.firstname as alumno, p.legajo as legajo, c.description as carrera, count(1) as inscripciones FROM participants p JOIN incripciones i on p.participant_id = i.participant_id join carreras c on p.carrera_id = c.id WHERE i.anio_academico = 2019 GROUP BY 1, 2, 3) ss group by 1) ssa
-join (select ss.carrera as carrera, count(1) as alumnosParticipantes
-from (
-select distinct p.firstname, c.description as carrera, count(ss1.asignatura_profesor)
-from participants p join
-(select replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.ap_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as asignatura_profesor,  replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.dni_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\')  as dni
-from 
-(select REPLACE(t.token, RIGHT(t.token, 8), \'\') as ap_encrypt, RIGHT(t.token, 8) as dni_encrypt
-FROM tokens_20191 t
-WHERE t.usesleft = 0
-union 
-select REPLACE(t.token, RIGHT(t.token, 8), \'\') as ap_encrypt, RIGHT(t.token, 8) as dni_encrypt
-FROM tokens_20192 t
-WHERE t.usesleft = 0
-union 
-select REPLACE(t.token, RIGHT(t.token, 8), \'\') as ap_encrypt, RIGHT(t.token, 8) as dni_encrypt
-FROM tokens_20193 t
-WHERE t.usesleft = 0) ss ) ss1
-on ss1.dni = p.dni
-join carreras c on p.carrera_id = c.id
-group by 1,2
-) ss
-group by 1) ssb on ssa.carrera = ssb.carrera')->queryAll();
+		$list = Yii::app()->db->createCommand('SELECT ssa.carrera, ssa.inscriptosPorCarrera, ssb.alumnosParticipantes FROM inscriptos_por_carrera ssa join alumnos_participantes_por_carrera ssb on ssa.carrera = ssb.carrera')->queryAll();
 
 
 /* Array ( 
@@ -322,13 +290,7 @@ group by 1) ssb on ssa.carrera = ssb.carrera')->queryAll();
 	}
 
 	function loadCantidadEncuestasPorCarrera(){
-		$list = Yii::app()->db->createCommand('select ssa.carrera, ssa.encuestasProfesor, ssb.encuestasAuxiliar
-from
-(select distinct c.description as carrera, count(ss1.asignatura_profesor) as encuestasProfesor from (select replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.ap_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as asignatura_profesor, replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.dni_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as dni from (select REPLACE(t.token, RIGHT(t.token, 8), \'\') as ap_encrypt, RIGHT(t.token, 8) as dni_encrypt FROM tokens_20191 t WHERE t.usesleft = 0 ) ss ) ss1
- join asignatura_profesor ap on ss1.asignatura_profesor = ap.id join asignaturas a on ap.asignatura_id = a.id join carreras c on a.carrera_id = c.id group by 1) ssa
-left JOIN
-(select distinct c.description as carrera, count(ss1.asignatura_profesor) as encuestasAuxiliar from (select replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.ap_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as asignatura_profesor, replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.dni_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as dni from (select REPLACE(t.token, RIGHT(t.token, 8), \'\') as ap_encrypt, RIGHT(t.token, 8) as dni_encrypt FROM tokens_20192 t WHERE t.usesleft = 0 ) ss ) ss1
- join asignatura_profesor ap on ss1.asignatura_profesor = ap.id join asignaturas a on ap.asignatura_id = a.id join carreras c on a.carrera_id = c.id group by 1) ssb on ssa.carrera = ssb.carrera')->queryAll();
+		$list = Yii::app()->db->createCommand('SELECT ssa.carrera, ssa.encuestasRespondidas as encuestasProfesor, ssb.encuestasRespondidas as encuestasAuxiliar FROM respuestas_20191_por_carrera ssa LEFT JOIN respuestas_20192_por_carrera ssb on ssa.carrera = ssb.carrera')->queryAll();
 
 	$map = [];
 	foreach ($list as $row) {
@@ -340,19 +302,7 @@ left JOIN
 
 
 	function loadGeneralStatistics(){
-		$list = Yii::app()->db->createCommand('select ss2.asignatura_profesor as asignatura_profesor_id, ss2.respuestas as respuestas, ap.cargo, a.descripcion as asignatura, a.nivel, a.carrera_id, a.departamento_id, a.id as asignatura_id, p.nombre as profesor, p.id as profesor_id
-from
-(select replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.ap_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as asignatura_profesor,
-count(ss.dni_encrypt) as respuestas
-from (select REPLACE(token, RIGHT(token, 8), \'\') as ap_encrypt, RIGHT(token, 8) as dni_encrypt FROM tokens_20191 WHERE usesleft = 0
-union
-select REPLACE(token, RIGHT(token, 8), \'\') as ap_encrypt, RIGHT(token, 8) as dni_encrypt FROM tokens_20192 WHERE usesleft = 0
-union
-select REPLACE(token, RIGHT(token, 8), \'\') as ap_encrypt, RIGHT(token, 8) as dni_encrypt FROM tokens_20193 WHERE usesleft = 0 ) ss
-group by ss.ap_encrypt) ss2
-join asignatura_profesor ap on ss2.asignatura_profesor = ap.id
-join asignaturas a on ap.asignatura_id = a.id
-join profesores p on ap.profesor_id = p.id')->queryAll();
+		$list = Yii::app()->db->createCommand('select asignatura_profesor_id, respuestas, cargo, asignatura, nivel, carrera_id, departamento_id, asignatura_id, profesor, profesor_id from respuestas_2019_cant_por_asignatura_profesor')->queryAll();
 
 		$inscripciones = Yii::app()->db->createCommand('SELECT a.carrera_id, a.nivel, a.departamento_id, count(1) as alumnos from incripciones i JOIN asignaturas a on i.asignatura_id = a.id WHERE i.anio_academico = 2019 GROUP BY a.carrera_id, a.nivel, a.departamento_id')->queryAll();
 		
@@ -554,20 +504,7 @@ join profesores p on ap.profesor_id = p.id')->queryAll();
 	}
 
 	function loadGeneralStatisticsByParticipant(){
-		$list = Yii::app()->db->createCommand('select ss2.asignatura_profesor as asignatura_profesor_id, ss2.dni_alumno as dni_alumno, a.nivel,
-ss3.carrera_id as alumno_carrera, 
-a.carrera_id as asignatura_carrera, a.departamento_id, a.id as asignatura_id 
-from (select replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.dni_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as dni_alumno,
-replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(ss.ap_encrypt,\'A\',\'0\'),\'S\',\'1\'),\'D\',\'2\'),\'F\',\'3\'),\'G\',\'4\'),\'H\',\'5\'),\'J\',\'6\'),\'K\',\'7\'),\'L\',\'8\'),\'Z\',\'9\') as asignatura_profesor
-from (select REPLACE(token, RIGHT(token, 8), \'\') as ap_encrypt, RIGHT(token, 8) as dni_encrypt FROM tokens_20191 WHERE usesleft = 0
-union
-select REPLACE(token, RIGHT(token, 8), \'\') as ap_encrypt, RIGHT(token, 8) as dni_encrypt FROM tokens_20192 WHERE usesleft = 0
-union
-select REPLACE(token, RIGHT(token, 8), \'\') as ap_encrypt, RIGHT(token, 8) as dni_encrypt FROM tokens_20193 WHERE usesleft = 0 ) ss) ss2
-join asignatura_profesor ap on ap.id = ss2.asignatura_profesor
-join asignaturas a on a.id = ap.asignatura_id
-join 
-(select p.dni, p.carrera_id from participants p INNER JOIN (SELECT pa.dni, max(pa.anio_ingreso) as anio from participants pa group by pa.dni) pb ON p.dni = pb.dni and p.anio_ingreso = pb.anio) ss3 ON ss2.dni_alumno = ss3.dni')->queryAll();
+		$list = Yii::app()->db->createCommand('select asignatura_profesor_id, dni_alumno, nivel, alumno_carrera, asignatura_carrera, departamento_id, asignatura_id FROM respuestas_por_alumno')->queryAll();
 
 		return $list;
 	}

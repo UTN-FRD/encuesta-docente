@@ -29,7 +29,6 @@ $this->menu=array();?>
 		</div>
 	</div>
 	<div class="col-md-6" style="border: solid 1px #eee">
-		<?php echo print_r(json_encode($inscripcionesPorCarrera)) ?>
 		<?php
 			$grafico = $this->widget('ext.Hzl.google.HzlVisualizationChart', 
 				array(
