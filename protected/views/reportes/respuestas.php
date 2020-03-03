@@ -109,6 +109,7 @@ Plotly.newPlot('plot-result', data, layout);
 	</table>
 </div>
 <div class="row">
+	<h2><?php echo CHtml::link($asignaturaProfesor[0]['docente'], array('/AsignaturaProfesor/admin', 'AsignaturaProfesor[profesor_id]'=>$asignaturaProfesor[0]['id'])) ?> <?php print_r($asignaturaProfesor[0]['cargo'])?> en <?php echo CHtml::link($asignaturaProfesor[0]['asignatura'], array('/AsignaturaProfesor/admin', 'AsignaturaProfesor[asignatura_id]'=>$asignaturaProfesor[0]['asignatura_id'])) ?> de <?php print_r($asignaturaProfesor[0]['carrera'])?> plan <?php print_r($asignaturaProfesor[0]['plan'])?></h2>
 	<h3>Preguntas Abiertas</h3>
 	<?php
 		foreach ($textResponses as $key => $value) { 
