@@ -30,7 +30,10 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 	//	$this->render('index');
-		if (Yii::app()->user->isAdmin()) {
+		
+		if (Yii::app()->user->isDirector()){
+			$this->redirect(Yii::app()->request->baseUrl."/index.php/reportes/respuestasAgrupadas?pcarrera=".Yii::app()->user->getCarreraId()."&pcargo=Titular");
+		} else if (Yii::app()->user->isAdmin()) {
 			$this->redirect(Yii::app()->request->baseUrl."/index.php/AsignaturaProfesor/admin?view=about");
 		} else {
 			$this->redirect(Yii::app()->request->baseUrl."/index.php/incripciones/encuestas");
@@ -96,7 +99,9 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login()) {
-				if (Yii::app()->user->isAdmin()) {
+				if (Yii::app()->user->isDirector()){
+					$this->redirect(Yii::app()->request->baseUrl."/index.php/reportes/respuestasAgrupadas?pcarrera=".Yii::app()->user->getCarreraId()."&pcargo=Titular");
+				} else if (Yii::app()->user->isAdmin()) {
 					$this->redirect(Yii::app()->request->baseUrl."/index.php/AsignaturaProfesor/admin?view=about");
 				} else {
 					$this->redirect(Yii::app()->request->baseUrl."/index.php/incripciones/encuestas");

@@ -42,14 +42,14 @@
 		<img src="<?php echo Yii::app()->baseUrl; ?>/themes/images/survey_list_header.png">
 
 		<div>
-			<?php echo CHtml::encode(Yii::app()->name); ?>
+			<?php echo CHtml::encode(Yii::app()->name) ?>
 		</div>
 	</div><!-- header -->
 	
 	<!-- Menú de navegación -->
 	<div>
 		<?php
-			if(Yii::app()->user->isAdmin()) {
+			if(Yii::app()->user->isAdmin() and !Yii::app()->user->isDirector()) {
 				$this->widget('application.extensions.eflatmenu.EFlatMenu', array(
 					'items' => array(
 						array('label' => 'Asignaturas-Profesor', 'url' => array('/AsignaturaProfesor/admin', 'view' => 'about')),
@@ -84,7 +84,16 @@
 				.span-4 { display: block; }
 			</style>
 
-		<?php } ?>
+		<?php }
+		   if(Yii::app()->user->isDirector()){
+		   	$this->widget('application.extensions.eflatmenu.EFlatMenu', array(
+					'items' => array(
+						array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+						array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+					)
+				));
+		   }
+		 ?>
 
 		<?php 
 			$user = Yii::app()->user->id;
@@ -107,7 +116,7 @@
 	</div><!-- mainmenu -->
 
 	<div class="site-wrap">
-		<?php if(isset($this->breadcrumbs)):?>
+		<?php if(isset($this->breadcrumbs) && !Yii::app()->user->isDirector()):?>
 			<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 				'links'=>$this->breadcrumbs,
 			)); ?><!-- breadcrumbs -->

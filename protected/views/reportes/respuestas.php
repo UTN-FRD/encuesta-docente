@@ -45,7 +45,7 @@ foreach ($respuestas as $key => $value) {
 ?>
 <?php if ( isset($asignaturaProfesor) and !empty($asignaturaProfesor) ){ ?>
 <input type="button" value="Volver" onclick="history.back()" class="btn btn-success pull-right" />
-<h2><?php echo CHtml::link($asignaturaProfesor[0]['docente'], array('/AsignaturaProfesor/admin', 'AsignaturaProfesor[profesor_id]'=>$asignaturaProfesor[0]['id'])) ?> <?php print_r($asignaturaProfesor[0]['cargo'])?> en <?php echo CHtml::link($asignaturaProfesor[0]['asignatura'], array('/AsignaturaProfesor/admin', 'AsignaturaProfesor[asignatura_id]'=>$asignaturaProfesor[0]['asignatura_id'])) ?> de <?php print_r($asignaturaProfesor[0]['carrera'])?> plan <?php print_r($asignaturaProfesor[0]['plan'])?></h2>
+<h2><?php echo Yii::app()->user->isDirector() ? $asignaturaProfesor[0]['docente'] : CHtml::link($asignaturaProfesor[0]['docente'], array('/AsignaturaProfesor/admin', 'AsignaturaProfesor[profesor_id]'=>$asignaturaProfesor[0]['id'])) ?> <?php print_r($asignaturaProfesor[0]['cargo'])?> en <?php echo Yii::app()->user->isDirector() ? $asignaturaProfesor[0]['asignatura'] : CHtml::link($asignaturaProfesor[0]['asignatura'], array('/AsignaturaProfesor/admin', 'AsignaturaProfesor[asignatura_id]'=>$asignaturaProfesor[0]['asignatura_id'])) ?> de <?php print_r($asignaturaProfesor[0]['carrera'])?> plan <?php print_r($asignaturaProfesor[0]['plan'])?></h2>
 <?php } ?>
 <div class="row">
 	<h3>Particiación</h3>
@@ -109,7 +109,7 @@ Plotly.newPlot('plot-result', data, layout);
 	</table>
 </div>
 <div class="row">
-	<h2><?php echo CHtml::link($asignaturaProfesor[0]['docente'], array('/AsignaturaProfesor/admin', 'AsignaturaProfesor[profesor_id]'=>$asignaturaProfesor[0]['id'])) ?> <?php print_r($asignaturaProfesor[0]['cargo'])?> en <?php echo CHtml::link($asignaturaProfesor[0]['asignatura'], array('/AsignaturaProfesor/admin', 'AsignaturaProfesor[asignatura_id]'=>$asignaturaProfesor[0]['asignatura_id'])) ?> de <?php print_r($asignaturaProfesor[0]['carrera'])?> plan <?php print_r($asignaturaProfesor[0]['plan'])?></h2>
+	<h2><?php echo Yii::app()->user->isDirector() ? $asignaturaProfesor[0]['docente'] : CHtml::link($asignaturaProfesor[0]['docente'], array('/AsignaturaProfesor/admin', 'AsignaturaProfesor[profesor_id]'=>$asignaturaProfesor[0]['id'])) ?> <?php print_r($asignaturaProfesor[0]['cargo'])?> en <?php echo Yii::app()->user->isDirector() ? $asignaturaProfesor[0]['asignatura'] : CHtml::link($asignaturaProfesor[0]['asignatura'], array('/AsignaturaProfesor/admin', 'AsignaturaProfesor[asignatura_id]'=>$asignaturaProfesor[0]['asignatura_id'])) ?> de <?php print_r($asignaturaProfesor[0]['carrera'])?> plan <?php print_r($asignaturaProfesor[0]['plan'])?></h2>
 	<h3>Preguntas Abiertas</h3>
 	<?php
 		foreach ($textResponses as $key => $value) { 

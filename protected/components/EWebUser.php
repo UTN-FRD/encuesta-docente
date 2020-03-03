@@ -18,5 +18,20 @@ protected function loadUser()
     }
     return $this->_model;
 }
+
+function isDirector(){
+    $user = $this->loadUser();
+    if ($user)
+       return ($user->parent_id>1 AND $user->parent_id<9999);
+    return false;
+}
+
+function getCarreraId(){
+    $user = $this->loadUser();
+    if ($user)
+       return $user->parent_id;
+    return -1;
+}
+
 }
 ?>
