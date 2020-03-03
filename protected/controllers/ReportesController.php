@@ -43,7 +43,7 @@ class ReportesController extends Controller
 	{
 
 		$this->render('reporteCarrera',array(
-			'datos'=>Yii::app()->db->createCommand('SELECT a.nivel AS NIVEL, a.descripcion AS MATERIA, p.nombre AS PROFESOR, COALESCE(r.respuestas, 0) AS RESPUESTAS, count(1) AS INSCRIPTOS, ap.id AS asignatura_profesor_id FROM asignaturas a JOIN incripciones i on a.id = i.asignatura_id JOIN asignatura_profesor ap on i.asignatura_id = ap.asignatura_id JOIN profesores p on ap.profesor_id = p.id LEFT JOIN respuestas_2019_cant_por_asignatura_profesor r ON r.asignatura_profesor_id = ap.id WHERE i.anio_academico = 2019 and a.carrera_id = '.$pcarrera.' and ap.cargo = \''.$pcargo.'\' GROUP BY a.nivel, a.descripcion, p.nombre ORDER BY 1,2')->queryAll(),
+			'datos'=>Yii::app()->db->createCommand('SELECT a.nivel AS NIVEL, a.descripcion AS MATERIA, p.nombre AS PROFESOR, COALESCE(r.respuestas, 0) AS RESPUESTAS, count(1) AS INSCRIPTOS, ap.id AS asignatura_profesor_id FROM asignaturas a JOIN incripciones i on a.id = i.asignatura_id JOIN asignatura_profesor ap on i.asignatura_id = ap.asignatura_id JOIN profesores p on ap.profesor_id = p.id LEFT JOIN respuestas_2019_cant_por_asignatura_profesor r ON r.asignatura_profesor_id = ap.id WHERE i.anio_academico = 2019 and a.carrera_id = '.$pcarrera.' and ap.cargo = \''.$pcargo.'\' GROUP BY a.nivel, a.descripcion, p.nombre, r.respuestas, ap.id ORDER BY 1,2')->queryAll(),
 			'carrera'=>Yii::app()->db->createCommand('SELECT id,description FROM carreras WHERE id = '.$pcarrera)->queryAll(),
 			'cargo'=>$pcargo
 
