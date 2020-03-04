@@ -127,7 +127,7 @@
 		<div class="clear"></div>
 
 		<div id="footer">
-			Copyright &copy; <?php echo date('Y'); ?> by <a href="http://lsi.no-ip.org">LSI</a>.<br/>
+			Copyright &copy; <?php echo date('Y'); ?> by <a href="http://lsi.frd.utn.edu.ar">LSI</a>.<br/>
 		</div><!-- footer -->
 	</div><!-- site-wrap -->
 
