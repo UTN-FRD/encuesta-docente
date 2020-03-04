@@ -20,7 +20,7 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
+<?php $this->renderPartial('../widgets/help', array('videoName'=>'usuarios')); ?>
 <h1>Administrar Usuarios</h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(

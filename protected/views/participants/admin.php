@@ -25,7 +25,7 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
+<?php $this->renderPartial('../widgets/help', array('videoName'=>'alumnos')); ?>
 <h1>Alumnos</h1>
 
 <?php echo CHtml::link('Búsqueda Avanzada','#',array('class'=>'search-button')); ?>
@@ -67,3 +67,8 @@ $('.search-form form').submit(function(){
 		),
 	),
 )); ?>
+<script>
+$(document).ready(function(){
+    $("input").attr("autocomplete","off");   
+});
+</script>

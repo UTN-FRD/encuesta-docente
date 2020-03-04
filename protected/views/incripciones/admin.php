@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 $inscripciones = $_GET["Incripciones"] ?? '';
 ?>
-
+<?php $this->renderPartial('../widgets/help', array('videoName'=>'inscripciones')); ?>
 <h1>Inscripciones <span name="year"><?= $inscripciones["anio_academico"] ?? '' ?></span></h1> 
 
 <?php echo CHtml::link('Búsqueda Avanzada','#',array('class'=>'search-button')); ?>

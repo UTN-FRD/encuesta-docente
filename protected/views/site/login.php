@@ -17,7 +17,19 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 //	'Login',
 //);
 ?>
-
+<button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#helpModal">?</button>
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+		<video width="100%" height="500" controls>
+		  <source src="/login.mp4" type="video/mp4">
+		Your browser does not support the video tag.
+		</video>
+      </div>
+    </div>
+  </div>
+</div>
 <h1>
 	UTN - FRD <br>
 	Sistema de Encuestas Alumno
@@ -25,7 +37,7 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 
 <!-- <p>Please fill out the following form with your login credentials:</p> -->
 
-<div class="form">
+<div class="form" autocomplete="off">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
@@ -63,11 +75,13 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 		<?php echo CHtml::submitButton('Entrar',array("class"=>"btn btn-primary btn-large")); ?>
 	</div>
 
+
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 
 <script>
 $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
+    $('[data-toggle="popover"]').popover();
+    $("#login-form").attr("autocomplete","off");   
 });
 </script>

@@ -25,7 +25,7 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
+<?php $this->renderPartial('../widgets/help', array('videoName'=>'asignaturas')); ?>
 <h1>Asignaturas</h1>
 
 <?php echo CHtml::link('Búsqueda Avanzada','#',array('class'=>'search-button')); ?>
