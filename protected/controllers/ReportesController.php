@@ -49,7 +49,7 @@ class ReportesController extends Controller
 		$where = 'ap.cargo = \''.$pcargo.'\'';
 
 		if($pnivel AND $pcargo!='Laboratorio'){
-			$titulo .= $pnivel.' de nivel ';
+			$titulo .= ' de '.$pnivel.' nivel ';
 			$where .= ' and a.nivel = '.$pnivel;
 		} 
 

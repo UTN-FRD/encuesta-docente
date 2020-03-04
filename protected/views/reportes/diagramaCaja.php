@@ -1,6 +1,82 @@
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <?php $this->breadcrumbs=array('Reportes');
 $this->menu=array();?>
+
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Filtros</h3>
+  </div>
+  <div class="panel-body">
+  	<form action="diagramacaja" method="GET" class="form-horizontal">
+  		<div class="form-group">
+	  		<label class="control-label col-md-2">Nivel</label>
+	  		<div class="col-md-10">
+				<select class="form-control" name="pnivel" id="pnivel">
+		  		  <option value="">Todos</option>
+				  <option>1</option>
+				  <option>2</option>
+				  <option>3</option>
+				  <option>4</option>
+				  <option>5</option>
+				</select>
+	  		</div>
+		</div>
+		<div class="form-group">
+	  		<label class="control-label col-md-2">Cargo</label>
+	  		<div class="col-md-10">
+		  		<select class="form-control" name="pcargo" id="pcargo">
+				  <option>Titular</option>
+				  <option>Auxiliar</option>
+				  <option>Laboratorio</option>
+				</select>
+	  		</div>
+		</div>
+		<div class="form-group">
+	  		<label class="control-label col-md-2">Carrera</label>
+	  		<div class="col-md-10">
+		  		<select class="form-control" name="pcarrera" id="pcarrera">
+		  			<option value="">Todos</option>
+		  			<option value="7">Eléctrica</option>
+		  			<option value="17">Mecánica</option>
+		  			<option value="27">Química</option>
+		  			<option value="5">Sistemas</option>
+				</select>
+	  		</div>
+		</div>
+		<div class="form-group">
+	  		<label class="control-label col-md-2">Departamento</label>
+	  		<div class="col-md-10">
+		  		<select class="form-control" name="pdepartamento" id="pdepartamento">
+		  			<option value="">Todos</option>
+		  			<option value="17">Básicas</option>
+		  			<option value="15">Eléctrica</option>
+		  			<option value="16">Mecánica</option>
+		  			<option value="4">Química</option>
+		  			<option value="12">Sistemas</option>
+				</select>
+	  		</div>
+		</div>
+		<div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="submit" class="btn btn-default">Aplicar Filtros</button>
+		    </div>
+		</div>
+  	</form>
+  </div>
+</div>
+<script type="text/javascript">
+function selectElement(id, valueToSelect) {    
+    let element = document.getElementById(id);
+    element.value = valueToSelect;
+}
+
+selectElement('pnivel', '<?php echo $_GET['pnivel']; ?>');
+selectElement('pcargo', '<?php echo $_GET['pcargo']; ?>');
+selectElement('pcarrera', '<?php echo $_GET['pcarrera']; ?>');
+selectElement('pdepartamento', '<?php echo $_GET['pdepartamento']; ?>');
+
+</script>
+
 <?php
 $plotValues='';
 $tickvals='[';
@@ -43,9 +119,6 @@ foreach ($respuestas as $key => $value) {
 }
 
 ?>
-<?php if ( isset($asignaturaProfesor) and !empty($asignaturaProfesor) ){ ?>
-<input type="button" value="Volver" onclick="history.back()" class="btn btn-success pull-right" />
-<?php } ?>
 <div class="row">
 	<h2><?php echo $titulo ?></h2>
 	<h3>Particiación</h3>
@@ -86,7 +159,6 @@ var layout = {
 Plotly.newPlot('plot-result', data, layout);
 </script>
 
-<input type="button" value="Volver" onclick="history.back()" class="btn btn-success pull-right" />
 <style>
 .plot .boxlayer .boxes .box{stroke-width: 3px !important;}
 </style>

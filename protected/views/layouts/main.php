@@ -65,6 +65,7 @@
 						)),
 						array('label' => 'Reportes', 'url' => array(''),
 						'items' => array(
+							array('label'=>'Generales', 'url'=>array('/reportes/diagramacaja', 'pnivel'=>'', 'pcargo'=>'Titular', 'pcarrera'=>'', 'pdepartamento'=>'', )),
 							array('label'=>'Datos Generales', 'url'=>array('/reportes/index', 'view'=>'about')),
 							array('label'=>'Avances', 'url'=>array('/reportes/avances', 'view'=>'about')),
 							array('label'=>'Generales x Encuestas', 'url'=>array('/reportes/generalesPorEncuestas', 'view'=>'about')),
