@@ -39,6 +39,50 @@ class ReportesController extends Controller
 		)); //(235,243)
 	}
 
+	public function actionDiagramaCaja($pnivel, $pcargo, $pcarrera, $pdepartamento)
+	{
+		$ap_query = 'SELECT ap.id FROM asignatura_profesor ap JOIN asignaturas a on ap.asignatura_id = a.id WHERE ';
+		$where = '';
+
+		$titulo = 'Resultados Generales ';
+		if(!$pcargo) $pcargo = 'Titular';
+		$where = 'ap.cargo = \''.$pcargo.'\'';
+
+		if($pnivel AND $pcargo!='Laboratorio'){
+			$titulo .= $pnivel.' de nivel ';
+			$where .= ' and a.nivel = '.$pnivel;
+		} 
+
+		$titulo .= 'para '.$pcargo;
+
+		if($pcarrera){
+			$carrera = Yii::app()->db->createCommand('SELECT description FROM carreras WHERE id='.$pcarrera)->queryAll();
+			$titulo .= ' en '.$carrera[0]['description'];
+			$where .= ' and a.carrera_id = '.$pcarrera;
+		}
+
+		if($pdepartamento){
+			$departamento = Yii::app()->db->createCommand('SELECT descripcion FROM departamentos WHERE id='.$pdepartamento)->queryAll();
+			$titulo .= ' del departamento '.$departamento[0]['descripcion'];
+			$where .= ' and a.departamento_id = '.$pdepartamento;
+		}
+
+		$ap_query .= $where;
+		$surveyId = Yii::app()->params[$pcargo];
+		
+
+
+		$this->render('diagramaCaja',array(
+			'titulo'=> $titulo,
+			'preguntas'=> 
+					Yii::app()->db->createCommand('SELECT * FROM questions WHERE sid='.$surveyId.' and parent_qid = 0')->queryAll(),
+			'respuestas'=> 
+					Yii::app()->db->createCommand('SELECT * FROM survey_'.$surveyId.' WHERE not(isnull(submitdate)) and asignatura_profesor_id IN ('.$ap_query.')')->queryAll(),
+			'totalEncuestas'=>
+					Yii::app()->db->createCommand('SELECT COUNT(1) as total FROM asignatura_profesor ap join incripciones i on ap.asignatura_id = i.asignatura_id where ap.id IN ('.$ap_query.') and i.anio_academico = 2019')->queryAll(),
+		)); //(235,243)
+	}
+
 	public function actionRespuestasAgrupadas($pcarrera, $pcargo)
 	{
 
