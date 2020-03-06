@@ -6,6 +6,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array();?>
+<ul class="nav nav-tabs">
+  <li <?php echo ($carrera[0]['id']==7)?'class="active"':'' ?>><?php echo CHtml::link('Ingenier&iacute;a El&eacute;ctrica', array('respuestasAgrupadas','pcarrera'=>'7','pcargo'=>'Titular')) ?></li>
+  <li <?php echo ($carrera[0]['id']==17)?'class="active"':'' ?>><?php echo CHtml::link('Ingenier&iacute;a Mec&aacute;nica', array('respuestasAgrupadas','pcarrera'=>'17','pcargo'=>'Titular')) ?></li>
+  <li <?php echo ($carrera[0]['id']==27)?'class="active"':'' ?>><?php echo CHtml::link('Ingenier&iacute;a Qu&iacute;mica', array('respuestasAgrupadas','pcarrera'=>'27','pcargo'=>'Titular')) ?></li>
+    <li <?php echo ($carrera[0]['id']==5)?'class="active"':'' ?>><?php echo CHtml::link('Ingenier&iacute;a en Sistemas', array('respuestasAgrupadas','pcarrera'=>'5','pcargo'=>'Titular')) ?></li>
+</ul>
 <div class="row">
 	<div class="col-md-6">
 		<h2><?php print_r($carrera[0]['description']) ?></h2>
@@ -112,7 +118,7 @@ $this->menu=array();?>
 		<table class="table borderless">
 			<tr>
 				<td width="25%"></td>
-				<td width="25%" class="text-center bordered" style="background-color: #eee">Total alumnos inscriptos por materia</td>
+				<td width="25%" class="text-center bordered" style="background-color: #eee">Total de Inscripciones</td>
 				<td width="25%" class="text-center bordered" style="background-color: #eee">Total encuestas respondidas</td>
 				<td width="25%" class="text-center bordered" style="background-color: #eee">Total de encuestas no respondidas</td>
 			</tr>

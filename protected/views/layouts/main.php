@@ -66,14 +66,9 @@
 						array('label' => 'Reportes', 'url' => array(''),
 						'items' => array(
 							array('label'=>'Generales', 'url'=>array('/reportes/diagramacaja', 'pnivel'=>'', 'pcargo'=>'Titular', 'pcarrera'=>'', 'pdepartamento'=>'', )),
-							array('label'=>'Datos Generales', 'url'=>array('/reportes/index', 'view'=>'about')),
-							array('label'=>'Avances', 'url'=>array('/reportes/avances', 'view'=>'about')),
-							array('label'=>'Generales x Encuestas', 'url'=>array('/reportes/generalesPorEncuestas', 'view'=>'about')),
-							array('label'=>'Generales x Alumnos', 'url'=>array('/reportes/generalesPorAlumnos', 'view'=>'about')),
-							array('label' => 'Ing. Electrica', 'url' => array('/reportes/respuestasAgrupadas','pcarrera'=>'7','pcargo'=>'Titular')),
-							array('label' => 'Ing. Mecanica', 'url' => array('/reportes/respuestasAgrupadas','pcarrera'=>'17','pcargo'=>'Titular')),
-							array('label' => 'Ing. Quimica', 'url' => array('/reportes/respuestasAgrupadas','pcarrera'=>'27','pcargo'=>'Titular')),
-							array('label' => 'Ing. Sistemas', 'url' => array('/reportes/respuestasAgrupadas','pcarrera'=>'5','pcargo'=>'Titular')),
+							array('label'=>'Encuestas', 'url'=>array('/reportes/generalesPorEncuestas', 'view'=>'about')),
+							array('label'=>'Alumnos', 'url'=>array('/reportes/generalesPorAlumnos', 'view'=>'about')),
+							array('label' => 'Carreras', 'url' => array('/reportes/respuestasAgrupadas','pcarrera'=>'7','pcargo'=>'Titular')),
 						)),
 						array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 						array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)

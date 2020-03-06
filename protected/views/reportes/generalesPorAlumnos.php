@@ -12,23 +12,11 @@ $this->menu=array();?>
 
 <div class="row">
 	<div class="col-md-12" style="border: solid 1px #eee">
-		<h2>Basado en la Cantidad de alumnos: 1537 encuestas</h2>
+		<h2>Basado en la Cantidad de alumnos</h2>
 	</div>
-	<div class="col-md-6" style="border: solid 1px #eee">
+	<div class="col-md-8 col-md-offset-2" style="border: solid 1px #eee">
 		<h3>Participaci&oacute;n por Carrera</h3>
 		<div id="participacionPorCarrera"></div>
-	</div>
-	<div class="col-md-12" style="border: solid 1px #eee; ">
-		<?php echo substr(print_r(json_encode(array_count_values(array_column($generalesPorAlumnos,'alumno_carrera')))),0,-1) ?>
-	</div>
-	<div class="col-md-12" style="border: solid 1px #eee; ">
-		<?php echo substr(print_r(json_encode($generalesPorAlumnos)),0,-1) ?>
-	</div>
-	<div class="col-md-6" style="border: solid 1px #eee">
-		
-	</div>
-	<div class="col-md-12" style="border: solid 1px #eee; ">
-		<?php echo substr(print_r(json_encode($participacionPorCarrera)),0,-1) ?>
 	</div>
 </div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

@@ -98,8 +98,6 @@ class ReportesController extends Controller
 	{
 
 		$this->render('generalesPorEncuestas',array(
-			// 'participacionPorCarrera'=> $this->loadParticipacionPorCarrera(),
-			// 'cantidadEncuestasPorCarrera'=> $this->loadCantidadEncuestasPorCarrera(),
 			'generales'=> $this->loadGeneralStatistics(),
 		));
 	}
@@ -108,7 +106,7 @@ class ReportesController extends Controller
 	{
 		$this->render('generalesPorAlumnos',array(
 			 'participacionPorCarrera'=> $this->loadParticipacionPorCarrera(),
-			 'generalesPorAlumnos'=> $this->loadGeneralStatisticsByParticipant(),
+			// 'generalesPorAlumnos'=> $this->loadGeneralStatisticsByParticipant(),
 			// 'cantidadEncuestasPorCarrera'=> $this->loadCantidadEncuestasPorCarrera(),
 			// 'generales'=> $this->loadGeneralStatistics(),
 		));
@@ -304,7 +302,7 @@ class ReportesController extends Controller
 
 	function loadParticipacionPorCarrera(){
 		$list = Yii::app()->db->createCommand('SELECT ssa.carrera, ssa.inscriptosPorCarrera, ssb.alumnosParticipantes FROM inscriptos_por_carrera ssa join alumnos_participantes_por_carrera ssb on ssa.carrera = ssb.carrera')->queryAll();
-
+// SELECT ss.carrera_id, count(ss.participant_id) alumnosInscriptos FROM (SELECT DISTINCT p.carrera_id, i.participant_id FROM incripciones i JOIN participants p on i.participant_id = p.participant_id WHERE i.anio_academico = 2019) ss GROUP BY ss.carrera_id -- 897 inscriptos -- 218/213 participantes
 
 /* Array ( 
 		[0] => Array ( 
@@ -348,7 +346,7 @@ class ReportesController extends Controller
 	function loadGeneralStatistics(){
 		$list = Yii::app()->db->createCommand('select asignatura_profesor_id, respuestas, cargo, asignatura, nivel, carrera_id, departamento_id, asignatura_id, profesor, profesor_id from respuestas_2019_cant_por_asignatura_profesor')->queryAll();
 
-		$inscripciones = Yii::app()->db->createCommand('SELECT a.carrera_id, a.nivel, a.departamento_id, count(1) as alumnos from incripciones i JOIN asignaturas a on i.asignatura_id = a.id WHERE i.anio_academico = 2019 GROUP BY a.carrera_id, a.nivel, a.departamento_id')->queryAll();
+		$inscripciones = Yii::app()->db->createCommand('SELECT a.carrera_id, a.nivel, a.departamento_id, count(1) as alumnos from incripciones i JOIN asignaturas a on i.asignatura_id = a.id JOIN asignatura_profesor ap on ap.asignatura_id = i.asignatura_id WHERE i.anio_academico = 2019 GROUP BY a.carrera_id, a.nivel, a.departamento_id')->queryAll();
 		
 		$map = array(
 			"generales"=>array(

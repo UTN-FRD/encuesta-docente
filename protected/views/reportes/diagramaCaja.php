@@ -7,59 +7,50 @@ $this->menu=array();?>
     <h3 class="panel-title">Filtros</h3>
   </div>
   <div class="panel-body">
-  	<form action="diagramacaja" method="GET" class="form-horizontal">
-  		<div class="form-group">
-	  		<label class="control-label col-md-2">Nivel</label>
-	  		<div class="col-md-10">
-				<select class="form-control" name="pnivel" id="pnivel">
-		  		  <option value="">Todos</option>
-				  <option>1</option>
-				  <option>2</option>
-				  <option>3</option>
-				  <option>4</option>
-				  <option>5</option>
-				</select>
-	  		</div>
+  	<form action="diagramacaja" method="GET" class="form-inline">
+  		<div class="form-group col-md-2">
+	  		<label>Nivel</label>
+			<select class="form-control" name="pnivel" id="pnivel" style="width:100%">
+				<option value="">Todos</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+			</select>
 		</div>
-		<div class="form-group">
-	  		<label class="control-label col-md-2">Cargo</label>
-	  		<div class="col-md-10">
-		  		<select class="form-control" name="pcargo" id="pcargo">
-				  <option>Titular</option>
-				  <option>Auxiliar</option>
-				  <option>Laboratorio</option>
-				</select>
-	  		</div>
+		<div class="form-group col-md-3">
+	  		<label>Cargo</label>
+	  		<select class="form-control" name="pcargo" id="pcargo" style="width:100%">
+			  <option>Titular</option>
+			  <option>Auxiliar</option>
+			  <option>Laboratorio</option>
+			</select>
 		</div>
-		<div class="form-group">
-	  		<label class="control-label col-md-2">Carrera</label>
-	  		<div class="col-md-10">
-		  		<select class="form-control" name="pcarrera" id="pcarrera">
-		  			<option value="">Todos</option>
-		  			<option value="7">Eléctrica</option>
-		  			<option value="17">Mecánica</option>
-		  			<option value="27">Química</option>
-		  			<option value="5">Sistemas</option>
-				</select>
-	  		</div>
+		<div class="form-group col-md-3">
+	  		<label>Carrera</label>
+	  		<select class="form-control" name="pcarrera" id="pcarrera" style="width:100%">
+	  			<option value="">Todos</option>
+	  			<option value="7">Eléctrica</option>
+	  			<option value="17">Mecánica</option>
+	  			<option value="27">Química</option>
+	  			<option value="5">Sistemas</option>
+			</select>
 		</div>
-		<div class="form-group">
-	  		<label class="control-label col-md-2">Departamento</label>
-	  		<div class="col-md-10">
-		  		<select class="form-control" name="pdepartamento" id="pdepartamento">
-		  			<option value="">Todos</option>
-		  			<option value="17">Básicas</option>
-		  			<option value="15">Eléctrica</option>
-		  			<option value="16">Mecánica</option>
-		  			<option value="4">Química</option>
-		  			<option value="12">Sistemas</option>
-				</select>
-	  		</div>
+		<div class="form-group col-md-3">
+	  		<label>Departamento</label>
+	  		<select class="form-control" name="pdepartamento" id="pdepartamento" style="width:100%">
+	  			<option value="">Todos</option>
+	  			<option value="17">Básicas</option>
+	  			<option value="15">Eléctrica</option>
+	  			<option value="16">Mecánica</option>
+	  			<option value="4">Química</option>
+	  			<option value="12">Sistemas</option>
+			</select>
 		</div>
-		<div class="form-group">
-		    <div class="col-sm-offset-2 col-sm-10">
-		      <button type="submit" class="btn btn-default">Aplicar Filtros</button>
-		    </div>
+		<div class="form-group col-md-1">
+			<label>&nbsp;</label>
+		      <button type="submit" class="btn btn-default">Aplicar</button>
 		</div>
   	</form>
   </div>
