@@ -72,7 +72,7 @@ foreach($asignaturaProfesor as $elemento){
                                 array(
                                         'class'=>"btn btn-primary btn-large", 
                                         "style"=>"width:100%; height:100%; margin: 5px; white-space: normal",
-                                        'onclick'=>"window.open(`{$url}/LimeSurvey/index.php/{$encuesta}?token={$token}&ap={$asignaturaProfesorId}`,`_self`)",
+                                        'onclick'=>"window.open(`{$url}/admin/index.php/{$encuesta}?token={$token}&ap={$asignaturaProfesorId}`,`_self`)",
                                 )
                         );
                 }

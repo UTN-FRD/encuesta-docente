@@ -82,10 +82,10 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'encuestadocentefrd@gmail.com',
+		'adminEmail'=>'sae@frd.utn.edu.ar',
 		//nro de la encuesta actual para asignatura/profesor titular o auxiliar
-		'Titular'=>'20191',
-		'Auxiliar'=>'20192',
-		'Laboratorio'=>'20193'
+		'Titular'=>'20221',
+		'Auxiliar'=>'20222',
+		'Laboratorio'=>'20223'
 	),
 );

@@ -123,14 +123,6 @@
                         {# include the alert for no JavaScript #}
                         {{ include('./subviews/messages/no_js_alert.twig') }}
 
-                        <div id="{{ aSurveyInfo.id.surveylistrowjumbotron }}" {{ aSurveyInfo.attr.surveylistrowjumbotron }}>
-                            {{ image('./files/survey_list_header.jpg', aSurveyInfo.name, {"class": "img-responsive center-block"}) }}
-                            {{ aSurveyInfo.sSiteName }}
-                            <div class="ls-js-hidden">
-                                {{ include('./subviews/navigation/language_changer_form.twig') }}
-                            </div>
-                        </div>
-
                         <div class="{{ aSurveyInfo.class.surveylistrowdiva }} col-xs-12" {{ aSurveyInfo.attr.surveylistrowdiva }}>
                             <div class='{{ aSurveyInfo.class.surveylistrowdivadiv }} h3' {{ aSurveyInfo.attr.surveylistrowdivadiv }}>
                                 {{ gT("Acceso Restringido!") }}
@@ -138,7 +130,7 @@
                             <p>
                             <h4>Tal vez quieras:</h4>
                             <a href="../"><button class="btn btn-success">Ir a contestar la encuesta</button></a><br/><br/>
-                            <a href="../limesurvey/index.php/admin"><button class="btn btn-success">Ir a la administraci&oacute;n de la encuesta</button></a><br/><br/>
+                            <a href="../admin/index.php/admin"><button class="btn btn-success">Ir a la administraci&oacute;n de la encuesta</button></a><br/><br/>
                             <a href="../"><button class="btn btn-success">Ir a la administraci&oacute;n de alumnos, materias y profesores</button></a><br/>
                             </p>
                         </div>
@@ -163,7 +155,7 @@
                         </div>
 
                         <div class="{{ aSurveyInfo.class.surveylistrowdivc }} col-xs-12 " {{ aSurveyInfo.attr.surveylistrowdivc }}>
-                            {{ sprintf( gT("Si necesita asistencia contacte a: %s ( %s )."), aSurveyInfo.sSiteAdminName, aSurveyInfo.sSiteAdminEmail ) }}
+                            {{ sprintf( gT("Si necesita asistencia contacte a la oficina de SAE: sae@frd.utn.edu.ar") ) }}
                         </div>
                       </div>
                     </div>
