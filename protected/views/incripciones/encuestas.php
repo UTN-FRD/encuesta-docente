@@ -65,7 +65,7 @@ foreach($asignaturaProfesor as $elemento){
                 } else {
                         $token = $token2;
                 }
-                
+                SELECT dni, MAX(legajo) as _legajo, firstname FROM participants GROUP BY dni, firstname
                 if ((Tokens::model()->findByAttributes(array('token'=>$token)))->usesleft==='1') {
                         echo CHtml::button(
                                 'Materia: '.$asignatura.'. Profesor: '.$profesor.'. Cargo: '.$cargo,
