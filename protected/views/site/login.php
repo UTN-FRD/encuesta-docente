@@ -32,7 +32,7 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 </div>
 <h1>
 	UTN - FRD <br>
-	Sistema de Encuestas Alumno
+	Sistema de Encuestas Estudiantes
 </h1>
 
 <!-- <p>Please fill out the following form with your login credentials:</p> -->

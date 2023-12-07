@@ -84,8 +84,8 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'sae@frd.utn.edu.ar',
 		//nro de la encuesta actual para asignatura/profesor titular o auxiliar
-		'Titular'=>'20221',
-		'Auxiliar'=>'20222',
-		'Laboratorio'=>'20223'
+		'Titular'=>'20231',
+		'Auxiliar'=>'20232',
+		'Laboratorio'=>'20233'
 	),
 );
