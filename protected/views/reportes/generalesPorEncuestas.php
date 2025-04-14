@@ -271,8 +271,7 @@ $this->menu=array();?>
         $encuestas = $generales['respuestasPorCarrera']['7']['0']['totalEncuestas'];
         $noRespondidas = $encuestas - $respondidas;
         ?>
-        ["Labs (<?php echo round($respondidas/$encuestas*100) ?>%)",<?php echo $respondidas ?>, <?php echo $noRespondidas ?>]
-
+        ["Labs (<?php echo $encuestas > 0 ? round($respondidas / $encuestas * 100) : 0 ?>%)", <?php echo $respondidas ?>, <?php echo $noRespondidas ?>]
 
 
       ]);
@@ -344,8 +343,7 @@ $this->menu=array();?>
         $encuestas = $generales['respuestasPorCarrera'][$carreraId]['0']['totalEncuestas'];
         $noRespondidas = $encuestas - $respondidas;
         ?>
-        ["Labs (<?php echo round($respondidas/$encuestas*100) ?>%)",<?php echo $respondidas ?>, <?php echo $noRespondidas ?>]
-
+        ["Labs (<?php echo $encuestas > 0 ? round($respondidas / $encuestas * 100) : 0 ?>%)", <?php echo $respondidas ?>, <?php echo $noRespondidas ?>]
 
 
       ]);
@@ -418,8 +416,7 @@ $this->menu=array();?>
         $encuestas = $generales['respuestasPorCarrera'][$carreraId]['0']['totalEncuestas'];
         $noRespondidas = $encuestas - $respondidas;
         ?>
-        ["Labs (<?php echo round($respondidas/$encuestas*100) ?>%)",<?php echo $respondidas ?>, <?php echo $noRespondidas ?>]
-
+        ["Labs (<?php echo $encuestas > 0 ? round($respondidas / $encuestas * 100) : 0 ?>%)", <?php echo $respondidas ?>, <?php echo $noRespondidas ?>]
 
 
       ]);
@@ -492,8 +489,7 @@ $this->menu=array();?>
         $encuestas = $generales['respuestasPorCarrera'][$carreraId]['0']['totalEncuestas'];
         $noRespondidas = $encuestas - $respondidas;
         ?>
-        ["Labs (<?php echo round($respondidas/$encuestas*100) ?>%)",<?php echo $respondidas ?>, <?php echo $noRespondidas ?>]
-
+        ["Labs (<?php echo $encuestas > 0 ? round($respondidas / $encuestas * 100) : 0 ?>%)", <?php echo $respondidas ?>, <?php echo $noRespondidas ?>]
 
 
       ]);

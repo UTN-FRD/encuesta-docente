@@ -142,14 +142,14 @@ $this->menu=array();?>
 			</tr>
 		</table>
 	</div>
-	<div class="col-md-6">
+	<!-- <div class="col-md-6">
 		<?php
 			$grafico = $this->widget('ext.Hzl.google.HzlVisualizationChart', 
 				array(
 					'visualization' => 'PieChart',
 					'data' => [["Tipo","Porcentaje"],["Participaron", round((100*$value['totalRespuestas'])/$value['totalInscriptos'],2) ],["No Participaron", round((100*($value['totalInscriptos']-$value['totalRespuestas'])/$value['totalInscriptos']),2) ]]));
 		?>
-	</div>
+	</div> -->
 	<?php } ?>
 </div>
 <style type="text/css">
