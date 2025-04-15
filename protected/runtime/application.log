@@ -7230,3 +7230,11 @@ REQUEST_URI=/encuesta-docente/index.php/reportes/diagramacaja?pnivel=&pcargo=Tit
 in C:\xampp7.2.24\htdocs\encuesta-docente\protected\views\reportes\diagramaCaja.php (90)
 in C:\xampp7.2.24\htdocs\encuesta-docente\protected\controllers\ReportesController.php (82)
 in C:\xampp7.2.24\htdocs\encuesta-docente\index.php (13)
+2025/04/15 00:44:07 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "admin". in C:\xampp7.2.24\htdocs\encuesta-docente\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp7.2.24\htdocs\encuesta-docente\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('admin')
+#1 C:\xampp7.2.24\htdocs\encuesta-docente\yii\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#2 C:\xampp7.2.24\htdocs\encuesta-docente\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/encuesta-docente/index.php/admin
+---
