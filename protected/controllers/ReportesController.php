@@ -35,7 +35,7 @@ class ReportesController extends Controller
 			'respuestas'=> 
 					Yii::app()->db->createCommand('SELECT * FROM survey_'.$surveyId.' WHERE not(isnull(submitdate)) and asignatura_profesor_id = '.$asignatura_profesor_id)->queryAll(),
 			'totalEncuestas'=>
-					Yii::app()->db->createCommand('SELECT COUNT(1) as total FROM asignatura_profesor ap join incripciones i on ap.asignatura_id = i.asignatura_id where ap.id = '.$asignatura_profesor_id.' and i.anio_academico = 2019')->queryAll(),
+					Yii::app()->db->createCommand('SELECT COUNT(1) as total FROM asignatura_profesor ap join incripciones i on ap.asignatura_id = i.asignatura_id where ap.id = '.$asignatura_profesor_id.' and i.anio_academico = 2023')->queryAll(),
 		)); //(235,243)
 	}
 
@@ -79,7 +79,7 @@ class ReportesController extends Controller
 			'respuestas'=> 
 					Yii::app()->db->createCommand('SELECT * FROM survey_'.$surveyId.' WHERE not(isnull(submitdate)) and asignatura_profesor_id IN ('.$ap_query.')')->queryAll(),
 			'totalEncuestas'=>
-					Yii::app()->db->createCommand('SELECT COUNT(1) as total FROM asignatura_profesor ap join incripciones i on ap.asignatura_id = i.asignatura_id where ap.id IN ('.$ap_query.') and i.anio_academico = 2019')->queryAll(),
+					Yii::app()->db->createCommand('SELECT COUNT(1) as total FROM asignatura_profesor ap join incripciones i on ap.asignatura_id = i.asignatura_id where ap.id IN ('.$ap_query.') and i.anio_academico = 2023')->queryAll(),
 		)); //(235,243)
 	}
 
@@ -87,7 +87,7 @@ class ReportesController extends Controller
 	{
 
 		$this->render('reporteCarrera',array(
-			'datos'=>Yii::app()->db->createCommand('SELECT a.nivel AS NIVEL, a.descripcion AS MATERIA, p.nombre AS PROFESOR, COALESCE(r.respuestas, 0) AS RESPUESTAS, count(1) AS INSCRIPTOS, ap.id AS asignatura_profesor_id FROM asignaturas a JOIN incripciones i on a.id = i.asignatura_id JOIN asignatura_profesor ap on i.asignatura_id = ap.asignatura_id JOIN profesores p on ap.profesor_id = p.id LEFT JOIN respuestas_2019_cant_por_asignatura_profesor r ON r.asignatura_profesor_id = ap.id WHERE i.anio_academico = 2019 and a.carrera_id = '.$pcarrera.' and ap.cargo = \''.$pcargo.'\' GROUP BY a.nivel, a.descripcion, p.nombre, r.respuestas, ap.id ORDER BY 1,2')->queryAll(),
+			'datos'=>Yii::app()->db->createCommand('SELECT a.nivel AS NIVEL, a.descripcion AS MATERIA, p.nombre AS PROFESOR, COALESCE(r.respuestas, 0) AS RESPUESTAS, count(1) AS INSCRIPTOS, ap.id AS asignatura_profesor_id FROM asignaturas a JOIN incripciones i on a.id = i.asignatura_id JOIN asignatura_profesor ap on i.asignatura_id = ap.asignatura_id JOIN profesores p on ap.profesor_id = p.id LEFT JOIN respuestas_2023_cant_por_asignatura_profesor r ON r.asignatura_profesor_id = ap.id WHERE i.anio_academico = 2023 and a.carrera_id = '.$pcarrera.' and ap.cargo = \''.$pcargo.'\' GROUP BY a.nivel, a.descripcion, p.nombre, r.respuestas, ap.id ORDER BY 1,2')->queryAll(),
 			'carrera'=>Yii::app()->db->createCommand('SELECT id,description FROM carreras WHERE id = '.$pcarrera)->queryAll(),
 			'cargo'=>$pcargo
 
@@ -125,7 +125,7 @@ class ReportesController extends Controller
 				  INNER JOIN carreras c ON c.id = a.carrera_id
 				WHERE
 				  a.nivel > 0 AND
-				  i.anio_academico = 2019 
+				  i.anio_academico = 2023 
 				GROUP BY c.description, a.nivel
 				ORDER BY 1,2
 			')->queryAll();
@@ -191,7 +191,7 @@ class ReportesController extends Controller
 			SELECT c.description as CARRERA, count(1) as INSCRIPCIONES 
 			FROM incripciones i INNER JOIN asignaturas a ON i.asignatura_id = a.id 
 			    INNER JOIN carreras c ON a.carrera_id = c.id
-			WHERE i.anio_academico = 2019
+			WHERE i.anio_academico = 2023
 			GROUP BY c.description
 		')->queryAll();
 
@@ -208,7 +208,7 @@ class ReportesController extends Controller
 	}
 
 	function loadCantidadAlumnosPorCarrera(){
-		$list = Yii::app()->db->createCommand('SELECT carrera as CARRERA, inscriptosPorCarrera as ALUMNOS FROM inscriptos_por_carrera')->queryAll(); //SELECT ss.CARRERA as CARRERA, count(ss.ALUMNO) as ALUMNOS from (SELECT distinct c.description as CARRERA, i.participant_id as ALUMNO FROM incripciones i INNER JOIN asignaturas a ON i.asignatura_id = a.id INNER JOIN carreras c ON a.carrera_id = c.id WHERE i.anio_academico = 2019 ) as ss group by ss.CARRERA
+		$list = Yii::app()->db->createCommand('SELECT carrera as CARRERA, inscriptosPorCarrera as ALUMNOS FROM inscriptos_por_carrera')->queryAll(); //SELECT ss.CARRERA as CARRERA, count(ss.ALUMNO) as ALUMNOS from (SELECT distinct c.description as CARRERA, i.participant_id as ALUMNO FROM incripciones i INNER JOIN asignaturas a ON i.asignatura_id = a.id INNER JOIN carreras c ON a.carrera_id = c.id WHERE i.anio_academico = 2023 ) as ss group by ss.CARRERA
 
 		$tituloYDato = array_column($list, 'ALUMNOS', 'CARRERA');
 
@@ -263,7 +263,7 @@ class ReportesController extends Controller
 			from (SELECT c.description as CARRERA, MIN(a.nivel) as NIVEL, i.participant_id as ALUMNO 
 				FROM incripciones i INNER JOIN asignaturas a ON i.asignatura_id = a.id 
 				    INNER JOIN carreras c ON a.carrera_id = c.id
-				WHERE a.nivel > 0 and i.anio_academico = 2019
+				WHERE a.nivel > 0 and i.anio_academico = 2023
 				GROUP BY 3,1) as ss
 			group by 2,1
 		')->queryAll();
@@ -302,7 +302,7 @@ class ReportesController extends Controller
 
 	function loadParticipacionPorCarrera(){
 		$list = Yii::app()->db->createCommand('SELECT ssa.carrera, ssa.inscriptosPorCarrera, ssb.alumnosParticipantes FROM inscriptos_por_carrera ssa join alumnos_participantes_por_carrera ssb on ssa.carrera = ssb.carrera')->queryAll();
-// SELECT ss.carrera_id, count(ss.participant_id) alumnosInscriptos FROM (SELECT DISTINCT p.carrera_id, i.participant_id FROM incripciones i JOIN participants p on i.participant_id = p.participant_id WHERE i.anio_academico = 2019) ss GROUP BY ss.carrera_id -- 897 inscriptos -- 218/213 participantes
+// SELECT ss.carrera_id, count(ss.participant_id) alumnosInscriptos FROM (SELECT DISTINCT p.carrera_id, i.participant_id FROM incripciones i JOIN participants p on i.participant_id = p.participant_id WHERE i.anio_academico = 2023) ss GROUP BY ss.carrera_id -- 897 inscriptos -- 218/213 participantes
 
 /* Array ( 
 		[0] => Array ( 
@@ -332,7 +332,7 @@ class ReportesController extends Controller
 	}
 
 	function loadCantidadEncuestasPorCarrera(){
-		$list = Yii::app()->db->createCommand('SELECT ssa.carrera, ssa.encuestasRespondidas as encuestasProfesor, ssb.encuestasRespondidas as encuestasAuxiliar FROM respuestas_20191_por_carrera ssa LEFT JOIN respuestas_20192_por_carrera ssb on ssa.carrera = ssb.carrera')->queryAll();
+		$list = Yii::app()->db->createCommand('SELECT ssa.carrera, ssa.encuestasRespondidas as encuestasProfesor, ssb.encuestasRespondidas as encuestasAuxiliar FROM respuestas_20231_por_carrera ssa LEFT JOIN respuestas_20232_por_carrera ssb on ssa.carrera = ssb.carrera')->queryAll();
 
 	$map = [];
 	foreach ($list as $row) {
@@ -344,9 +344,9 @@ class ReportesController extends Controller
 
 
 	function loadGeneralStatistics(){
-		$list = Yii::app()->db->createCommand('select asignatura_profesor_id, respuestas, cargo, asignatura, nivel, carrera_id, departamento_id, asignatura_id, profesor, profesor_id from respuestas_2019_cant_por_asignatura_profesor')->queryAll();
+		$list = Yii::app()->db->createCommand('select asignatura_profesor_id, respuestas, cargo, asignatura, nivel, carrera_id, departamento_id, asignatura_id, profesor, profesor_id from respuestas_2023_cant_por_asignatura_profesor')->queryAll();
 
-		$inscripciones = Yii::app()->db->createCommand('SELECT a.carrera_id, a.nivel, a.departamento_id, count(1) as alumnos from incripciones i JOIN asignaturas a on i.asignatura_id = a.id JOIN asignatura_profesor ap on ap.asignatura_id = i.asignatura_id WHERE i.anio_academico = 2019 GROUP BY a.carrera_id, a.nivel, a.departamento_id')->queryAll();
+		$inscripciones = Yii::app()->db->createCommand('SELECT a.carrera_id, a.nivel, a.departamento_id, count(1) as alumnos from incripciones i JOIN asignaturas a on i.asignatura_id = a.id JOIN asignatura_profesor ap on ap.asignatura_id = i.asignatura_id WHERE i.anio_academico = 2023 GROUP BY a.carrera_id, a.nivel, a.departamento_id')->queryAll();
 		
 		$map = array(
 			"generales"=>array(

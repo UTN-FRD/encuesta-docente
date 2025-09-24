@@ -2,9 +2,12 @@
 /* @var $this SiteController */
 
 $this->pageTitle=Yii::app()->name;
+
+$anio_academico = date('Y') ;
+
 ?>
 
-<h2 id="encuesta">Encuestas pendientes de completar</h2>
+<h2 id="encuesta">Encuestas pendientes de completar <?= $anio_academico ?></h2>
 
 <div>
 <?php
@@ -13,7 +16,6 @@ $usuario = Yii::app()->user->name;
 $idUsuario = Participants::model()->findAllByAttributes(array('dni'=>$usuario));
 
 $asignaturas = array();
-$anio_academico = date('Y');
 foreach(array_column($idUsuario,'participant_id') as $idTemp)
 {
 
@@ -65,7 +67,7 @@ foreach($asignaturaProfesor as $elemento){
                 } else {
                         $token = $token2;
                 }
-                
+                // SELECT dni, MAX(legajo) as _legajo, firstname FROM participants GROUP BY dni, firstname
                 if ((Tokens::model()->findByAttributes(array('token'=>$token)))->usesleft==='1') {
                         echo CHtml::button(
                                 'Materia: '.$asignatura.'. Profesor: '.$profesor.'. Cargo: '.$cargo,

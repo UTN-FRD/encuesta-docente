@@ -44,7 +44,7 @@
 		<div>
 			<?php echo CHtml::encode(Yii::app()->name) ?>
 		</div>
-	</div><!-- header -->
+	</div>
 	
 	<!-- Menú de navegación -->
 	<div>
@@ -63,12 +63,13 @@
 							array('label'=>'Departamentos','url'=>array('/departamentos/admin','view'=>'about')),
 							array('label'=>'Usuarios', 'url'=>array('/users/admin', 'view'=>'about')),
 						)),
-						array('label' => 'Reportes', 'url' => array(''),
+						array('label' => 'Reportes', 'url' => array('/reportes/generalesPorEncuestas', 'view'=>'about'),
 						'items' => array(
 							array('label'=>'Generales', 'url'=>array('/reportes/diagramacaja', 'pnivel'=>'', 'pcargo'=>'Titular', 'pcarrera'=>'', 'pdepartamento'=>'', )),
 							array('label'=>'Encuestas', 'url'=>array('/reportes/generalesPorEncuestas', 'view'=>'about')),
-							array('label'=>'Alumnos', 'url'=>array('/reportes/generalesPorAlumnos', 'view'=>'about')),
+							// array('label'=>'Alumnos', 'url'=>array('/reportes/generalesPorAlumnos', 'view'=>'about')),
 							array('label' => 'Carreras', 'url' => array('/reportes/respuestasAgrupadas','pcarrera'=>'7','pcargo'=>'Titular')),
+							// array('label'=>'Avances', 'url'=>array('/reportes/avances', 'view'=>'about')),
 						)),
 						array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 						array('label'=>'Salir ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
