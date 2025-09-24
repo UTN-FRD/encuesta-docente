@@ -24,14 +24,14 @@
 return array(
 	'components' => array(
 		'db' => array(
-			'connectionString' => 'mysql:host=localhost;port=3306;dbname=limesurvey;',
+			'connectionString' => 'mysql:host=db;dbname=limesurvey',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '',
-			'charset' => 'utf8mb4',
+			'password' => 'root',
+			'charset' => 'utf8',
 			'tablePrefix' => '',
 		),
-		
+
 		// Uncomment the following lines if you need table-based sessions.
 		// Note: Table-based sessions are currently not supported on MSSQL server.
 		// 'session' => array (
