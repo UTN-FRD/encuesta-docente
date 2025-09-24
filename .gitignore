@@ -1,7 +1,8 @@
-# LimeSurvey/tmp/
-# LimeSurvey/application/config/config.php
-# assets/
-# */protected/config/database.php
-# **.log
-# database.php
-# protected/config/database.php
+*.log
+.vscode/
+db/*.sql
+admin/tmp/
+LimeSurvey/tmp/
+LimeSurvey/assets/
+/admin/assets/
+/assets/
