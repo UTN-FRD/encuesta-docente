@@ -32,6 +32,7 @@ return array(
 	*/
 	// application components
 	'components'=>array(
+		'cache' => array('class' => 'CFileCache'),
 
 		'user'=>array(
 			// There you go, use our 'extended' version
@@ -81,11 +82,17 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
+		// parametros para el formulario de respuestas rápidas
+		'lsEndpoint' => 'http://localhost/admin/index.php/admin/remotecontrol', 
+		'lsApiUser' => 'apiuser',
+		'lsApiPass' => 'apipass',
+		'cacheTtl'  => 3600, 
 		// this is used in contact page
 		'adminEmail'=>'sae@frd.utn.edu.ar',
 		//nro de la encuesta actual para asignatura/profesor titular o auxiliar
-		'Titular'=>'20231',
-		'Auxiliar'=>'20232',
-		'Laboratorio'=>'20233'
+		'Titular'=>'20251',
+		'Auxiliar'=>'20252',
+		//'Laboratorio'=>'20253'
 	),
+
 );

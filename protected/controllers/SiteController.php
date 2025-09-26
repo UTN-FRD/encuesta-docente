@@ -36,7 +36,12 @@ class SiteController extends Controller
 		} else if (Yii::app()->user->isAdmin()) {
 			$this->redirect(Yii::app()->request->baseUrl."/index.php/AsignaturaProfesor/admin?view=about");
 		} else {
-			$this->redirect(Yii::app()->request->baseUrl."/index.php/incripciones/encuestas");
+			// $this->redirect(Yii::app()->request->baseUrl."/index.php/incripciones/encuestas");
+			// Evita bucle de redirección si ya está en fastEntry/index
+			$currentRoute = Yii::app()->request->getParam('r');
+			if ($currentRoute !== 'FastEntry/index') {
+				$this->redirect(Yii::app()->request->baseUrl."/index.php?r=FastEntry/index&sid=20251&lang=es");
+			}
 		}
 	}
 	/**
@@ -104,7 +109,8 @@ class SiteController extends Controller
 				} else if (Yii::app()->user->isAdmin()) {
 					$this->redirect(Yii::app()->request->baseUrl."/index.php/AsignaturaProfesor/admin?view=about");
 				} else {
-					$this->redirect(Yii::app()->request->baseUrl."/index.php/incripciones/encuestas");
+					// $this->redirect(Yii::app()->request->baseUrl."/index.php/incripciones/encuestas");
+					$this->redirect(Yii::app()->request->baseUrl."/index.php?r=fastEntry/index&sid=20251&lang=es");					
 				}
 			}
 		}
