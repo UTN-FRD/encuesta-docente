@@ -36,12 +36,12 @@ class SiteController extends Controller
 		} else if (Yii::app()->user->isAdmin()) {
 			$this->redirect(Yii::app()->request->baseUrl."/index.php/AsignaturaProfesor/admin?view=about");
 		} else {
-			// $this->redirect(Yii::app()->request->baseUrl."/index.php/incripciones/encuestas");
+			$this->redirect(Yii::app()->request->baseUrl."/index.php/incripciones/encuestas");
 			// Evita bucle de redirección si ya está en fastEntry/index
-			$currentRoute = Yii::app()->request->getParam('r');
-			if ($currentRoute !== 'FastEntry/index') {
-				$this->redirect(Yii::app()->request->baseUrl."/index.php?r=FastEntry/index&sid=20251&lang=es");
-			}
+			//$currentRoute = Yii::app()->request->getParam('r');
+			//if ($currentRoute !== 'FastEntry/index') {
+			//	$this->redirect(Yii::app()->request->baseUrl."/index.php?r=FastEntry/index&sid=20251&lang=es");
+			//}
 		}
 	}
 	/**
@@ -125,5 +125,43 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+
+	/**
+	 * Displays the password recovery page and handles password recovery
+	 */
+	public function actionRecoverPassword()
+	{
+		$model = new RecoverPasswordForm;
+
+		// if it is ajax validation request
+		if(isset($_POST['ajax']) && $_POST['ajax']==='recover-password-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+
+		// collect user input data
+		if(isset($_POST['RecoverPasswordForm']))
+		{
+			$model->attributes = $_POST['RecoverPasswordForm'];
+			
+			// validate user input and attempt password recovery
+			if($model->recoverPassword())
+			{
+				Yii::app()->user->setFlash('success', 'Se ha enviado una nueva contraseña a su correo electrónico.');
+				$this->redirect(array('login'));
+			}
+			else
+			{
+				if(!$model->hasErrors())
+				{
+					Yii::app()->user->setFlash('error', 'Ocurrió un error al enviar el correo electrónico. Por favor, intente nuevamente.');
+				}
+			}
+		}
+
+		// display the password recovery form
+		$this->render('recoverPassword', array('model'=>$model));
 	}
 }
