@@ -39,15 +39,13 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 		<?php echo $form->labelEx($model,'Usuario:'); ?>
 		<?php echo $form->textField($model,'username'); ?>
 		<?php echo $form->error($model,'username'); ?>
+		<p class="hint">Utilice su DNI como usuario.</p>
 	</div>
 
 	<div>
 		<?php echo $form->labelEx($model,'Contrase&ntilde;a:'); ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
-		<!-- <p class="hint">
-			Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>.
-		</p> -->
 	</div>
 
 	<!-- <div class="row rememberMe">
@@ -56,7 +54,7 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 		<?php echo $form->error($model,'rememberMe'); ?>
 	</div> -->
 
-	<a href="#" data-toggle="popover" data-placement="bottom" data-content="Comuníquese con SAE a través de sae@frd.utn.edu.ar">Olvidé mi contraseña</a>
+	<a href="<?php echo $this->createUrl('site/recoverPassword'); ?>" class="forgot-password-link">Olvidé mi contraseña</a>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Entrar',array("class"=>"btn btn-primary btn-large")); ?>
@@ -68,7 +66,20 @@ $this->pageTitle=Yii::app()->name . ' - Login';
 
 <script>
 $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
     $("#login-form").attr("autocomplete","off");   
 });
 </script>
+
+<style>
+.forgot-password-link {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #337ab7;
+    text-decoration: none;
+}
+
+.forgot-password-link:hover {
+    color: #23527c;
+    text-decoration: underline;
+}
+</style>

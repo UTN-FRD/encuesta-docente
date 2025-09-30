@@ -62,6 +62,7 @@
 							array('label'=>'Carreras', 'url'=>array('/carreras/admin', 'view'=>'about')),
 							array('label'=>'Departamentos','url'=>array('/departamentos/admin','view'=>'about')),
 							array('label'=>'Usuarios', 'url'=>array('/users/admin', 'view'=>'about')),
+							array('label'=>'Correos', 'url'=>array('/correos/admin', 'view'=>'about')),
 						)),
 						array('label' => 'Reportes', 'url' => array('/reportes/generalesPorEncuestas', 'view'=>'about'),
 						'items' => array(
@@ -69,6 +70,7 @@
 							array('label'=>'Encuestas', 'url'=>array('/reportes/generalesPorEncuestas', 'view'=>'about')),
 							// array('label'=>'Alumnos', 'url'=>array('/reportes/generalesPorAlumnos', 'view'=>'about')),
 							array('label' => 'Carreras', 'url' => array('/reportes/respuestasAgrupadas','pcarrera'=>'7','pcargo'=>'Titular')),
+							array('label' => 'Correos Enviados', 'url' => array('/correos/estadisticas')),
 							// array('label'=>'Avances', 'url'=>array('/reportes/avances', 'view'=>'about')),
 						)),
 						array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
