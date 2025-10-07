@@ -5,6 +5,13 @@
  * RecoverPasswordForm is the data structure for keeping
  * user recovery form data. It is used by the 'recoverPassword' action of 'SiteController'.
  */
+// Usar PHPMailer en lugar de mail()
+require_once './vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 class RecoverPasswordForm extends CFormModel
 {
 	public $username;
@@ -165,9 +172,12 @@ class RecoverPasswordForm extends CFormModel
 		$headers .= "MIME-Version: 1.0\r\n";
 		$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
-		// Intentar enviar el correo
-		$emailSent = mail($user->email, $subject, $message, $headers);
 
+		error_log("Preparando para enviar correo a: {$user->email}");
+		// Intentar enviar el correo
+		$emailSent = $this->sendEmail($user, $subject, $message);
+		// $emailSent = mail($user->email, $subject, $message, $headers);
+		
 		// Actualizar el estado del registro según el resultado del envío
 		if ($emailSent) {
 			$correoRegistro->marcarComoEnviado();
@@ -177,4 +187,51 @@ class RecoverPasswordForm extends CFormModel
 
 		return $emailSent;
 	}
+
+	private function sendEmail($user, $subject, $message)
+	{
+
+		$mail = new PHPMailer(true);
+
+		try {
+			// Configuración del servidor SMTP
+			$mail->SMTPDebug = 0;
+			$mail->isSMTP();
+			$mail->Timeout    = 60;
+			$mail->CharSet    = 'UTF-8';
+			$mail->Host       = Yii::app()->params['smtpHost'];
+			$mail->SMTPAuth   = true;
+			$mail->Username   = Yii::app()->params['emailSender'];
+			$mail->Password   = Yii::app()->params['emailSenderPass'];
+			$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; //'tls'; // PHPMailer::ENCRYPTION_SMTPS;
+			$mail->Port       = Yii::app()->params['smtpPort'];
+
+			$mail->SMTPOptions = array(
+				'ssl' => array(
+					'verify_peer' => false,
+					'verify_peer_name' => false,
+					'allow_self_signed' => true,
+					'crypto_method' => STREAM_CRYPTO_METHOD_TLS_CLIENT
+				)
+			);
+
+			// Destinatarios
+			$mail->setFrom(Yii::app()->params['adminEmail'], 'Encuestas Alumnos UTN-FRD');
+			$mail->addAddress($user->email, $user->full_name);
+			// Contenido
+			$mail->isHTML(false);
+			$mail->Subject = $subject;
+			$mail->Body    = $message;
+
+			$emailSent = $mail->send();
+			error_log("Correo enviado exitosamente a: {$user->email}");
+			
+		} catch (Exception $e) {
+			error_log("Error al enviar correo: {$mail->ErrorInfo}");
+			$emailSent = false;
+		}
+		
+		return $emailSent;
+	}
+
 }

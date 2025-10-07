@@ -88,7 +88,11 @@ return array(
 		'lsApiPass' => 'apipass',
 		'cacheTtl'  => 3600, 
 		// this is used in contact page
-		'adminEmail'=>'sae@frd.utn.edu.ar',
+		'adminEmail'=>'****@frd.utn.edu.ar',
+		'emailSender'=>'****@gmail.com',
+		'emailSenderPass'=>'***********', // contraseña de aplicación de google
+		'smtpHost'=>'smtp.gmail.com',
+		'smtpPort'=>587,
 		//nro de la encuesta actual para asignatura/profesor titular o auxiliar
 		'Titular'=>'20251',
 		'Auxiliar'=>'20252',
