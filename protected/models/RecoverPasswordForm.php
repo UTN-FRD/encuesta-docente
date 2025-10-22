@@ -37,8 +37,8 @@ class RecoverPasswordForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'username'=>'Usuario (DNI)',
-			'email'=>'Correo Electrónico',
+			'username'=>'Número de DNI (Sin puntos ni espacios)',
+			'email'=>'Correo Electrónico (CVG)',
 		);
 	}
 

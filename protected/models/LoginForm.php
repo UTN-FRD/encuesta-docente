@@ -37,9 +37,12 @@ class LoginForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'rememberMe'=>'Remember me next time',
+			'username'=>'Número de DNI (Sin puntos ni espacios)',
+			'password'=>'Contraseña',
+			'rememberMe'=>'Recordarme',
 		);
 	}
+
 
 	/**
 	 * Authenticates the password.
