@@ -200,20 +200,25 @@ class RecoverPasswordForm extends CFormModel
 			$mail->Timeout    = 60;
 			$mail->CharSet    = 'UTF-8';
 			$mail->Host       = Yii::app()->params['smtpHost'];
-			$mail->SMTPAuth   = true;
 			$mail->Username   = Yii::app()->params['emailSender'];
-			$mail->Password   = Yii::app()->params['emailSenderPass'];
-			$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; //'tls'; // PHPMailer::ENCRYPTION_SMTPS;
 			$mail->Port       = Yii::app()->params['smtpPort'];
 
-			$mail->SMTPOptions = array(
-				'ssl' => array(
-					'verify_peer' => false,
-					'verify_peer_name' => false,
-					'allow_self_signed' => true,
-					'crypto_method' => STREAM_CRYPTO_METHOD_TLS_CLIENT
-				)
-			);
+			if (Yii::app()->params['emailSenderPass'] == '') {
+				$mail->SMTPAuth   = false;
+			} else {
+				$mail->SMTPAuth   = true;
+				$mail->Password   = Yii::app()->params['emailSenderPass'];
+				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; //'tls'; // PHPMailer::ENCRYPTION_SMTPS;
+
+				$mail->SMTPOptions = array(
+					'ssl' => array(
+						'verify_peer' => false,
+						'verify_peer_name' => false,
+						'allow_self_signed' => true,
+						'crypto_method' => STREAM_CRYPTO_METHOD_TLS_CLIENT
+					)
+				);
+			}
 
 			// Destinatarios
 			$mail->setFrom(Yii::app()->params['adminEmail'], 'Encuestas Alumnos UTN-FRD');
