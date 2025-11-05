@@ -130,10 +130,10 @@ class SendSurveyEmailsCommand extends CConsoleCommand
         
         // Dividir por coma primero
         $partes = explode(',', $firstname);
-        $primeraParte = trim($partes[0]);
+        $segundaParte = trim($partes[1]);
         
         // Luego dividir por espacios y tomar solo la primera palabra
-        $nombres = explode(' ', $primeraParte);
+        $nombres = explode(' ', $segundaParte);
         $primerNombre = trim($nombres[0]);
         
         return !empty($primerNombre) ? $primerNombre : 'Estimado/a estudiante';
