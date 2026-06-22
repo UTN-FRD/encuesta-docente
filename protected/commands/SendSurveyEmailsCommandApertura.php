@@ -17,7 +17,7 @@ class SendSurveyEmailsCommand extends CConsoleCommand
     const DELAY_BETWEEN_EMAILS = 60; // 60 segundos entre cada correo
 
     const SURVEY_URL_BASE = 'https://encuestasalumno.frd.utn.edu.ar/'; 
-    const TIPO_CORREO_ENCUESTA = 'recordatorio_encuesta'; 
+    const TIPO_CORREO_ENCUESTA = 'apertura_encuesta'; 
 
 // -------------------------------------------------------------------------
 //                          ACCIÓN PRINCIPAL
@@ -54,7 +54,7 @@ class SendSurveyEmailsCommand extends CConsoleCommand
             echo "Enviando {$emailCount}/" . count($emailsToProcess) . ": {$email} ({$firstname})";
             
             // 3. Preparar los datos del correo
-            $subject = "Recordatorio – Encuestas pendientes de evaluación docente – UTN-FRD";
+            $subject = "Encuesta de evaluación docente – UTN-FRD";
             $message = $this->buildEmailMessage($primerNombre, $cantidadMaterias);
             
             // 4. Enviar correo
@@ -92,43 +92,22 @@ class SendSurveyEmailsCommand extends CConsoleCommand
     private function getPendingEmails()
     {
         $sql = "
-            SELECT
-                p.firstname,
-                p.email,
-                COUNT(DISTINCT i.id) AS cantidad_materias
-            FROM incripciones i
-            JOIN asignatura_profesor ap 
-                ON ap.asignatura_id = i.asignatura_id
-                AND ap.cargo = 'Titular'
-            JOIN participants p
-                ON p.participant_id = i.participant_id
-            LEFT JOIN tokens_20251 t
-                ON t.token = REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
-                        CONCAT(ap.id, p.dni)
-                    , '0','A'), '1','S'), '2','D'), '3','F'), '4','G'),
-                    '5','H'), '6','J'), '7','K'), '8','L'), '9','Z')
+            SELECT DISTINCT p.email, p.firstname, COUNT(i.id) as cantidad_materias
+            FROM participants p
+            JOIN incripciones i ON i.participant_id = p.participant_id
             WHERE i.anio_academico = YEAR(CURDATE())
             AND p.email IS NOT NULL
             AND p.email <> ''
-            -- NO haber recibido todavía este correo de refuerzo
             AND NOT EXISTS (
                 SELECT 1 
                 FROM correos c 
                 WHERE c.destinatario_email = p.email 
-                    AND c.estado_envio IN ('enviado', 'pendiente')
-                    AND c.tipo_correo = :tipoCorreo
+                AND c.estado_envio IN ('enviado', 'pendiente')
+                AND c.tipo_correo = :tipoCorreo
             )
-            GROUP BY p.participant_id, p.firstname, p.email
-            HAVING
-                -- Debe al menos una encuesta (pendiente o sin token generado)
-                SUM(
-                    CASE 
-                        WHEN t.usesleft > 0 OR t.token IS NULL THEN 1 
-                        ELSE 0 
-                    END
-                ) > 4
+            GROUP BY p.email, p.firstname
             ORDER BY p.email
-            LIMIT :limit;
+            LIMIT :limit
         ";
 
         $db = Yii::app()->db;
@@ -216,16 +195,19 @@ class SendSurveyEmailsCommand extends CConsoleCommand
         
         return "Hola {$primerNombre},
 
-Te recordamos que aún tenés encuestas pendientes de completar. Estas encuestas son anónimas y obligatorias, y deben completarse antes del 30 de noviembre.
-Quedan pocos días, por lo que te sugerimos dedicar unos minutos para completarlas a tiempo.
+Ya se encuentra disponible la encuesta a estudiantes para evaluar el desempeño de docentes y auxiliares.
+La encuesta es anónima y obligatoria, y debe completarse antes del 22 de noviembre, fecha en que finaliza el cuatrimestre.
+Te recordamos que no completarla puede afectar tu inscripción a los exámenes finales, por lo que te sugerimos realizarla con tiempo.
+
+Esta instancia forma parte del Sistema de Evaluación para la Permanencia en la Carrera Académica de los docentes de la Universidad Tecnológica Nacional, conforme a la Ordenanza N.º 1182 del Consejo Superior Universitario.
+
+El espacio es institucional y confidencial, destinado a expresar tu opinión con libertad y respeto hacia el cuerpo docente evaluado.
 
 Tienes encuestas pendientes de responder para {$cantidadMaterias} {$pluralMateria}.
 
-Ingresá en https://encuestasalumno.frd.utn.edu.ar/ y seguí las instrucciones del sistema.
+Para comenzar, ingresá en: https://encuestasalumno.frd.utn.edu.ar/ y seguí las instrucciones del sistema.
 
-Si ya completaste todas las encuestas, podés desestimar este mensaje. En caso contrario, te pedimos que las finalices lo antes posible.
-
-Si tenés alguna dificultad o consulta, podés responder a este correo y te asistiremos a la brevedad.
+Si tenés dudas o necesitás asistencia, podés responder a este correo electrónico.
 
 Tu participación es muy importante para mejorar la calidad educativa de la Facultad.
 
@@ -266,6 +248,3 @@ Si no desea recibir estos correos, responda a este mensaje con el asunto 'BAJA'.
         $command->execute();
     }
 }
-//  select * from users where full_name like 'Ruiz Diaz, Dana%';
-//  update users set email='danaalanisruizdiaz@gmail.com' where uid=46782;
-

@@ -7,3 +7,10 @@ LimeSurvey/tmp/
 LimeSurvey/assets/
 /admin/assets/
 /assets/
+/autom/venv/
+/autom/encuestas_docentes_2025/
+/scripts/
+
+/log/
+/db/
+/backups/
