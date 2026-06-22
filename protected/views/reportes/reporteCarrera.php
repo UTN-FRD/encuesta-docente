@@ -14,13 +14,47 @@ $this->menu=array();?>
 </ul>
 <div class="row">
 	<div class="col-md-6">
-		<h2><?php print_r($carrera[0]['description']) ?></h2>
+		<h2><?php print_r($carrera[0]['description']) ?><?php if(!empty($titulo_extra)) echo $titulo_extra; ?></h2>
 	</div>
 	<div class="col-md-6">
-		<div class="btn-group pull-right" role="group" style="margin-top: 20px">		
-		  <?php echo ($cargo=='Titular') ? CHtml::button('Titular', array('class'=>'btn btn-default active disabled')) : CHtml::link('Titular',array('respuestasAgrupadas','pcarrera'=>$carrera[0]['id'],'pcargo'=>'Titular'), array('class'=>'btn btn-default')); ?>
-		  <?php echo ($cargo=='Auxiliar') ? CHtml::button('Auxiliar', array('class'=>'btn btn-default active disabled')) : CHtml::link('Auxiliar',array('respuestasAgrupadas','pcarrera'=>$carrera[0]['id'],'pcargo'=>'Auxiliar'), array('class'=>'btn btn-default')); ?>
-		  <?php echo ($cargo=='Laboratorio') ? CHtml::button('Laboratorio', array('class'=>'btn btn-default active disabled')) : CHtml::link('Laboratorio',array('respuestasAgrupadas','pcarrera'=>$carrera[0]['id'],'pcargo'=>'Laboratorio'), array('class'=>'btn btn-default')); ?>		  
+		<div class="pull-right" style="margin-top: 20px; margin-right: 15px">
+			<?php if(!empty($departamentos)): ?>
+			<form method="GET" style="display: inline-block">
+				<input type="hidden" name="pcarrera" value="<?php echo $carrera[0]['id']; ?>">
+				<input type="hidden" name="pcargo" value="<?php echo $cargo; ?>">
+				<select name="pdepartamento" onchange="this.form.submit()" class="form-control" style="width: 250px; display: inline-block">
+					<option value="">-- Todos los departamentos --</option>
+					<?php foreach($departamentos as $dept): ?>
+					<option value="<?php echo $dept['id']; ?>" <?php echo ($departamento_id == $dept['id']) ? 'selected' : ''; ?>>
+						<?php echo $dept['descripcion']; ?>
+					</option>
+					<?php endforeach; ?>
+				</select>
+			</form>
+			<?php endif; ?>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+	</div>
+	<div class="col-md-6">
+		<div class="btn-group pull-right" role="group" style="margin-top: 10px; margin-bottom: 15px">
+			<?php 
+				$titular_url = array('respuestasAgrupadas','pcarrera'=>$carrera[0]['id'],'pcargo'=>'Titular');
+				$auxiliar_url = array('respuestasAgrupadas','pcarrera'=>$carrera[0]['id'],'pcargo'=>'Auxiliar');
+				$lab_url = array('respuestasAgrupadas','pcarrera'=>$carrera[0]['id'],'pcargo'=>'Laboratorio');
+				
+				if($departamento_id) {
+					$titular_url['pdepartamento'] = $departamento_id;
+					$auxiliar_url['pdepartamento'] = $departamento_id;
+					$lab_url['pdepartamento'] = $departamento_id;
+				}
+			?>
+			<?php echo ($cargo=='Titular') ? CHtml::button('Titular', array('class'=>'btn btn-default active disabled')) : CHtml::link('Titular', $titular_url, array('class'=>'btn btn-default')); ?>
+			<?php echo ($cargo=='Auxiliar') ? CHtml::button('Auxiliar', array('class'=>'btn btn-default active disabled')) : CHtml::link('Auxiliar', $auxiliar_url, array('class'=>'btn btn-default')); ?>
+			<?php echo ($cargo=='Laboratorio') ? CHtml::button('Laboratorio', array('class'=>'btn btn-default active disabled')) : CHtml::link('Laboratorio', $lab_url, array('class'=>'btn btn-default')); ?>
 		</div>
 	</div>
 </div>

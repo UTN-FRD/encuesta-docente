@@ -3,7 +3,7 @@
 Script rápido para exportar reportes de una aplicación local a PDF usando Playwright.
 
 Instalación:
-    pip install playwright
+    pip install playwright requests
     python -m playwright install chromium
 
 Uso:
@@ -21,6 +21,7 @@ import time
 from pathlib import Path
 from urllib.parse import urljoin, urlparse, parse_qs
 
+import requests
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
 # URL base de la aplicación local
@@ -62,8 +63,35 @@ def safe_filename(text: str, fallback: str = "reporte") -> str:
     return cleaned
 
 
-def make_output_subfolder(output_dir: Path, pcarrera: int, pcargo: str) -> Path:
-    folder = output_dir / f"carrera_{pcarrera}" / pcargo
+def obtener_departamento(asignatura_profesor_id: int) -> dict:
+    """
+    Obtiene información del departamento para un asignatura_profesor_id.
+    Retorna dict con 'departamento_id' y 'departamento_nombre'
+    """
+    try:
+        url = f"{BASE_URL}/index.php/reportes/getDepartamento?asignatura_profesor_id={asignatura_profesor_id}"
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        
+        data = response.json()
+        if 'error' not in data:
+            dept_name = data.get('departamento_nombre', 'Sin_Departamento')
+            dept_name = safe_filename(dept_name, "Sin_Departamento")
+            return {
+                'departamento_id': data.get('departamento_id', '0'),
+                'departamento_nombre': dept_name
+            }
+    except Exception as e:
+        print(f"Error obteniendo departamento para {asignatura_profesor_id}: {e}")
+    
+    return {
+        'departamento_id': '0',
+        'departamento_nombre': 'Sin_Departamento'
+    }
+
+
+def make_output_subfolder(output_dir: Path, departamento: str, pcarrera: int, pcargo: str) -> Path:
+    folder = output_dir / departamento / f"carrera_{pcarrera}" / pcargo
     folder.mkdir(parents=True, exist_ok=True)
     return folder
 
@@ -131,7 +159,7 @@ def ensure_auth(playwright, base_url: str, headless: bool, reset_auth: bool) -> 
 
 
 def write_csv_summary(csv_path: Path, csv_rows: list[dict[str, str]]):
-    fieldnames = ["pcarrera", "pcargo", "url_agrupada", "url_reporte", "archivo_pdf", "estado", "error"]
+    fieldnames = ["pcarrera", "pcargo", "url_agrupada", "url_reporte", "departamento_id", "departamento", "archivo_pdf", "estado", "error"]
     with csv_path.open("w", newline="", encoding="utf-8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -215,9 +243,18 @@ def main():
             first_origin = origins[0]
             pcarrera = first_origin["pcarrera"]
             pcargo = first_origin["pcargo"]
-            folder = make_output_subfolder(output_dir, pcarrera, pcargo)
+            
+            # Extraer asignatura_profesor_id de la URL
+            parsed_query = parse_qs(urlparse(report_url).query)
+            asignatura_profesor_id = parsed_query.get("asignatura_profesor_id", [None])[0]
+            
+            # Obtener información del departamento
+            dept_info = obtener_departamento(asignatura_profesor_id)
+            
+            folder = make_output_subfolder(output_dir, dept_info['departamento_nombre'], pcarrera, pcargo)
             print(f"\n[procesando] ({idx}/{total_unique_reports}) reporte: {report_url}")
             print(f"[origen] primera aparición en carrera={pcarrera} cargo={pcargo}")
+            print(f"[departamento] {dept_info['departamento_nombre']}")
 
             try:
                 page.goto(report_url, wait_until="networkidle")
@@ -225,8 +262,7 @@ def main():
                 hide_unneeded_elements(page)
                 title = extract_report_title(page)
                 safe_title = safe_filename(title, fallback="reporte")
-                parsed_query = parse_qs(urlparse(report_url).query)
-                report_id = parsed_query.get("asignatura_profesor_id", [None])[0] or str(idx)
+                report_id = asignatura_profesor_id or str(idx)
                 pdf_filename = f"{safe_title} - {report_id}.pdf"
                 pdf_path = folder / pdf_filename
 
@@ -241,11 +277,15 @@ def main():
                 page.pdf(path=str(pdf_path), format="A4", landscape=True, print_background=True)
                 report_data["pdf_path"] = pdf_path
                 report_data["status"] = "generado"
+                report_data["departamento_id"] = dept_info['departamento_id']
+                report_data["departamento"] = dept_info['departamento_nombre']
                 generated += 1
                 print(f"[ok] PDF generado: {pdf_path}")
             except Exception as exc:
                 report_data["status"] = "fallido"
                 report_data["error"] = str(exc)
+                report_data["departamento_id"] = dept_info['departamento_id']
+                report_data["departamento"] = dept_info['departamento_nombre']
                 failed += 1
                 print(f"[error] Falló el reporte {report_url}: {exc}")
                 report_data["pdf_path"] = None
@@ -263,6 +303,8 @@ def main():
                     "pcargo": origin["pcargo"],
                     "url_agrupada": origin["url_agrupada"],
                     "url_reporte": report_url,
+                    "departamento_id": report_data.get("departamento_id", ""),
+                    "departamento": report_data.get("departamento", ""),
                     "archivo_pdf": pdf_path_str,
                     "estado": status,
                     "error": error,

@@ -83,13 +83,26 @@ class ReportesController extends Controller
 		)); //(235,243)
 	}
 
-	public function actionRespuestasAgrupadas($pcarrera, $pcargo)
+	public function actionRespuestasAgrupadas($pcarrera, $pcargo, $pdepartamento=null)
 	{
+		$where = 'i.anio_academico = 2023 and a.carrera_id = '.$pcarrera.' and ap.cargo = \''.$pcargo.'\'';
+		$titulo_extra = '';
+		
+		if($pdepartamento) {
+			$where .= ' and a.departamento_id = '.$pdepartamento;
+			$dept = Yii::app()->db->createCommand('SELECT descripcion FROM departamentos WHERE id='.$pdepartamento)->queryAll();
+			if(!empty($dept)) {
+				$titulo_extra = ' - '.$dept[0]['descripcion'];
+			}
+		}
 
 		$this->render('reporteCarrera',array(
-			'datos'=>Yii::app()->db->createCommand('SELECT a.nivel AS NIVEL, a.descripcion AS MATERIA, p.nombre AS PROFESOR, COALESCE(r.respuestas, 0) AS RESPUESTAS, count(1) AS INSCRIPTOS, ap.id AS asignatura_profesor_id FROM asignaturas a JOIN incripciones i on a.id = i.asignatura_id JOIN asignatura_profesor ap on i.asignatura_id = ap.asignatura_id JOIN profesores p on ap.profesor_id = p.id LEFT JOIN respuestas_2023_cant_por_asignatura_profesor r ON r.asignatura_profesor_id = ap.id WHERE i.anio_academico = 2023 and a.carrera_id = '.$pcarrera.' and ap.cargo = \''.$pcargo.'\' GROUP BY a.nivel, a.descripcion, p.nombre, r.respuestas, ap.id ORDER BY 1,2')->queryAll(),
+			'datos'=>Yii::app()->db->createCommand('SELECT a.nivel AS NIVEL, a.descripcion AS MATERIA, p.nombre AS PROFESOR, COALESCE(r.respuestas, 0) AS RESPUESTAS, count(1) AS INSCRIPTOS, ap.id AS asignatura_profesor_id FROM asignaturas a JOIN incripciones i on a.id = i.asignatura_id JOIN asignatura_profesor ap on i.asignatura_id = ap.asignatura_id JOIN profesores p on ap.profesor_id = p.id LEFT JOIN respuestas_2023_cant_por_asignatura_profesor r ON r.asignatura_profesor_id = ap.id WHERE '.$where.' GROUP BY a.nivel, a.descripcion, p.nombre, r.respuestas, ap.id ORDER BY 1,2')->queryAll(),
 			'carrera'=>Yii::app()->db->createCommand('SELECT id,description FROM carreras WHERE id = '.$pcarrera)->queryAll(),
-			'cargo'=>$pcargo
+			'cargo'=>$pcargo,
+			'departamento_id'=>$pdepartamento,
+			'titulo_extra'=>$titulo_extra,
+			'departamentos'=>Yii::app()->db->createCommand('SELECT DISTINCT d.id, d.descripcion FROM departamentos d JOIN asignaturas a ON d.id = a.departamento_id WHERE a.carrera_id = '.$pcarrera.' ORDER BY d.descripcion')->queryAll()
 
 		)); //(235,243)
 	}
@@ -549,5 +562,29 @@ class ReportesController extends Controller
 		$list = Yii::app()->db->createCommand('select asignatura_profesor_id, dni_alumno, nivel, alumno_carrera, asignatura_carrera, departamento_id, asignatura_id FROM respuestas_por_alumno')->queryAll();
 
 		return $list;
+	}
+
+	public function actionGetDepartamento($asignatura_profesor_id)
+	{
+		$result = Yii::app()->db->createCommand(
+			'SELECT a.departamento_id, d.descripcion as departamento_nombre 
+			FROM asignatura_profesor ap 
+			JOIN asignaturas a ON ap.asignatura_id = a.id 
+			LEFT JOIN departamentos d ON a.departamento_id = d.id 
+			WHERE ap.id = ' . intval($asignatura_profesor_id)
+		)->queryRow();
+
+		header('Content-Type: application/json');
+		if ($result) {
+			echo json_encode([
+				'departamento_id' => $result['departamento_id'],
+				'departamento_nombre' => $result['departamento_nombre'] ?: 'Sin Departamento'
+			]);
+		} else {
+			echo json_encode([
+				'error' => 'No se encontró el asignatura_profesor_id'
+			]);
+		}
+		Yii::app()->end();
 	}
 }

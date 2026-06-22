@@ -1,5 +1,6 @@
 import argparse
 import csv
+import json
 import os
 import re
 import time
@@ -7,6 +8,7 @@ import unicodedata
 from pathlib import Path
 from urllib.parse import urljoin, urlparse, parse_qs
 
+import requests
 from playwright.sync_api import sync_playwright
 
 
@@ -78,6 +80,36 @@ def limpiar_nombre_archivo(texto: str) -> str:
     texto = texto.strip("._ ")
 
     return texto[:180] if texto else "reporte"
+
+
+def obtener_departamento(asignatura_profesor_id: int, auth_cookies=None) -> dict:
+    """
+    Obtiene información del departamento para un asignatura_profesor_id.
+    Retorna dict con 'departamento_id' y 'departamento_nombre'
+    """
+    try:
+        url = f"{APP_URL}/reportes/getDepartamento?asignatura_profesor_id={asignatura_profesor_id}"
+        
+        headers = {}
+        if auth_cookies:
+            headers['Cookie'] = auth_cookies
+        
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()
+        
+        data = response.json()
+        if 'error' not in data:
+            return {
+                'departamento_id': data.get('departamento_id', '0'),
+                'departamento_nombre': limpiar_nombre_archivo(data.get('departamento_nombre', 'Sin_Departamento'))
+            }
+    except Exception as e:
+        print(f"Error obteniendo departamento para {asignatura_profesor_id}: {e}")
+    
+    return {
+        'departamento_id': '0',
+        'departamento_nombre': 'Sin_Departamento'
+    }
 
 
 def parse_bool(value: str) -> bool:
@@ -315,8 +347,17 @@ def exportar_reporte_pdf(context, reporte, output_dir, extra_wait):
         url_reporte = reporte["url_reporte"]
         pcarrera = reporte["pcarrera"]
         pcargo = reporte["pcargo"]
+        
+        # Extraer asignatura_profesor_id de la URL
+        parsed_url = urlparse(url_reporte)
+        qs = parse_qs(parsed_url.query)
+        asignatura_profesor_id = qs.get("asignatura_profesor_id", [None])[0]
+        
+        # Obtener información del departamento
+        dept_info = obtener_departamento(asignatura_profesor_id)
 
         print(f"Exportando: {url_reporte}")
+        print(f"Departamento: {dept_info['departamento_nombre']}")
 
         page.goto(url_reporte, wait_until="networkidle")
 
@@ -327,7 +368,8 @@ def exportar_reporte_pdf(context, reporte, output_dir, extra_wait):
 
         nombre_pdf = construir_nombre_pdf_desde_h2(page)
 
-        carpeta = Path(output_dir)
+        # Estructura de carpetas: output_dir/[departamento]/carrera_[id]/[cargo]/
+        carpeta = Path(output_dir) / dept_info['departamento_nombre'] / f"carrera_{pcarrera}" / pcargo
         carpeta.mkdir(parents=True, exist_ok=True)
 
         archivo_pdf = carpeta / nombre_pdf
@@ -354,6 +396,8 @@ def exportar_reporte_pdf(context, reporte, output_dir, extra_wait):
 
         return {
             **reporte,
+            "departamento_id": dept_info['departamento_id'],
+            "departamento": dept_info['departamento_nombre'],
             "especialidad": "",
             "materia": "",
             "profesor": "",
@@ -368,6 +412,8 @@ def exportar_reporte_pdf(context, reporte, output_dir, extra_wait):
 
         return {
             **reporte,
+            "departamento_id": "",
+            "departamento": "",
             "especialidad": "",
             "materia": "",
             "profesor": "",
@@ -393,6 +439,7 @@ def main():
     extra_wait = args.extra_wait
 
     Path(output_dir).mkdir(parents=True, exist_ok=True)
+    csv_path = Path(output_dir) / "resumen_exportacion.csv"
 
     with sync_playwright() as playwright:
         if args.reset_auth or not os.path.exists(AUTH_FILE):
@@ -451,14 +498,14 @@ def main():
 
         browser.close()
 
-    csv_path = Path(output_dir) / "resumen_exportacion.csv"
-
     with open(csv_path, "w", newline="", encoding="utf-8") as f:
         campos = [
             "pcarrera",
             "pcargo",
             "url_agrupada",
             "url_reporte",
+            "departamento_id",
+            "departamento",
             "especialidad",
             "materia",
             "profesor",
