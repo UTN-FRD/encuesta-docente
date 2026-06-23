@@ -143,7 +143,7 @@ $this->menu=array();?>
 </div>
 <div class="row">
 	<h2><?php print_r($carrera[0]['description']) ?></h2>
-	<h3>Participaci&oacute;n de alumnos 2023</h3>
+	<h3>Participaci&oacute;n de alumnos 2025</h3>
 	<?php foreach ($totales as $key => $value) { ?>
 	<div class="col-md-12">
 		<h2><?php echo $key ?>º AÑO</h2>
